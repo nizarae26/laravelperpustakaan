@@ -2,7 +2,7 @@
 @section('buku')
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('/dashboard/peminjam') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -10,9 +10,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse mt-lg-0" id="navbarNavDropdown">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
@@ -30,8 +30,44 @@
                     </li>
                 </ul>
 
+                <ul class="navbar-nav ">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
+                            v-pre>
+                            Penerbit
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
+                            style="cursor: pointer">
+                            <a class="dropdown-item" href="/semuaPenerbit/">Semua Penerbit</a>
+                            <div class="dropdown-divider"></div>
+                            @foreach ($penerbit as $item)
+                                <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
+                            v-pre>
+                            Data
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
+                            style="cursor: pointer">
+                            <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
+                            {{-- <div class="dropdown-divider"></div>
+                            @foreach ($kategori as $item)
+                                <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
+                            @endforeach --}}
+                        </div>
+                    </li>
+                </ul>
+
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto ">
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
@@ -78,19 +114,108 @@
             </div>
         </div>
 
+        {{-- @if ($detailbuku)
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="/storage/{{$data->sampul}}" alt="">
+                </div>
+            </div>
+        @endif --}}
+
         @if ($data->isNotEmpty())
             <div class="row">
-                @foreach ($data as $item)
+                @foreach ($data as $dd)
                     <div class="col-md-3">
                         <div class="card mb-4 shadow" style="cursor: pointer">
-                            <img src="/storage/buku/{{ $item->sampul }}" alt="{{ $item->judul }}" class="card-img-top"
-                                width="200" height="300">
+                            <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}" class="card-img-top"
+                                width="300" height="400">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $item->judul }}</h5>
-                                <p class="card-text">{{ $item->penulis }}</p>
-                                <a href="#" class="btn btn-primary">Lihat</a>
+                                <h5 class="card-title">{{ $dd->judul }}</h5>
+                                <p class="card-text">{{ $dd->penulis }}</p>
+                                {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
+                                    title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
+                                <a type="button" data-toggle="modal" title=""
+                                    href="#modalShowBuku{{ $dd->id }}" class="btn  btn-primary  "
+                                    data-original-title="Show">Detail Buku
+                                    <i class="fas fa-eye text-white"></i></a>
+                                <a type="button" class="btn btn-success"
+                                    href="/pinjamBuku/{{ $dd->id }}">Pinjam</a>
                             </div>
 
+                        </div>
+                    </div>
+                @endforeach
+
+                <!-- Modal Show Buku -->
+                @foreach ($data as $dd)
+                    <div class="modal fade" id="modalShowBuku{{ $dd->id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLongTitle"><b> Show Buku</b></h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="row justify-content-center">
+                                                <img src="/storage/buku/{{ $dd->sampul }}" alt=""
+                                                    width="300px" height="350px" class="text-center">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <table class="table text-nowarp">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Judul</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->judul }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Penulis</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->penulis }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Penerbit</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->penerbit->nama }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Kategori</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->kategori->nama }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rak</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->rak->rak }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Baris</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->rak->baris }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                            class="fa fa-undo"></i>
+                                        Close</button>
+                                </div>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -102,6 +227,8 @@
         @endif
 
 
+
+
         <div class="row justify-content-center" style="align-content: center">
             <div>
                 {{ $data->links() }}
@@ -109,4 +236,22 @@
         </div>
     </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
+    @include('sweetalert::alert')
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
+
+    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 @endsection

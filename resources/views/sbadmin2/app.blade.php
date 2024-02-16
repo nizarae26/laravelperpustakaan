@@ -104,7 +104,7 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item @yield('active-peminjaman')" href="/DataCategory">Data Peminjaman</a>
+                        <a class="collapse-item @yield('active-peminjaman')" href="/DataPeminjaman">Data Peminjaman</a>
                         <a class="collapse-item @yield('active-pengembalian')" href="/DataPenerbit">Data Pengembalian</a>
                     </div>
                 </div>

@@ -32,14 +32,14 @@ class SesiController extends Controller
 
         if (Auth::attempt($infologin)) {
             if (Auth::user()->role_id == '1') {
-                return redirect('dashboard')->with('info', 'Selamat Datang');
+                return redirect('dashboard')->with('success', 'Berhasil Login');
             } elseif (Auth::user()->role_id == '2') {
-                return redirect('dashboard/operator')->with('info', 'Selamat Datang');;
+                return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
             } elseif (Auth::user()->role_id == '3') {
-                return redirect('dashboard/peminjam')->with('info', 'Selamat Datang ');;
+                return redirect('dashboard/peminjam')->with('success', 'Berhasil Login');;
             }
         } else {
-            return redirect('')->withErrors('username atau Password yang anda masukkan salah!')->withInput();
+            return redirect('')->with('error', 'username atau Password yang anda masukkan salah!')->withInput();
         }
     }
 

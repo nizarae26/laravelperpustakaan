@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
+
+    public function hasRole($role)
+{
+    return User::where('role_id', $role)->get();
+}
 }

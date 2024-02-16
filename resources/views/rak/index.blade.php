@@ -42,49 +42,49 @@
                 </div>
 
                 {{-- @foreach ($kategori as $kategori) --}}
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th width="3%">No</th>
-                                <th width="10%">Rak</th>
-                                <th width="10%">Baris</th>
-                                <th width="10%">slug</th>
-                                <th width="10%">Kategori</th>
-                                <th width="10%">Aksi</th>
+                {{-- <div class="table-responsive"> --}}
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th width="3%">No</th>
+                            <th width="10%">Rak</th>
+                            <th width="10%">Baris</th>
+                            <th width="10%">slug</th>
+                            <th width="10%">Kategori</th>
+                            <th width="10%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $index => $row)
+                            <tr class="text-center">
+                                <td>{{ $index + $data->firstitem() }}</td>
+                                <td>{{ $row->rak }}</td>
+                                <td>{{ $row->baris }}</td>
+                                <td>{{ $row->slug }}</td>
+                                <td>{{ $row->Kategori->nama }}</td>
+                                <td style="text-align: center ;">
+                                    <div class="form-button-action">
+                                        <a type="button" data-toggle="modal" title=""
+                                            href="#modalEditRak{{ $row->id }}" class="btn btn-link btn-primary btn-lg "
+                                            data-original-title="Edit">
+                                            <i class="fas fa-edit text-white"></i>
+                                        </a>
+                                        <button type="button" title="" class="btn btn-link btn-danger btn-lg delete"
+                                            data-id="{{ $row->id }}" data-nama="{{ $row->nama }}"
+                                            data-original-title="Remove">
+                                            <i class="fas fa-trash text-white"></i>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($data as $index => $row)
-                                <tr class="text-center">
-                                    <td>{{ $index + $data->firstitem() }}</td>
-                                    <td>{{ $row->rak }}</td>
-                                    <td>{{ $row->baris }}</td>
-                                    <td>{{ $row->slug }}</td>
-                                    <td>{{ $row->Kategori->nama }}</td>
-                                    <td style="text-align: center ;">
-                                        <div class="form-button-action">
-                                            <a type="button" data-toggle="modal" title=""
-                                                href="#modalEditRak{{ $row->id }}"
-                                                class="btn btn-link btn-primary btn-lg " data-original-title="Edit">
-                                                <i class="fas fa-edit text-white"></i>
-                                            </a>
-                                            <button type="button" title=""
-                                                class="btn btn-link btn-danger btn-lg delete" data-id="{{ $row->id }}"
-                                                data-nama="{{ $row->nama }}" data-original-title="Remove">
-                                                <i class="fas fa-trash text-white"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="row justify-content-center">
-                        <div>{{ $data->links() }}</div>
-                    </div>
-                    {{-- {{ $Rak->links() }} --}}
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="row justify-content-center">
+                    <div>{{ $data->links() }}</div>
                 </div>
+                {{-- {{ $Rak->links() }} --}}
+                {{-- </div> --}}
         </div>
     </div>
 
@@ -208,12 +208,56 @@
         </div>
     @endforeach
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
+
+    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/sbadmin2/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/sbadmin2/js/demo/datatables-demo.js"></script>
     @endif
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
+
+    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
         integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
     <script src="/sbadmin2/sweetalert.min.js"></script>
 
+    @include('admin-lte.script')
     <script>
         $('.delete').click(function() {
             var Rakid = $(this).attr('data-id')
@@ -238,4 +282,25 @@
                 });
         });
     </script>
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+
+
 @endsection

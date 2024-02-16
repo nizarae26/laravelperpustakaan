@@ -177,7 +177,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Data Buku</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Data Peminjaman</h1>
 
 
                     <div class="content">
@@ -198,7 +198,8 @@
 
                                                 <!-- /.card-header -->
                                                 <div class="card-body" style="background-color: white">
-                                                    <table id="example1" class="table table-bordered table-hover table-striped text-center">
+                                                    <table id="example1"
+                                                        class="table table-bordered table-hover table-striped text-center">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
@@ -214,40 +215,30 @@
                                                             @php
                                                                 $no = 1;
                                                             @endphp
-                                                            @foreach ($data as $index => $row)
-                                                                <tr>
-                                                                    <td>{{ $index + $data->firstitem() }}</td>
+                                                            {{-- @foreach ($data as $index => $row) --}}
+                                                            <tr>
+                                                                {{-- <td>{{ $index + $data->firstitem() }}</td>
                                                                     <td>{{ $row->judul }}</td>
                                                                     <td>{{ $row->penulis }}</td>
                                                                     <td>{{ $row->penerbit->nama }}</td>
                                                                     <td>{{ $row->kategori->nama }}</td>
                                                                     <td><img src="storage/buku/{{ $row->sampul }} "alt=" "
-                                                                            width="60px" class=""></td>
-                                                                    <td>
-                                                                        <a type="button" data-toggle="modal"
-                                                                            title=""
-                                                                            href="#modalEditBuku{{ $row->id }}"
-                                                                            class="btn btn-link btn-primary btn-lg "
-                                                                            data-original-title="Edit">
-                                                                            <i class="fas fa-edit text-white"></i>
-                                                                        </a>
-                                                                        <a type="button" data-toggle="modal"
-                                                                            title=""
-                                                                            href="#modalShowBuku{{ $row->id }}"
-                                                                            class="btn btn-link btn-success btn-lg "
-                                                                            data-original-title="Show">
-                                                                            <i class="fas fa-eye text-white"></i>
-                                                                        </a>
-                                                                        <button type="button" title=""
-                                                                            class="btn btn-link btn-danger btn-lg delete"
-                                                                            data-id="{{ $row->id }}"
-                                                                            data-nama="{{ $row->nama }}"
-                                                                            data-original-title="Remove">
-                                                                            <i class="fas fa-trash text-white"></i>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
+                                                                            width="60px" class=""></td> --}}
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <button type="button" title=""
+                                                                        class="btn btn-link btn-danger btn-lg delete"
+                                                                        {{-- data-id="{{ $row->id }}"
+                                                                        data-nama="{{ $row->nama }}" --}}
+                                                                        data-original-title="Remove">
+                                                                        <i class="fas fa-trash text-white"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            {{-- @endforeach --}}
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
@@ -262,7 +253,7 @@
                                                         </tfoot>
                                                     </table>
                                                     <div class="row justify-content-center">
-                                                        <div>{{ $data->links() }}</div>
+                                                        {{-- <div>{{ $data->links() }}</div> --}}
                                                     </div>
                                                 </div>
                                                 <!-- /.card-body -->
@@ -275,10 +266,11 @@
                                 </div>
                                 <!-- /.container-fluid -->
                             </div>
-                        </section>
+                    </div>
+                    {{-- </section> --}}
 
-                        <!-- Modal Tambah Buku -->
-                        <div class="modal fade" id="modalTambahBuku" tabindex="-1" role="dialog"
+                    <!-- Modal Tambah Buku -->
+                    {{-- <div class="modal fade" id="modalTambahBuku" tabindex="-1" role="dialog"
                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -314,7 +306,6 @@
                                                     <input type="text" name="penulis" class="form-control"
                                                         autofocus>
                                                 </div>
-                                                {{-- <input type="hidden" name="slug"> --}}
                                                 <div class="mb-2">
                                                     <label for="penerbit">Penerbit</label>
                                                     <select value="penerbit_id" class="form-control"
@@ -379,10 +370,11 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <!-- Modal Show Buku -->
-                        @foreach ($data as $dd)
+                    <!-- Modal Show Buku -->
+
+                    {{-- @foreach ($data as $dd)
                             <div class="modal fade" id="modalShowBuku{{ $dd->id }}" tabindex="-1"
                                 role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -459,10 +451,11 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @endforeach --}}
 
-                        <!-- Modal Edit Buku -->
-                        @foreach ($data as $dd)
+                    <!-- Modal Edit Buku -->
+
+                    {{-- @foreach ($data as $dd)
                             <div class="modal fade" id="modalEditBuku{{ $dd->id }}" tabindex="-1"
                                 role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
@@ -523,12 +516,10 @@
                                                             id="penerbit_id">
                                                             <option selected value="{{ $dd->id }}">
                                                                 {{ $dd->penerbit->nama }}</option>
-                                                            {{-- @if ($item->id != 1) --}}
                                                             @foreach ($penerbit as $item)
                                                                 <option value="{{ $item->id }}">
                                                                     {{ $item->nama }}
                                                                 </option>
-                                                                {{-- @endif --}}
                                                             @endforeach
                                                         </select>
                                                         @error('penerbit_id')
@@ -542,11 +533,9 @@
                                                             <option selected value="{{ $dd->id }}">
                                                                 {{ $dd->kategori->nama }}</option>
                                                             @foreach ($kategori as $item)
-                                                                {{-- @if ($item->id != 1) --}}
                                                                 <option value="{{ $item->id }}">
                                                                     {{ $item->nama }}
                                                                 </option>
-                                                                {{-- @endif --}}
                                                             @endforeach
                                                         </select>
                                                         @error('kategori_id')
@@ -593,97 +582,98 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-
-
-                    <!-- /.container-fluid -->
+                        @endforeach --}}
 
                 </div>
-                <!-- End of Main Content -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Perpus RPL 2024</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
+
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Perpus RPL 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+    </div>
+    <!-- End of Page Wrapper -->
 
-        <!-- Logout Modal-->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
 
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-        <script src="/sbadmin2/sweetalert.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
 
-        <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-        <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
-        <script>
-            function getCookie(name) {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-                    return null;
-                }
+    <script>
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                return null;
             }
-        </script>
+        }
+    </script>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-        <script src="/sbadmin2/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
 
-        <script>
-            $('.delete').click(function() {
-                var Bukuid = $(this).attr('data-id')
-                var Bukunama = $(this).attr('data-nama')
+    <script>
+        $('.delete').click(function() {
+            var Bukuid = $(this).attr('data-id')
+            var Bukunama = $(this).attr('data-nama')
 
-                swal({
-                        title: "Yakin ?",
-                        text: "Menghapus Data Buku " + Bukunama + " !",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            window.location = "/deleteBuku/" + Bukuid + " "
-                            swal("Data Berhasil di Hapus!", {
-                                icon: "success",
-                            });
-                        } else {
-                            swal("Data tidak jadi terhapus");
-                        }
-                    });
-            });
-        </script>
-        @include('sweetalert::alert')
+            swal({
+                    title: "Yakin ?",
+                    text: "Menghapus Data Buku " + Bukunama + " !",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        window.location = "/deleteBuku/" + Bukuid + " "
+                        swal("Data Berhasil di Hapus!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Data tidak jadi terhapus");
+                    }
+                });
+        });
+    </script>
+    @include('sweetalert::alert')
 
-        @stack('js')
+    @stack('js')
 
 </body>
 

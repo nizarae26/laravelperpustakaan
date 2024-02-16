@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController as ControllersKategoriController;
 use Illuminate\Support\Facades\Route;
 use app\Http\Controllers\KategoriController;
+use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\SesiController;
@@ -31,6 +32,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 Route::middleware(['guest'])->group(function () {
     Route::get('/', [SesiController::class, 'index'])->name('login');
     Route::post('/', [SesiController::class, 'login']);
+    // Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
 });
 
 // Route::get('/home', function () {
@@ -39,12 +41,22 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index']);
-    
+    Route::get('/dashboard', [DashboardController::class, 'admin']);
+
     Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
     Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
-    Route::get('/pilihBuku/{id}', [DashboardController::class, 'pilihBuku'])->name('pilihBuku');
-    Route::get('/semuaBuku', [DashboardController::class, 'semuaBuku'])->name('semuaBuku');
+    // Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
+
+    // Route::get('/detailBuku/{id}', [DashboardController::class, 'detailBuku'])->name('detailBuku');
+
+    //peminjaman
+    Route::get('/pinjamBuku/{id}', [PeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
+    Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
+    Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
+    Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
+    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
+    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
+    Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
 
     //Category
     Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');

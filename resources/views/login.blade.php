@@ -109,6 +109,13 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
+    <!-- Custom scripts for all pages-->
+    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+    <script src="/sbadmin2/sweetalert.min.js"></script>
+
+    @include('sweetalert::alert')
 </body>
 
 </html>

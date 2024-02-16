@@ -8,52 +8,69 @@ use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
-// use Illuminate\Console\View\Components\Alert;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-    //admin
-    public function admin()
+    public function index()
     {
-        $data = Buku::all();
-        $kategori = Category::all();
-        return view('dashboard.index', [
-            'kategori' => $kategori,
-            'penerbit' => Penerbit::all(),
-            'raks' => Rak::all(),
-            'title' => 'Semua Buku',
-            'data' => $data,
-        ]);
-        // echo " iki admin";
+        //
     }
 
-    //operator
-    public function operator()
+    public function detailPinjam()
     {
-        return view('dashboard2.index');
-    }
+        $data = Peminjaman::paginate(3);
 
-    //peminjam
-    public function peminjam()
-    {
-        // echo " iki peminjam";
-        $data = Buku::paginate(8);
-        $kategori = Category::all();
-        return view('peminjam.index', [
-            'kategori' => $kategori,
+        return view('peminjam.detailpinjam', [
+
+            'buku' => Buku::all(),
+            'user' => User::all(),
+            'kategori' => Category::all(),
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
-            'title' => 'Semua Buku',
+            'title' => 'Semua Kategori',
             'data' => $data,
         ]);
     }
+
+    public function pinjamBuku(Request $request, $id)
+    {
+
+        // $ceklimit = Peminjaman::all()->get($id);
+
+        if (auth()->user()) {
+
+
+            //     if ($ceklimit->count() == 2) {
+            //         Alert::error('Error', 'Buku yang dipinjam maksimal 2');
+            //     } else {
+
+            //         if ($ceklimit[0]->buku_id == $id) {                   
+            //             Alert::error('Error', 'Buku yang dipinjam tidak boleh sama');
+            //         } else {
+            Peminjaman::create([
+                // 'id_user' => $request->id_user,
+                'kode_pinjam' => random_int(10000000, 999999999),
+                'peminjam_id' => auth()->user()->id,
+                'buku_id' => $id,
+                'tanggal_pinjam' => date('Y-m-d'),
+                'status' => 0,
+
+            ]);
+            return redirect('semuaBuku')->with('success', 'Berhasil Meminjam Buku');
+            //         }
+            //     }
+        } else {
+            Alert::error('Error', 'Anda belum Login');
+        }
+    }
+
 
     //buku all
     public function semuaBuku()
@@ -121,6 +138,20 @@ class DashboardController extends Controller
             'raks' => Rak::all(),
             'title' => $title,
             'ini' => $ini,
+            'data' => $data,
+        ]);
+    }
+
+    public function dataPeminjaman()
+    {
+        $data = Peminjaman::paginate(5);
+        $kategori = Category::all();
+        return view('dashboard.datapeminjaman', [
+            'buku' => Buku::all(),
+            'kategori' => $kategori,
+            'penerbit' => Penerbit::all(),
+            'raks' => Rak::all(),
+            'title' => 'Semua Buku',
             'data' => $data,
         ]);
     }
@@ -197,11 +228,6 @@ class DashboardController extends Controller
         // }
         // return redirect('semuaBuku')->with('error', 'Anda harus login');
     }
-
-    // public function logout()
-    // {
-    //     return view('auth.login');
-    // }
 
     /**
      * Show the form for creating a new resource.
