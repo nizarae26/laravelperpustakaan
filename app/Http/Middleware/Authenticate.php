@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class Authenticate extends Middleware
 {
@@ -12,6 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+        FacadesAlert::error('Anda Belum Login', 'Silahkan Login Terlebih Dahulu');
+        return $request->expectsJson() ? null : route('loginn', true);
     }
 }

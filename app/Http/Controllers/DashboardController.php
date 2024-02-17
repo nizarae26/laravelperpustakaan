@@ -8,8 +8,10 @@ use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
+use App\Models\User;
 // use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -19,25 +21,82 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
 
+    public function cek()
+    {
+        if (Auth::user()->role_id == '1') {
+            // return redirect('dashboard')->with('success', 'Anda  berhak mengakses ini');
+            $data = Buku::all();
+            $kategori = Category::all();
+            $penerbit = Penerbit::all();
+            $peminjaman = Peminjaman::all();
+            $users = User::all();
+            $raks = Rak::all();
+            return view('dashboard.index', [
+                'kategori' => $kategori,
+                'penerbit' => $penerbit,
+                'peminjaman' => $peminjaman,
+                'raks' => $raks,
+                'users' => $users,
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ]);
+        } elseif (Auth::user()->role_id == '2') {
+            return redirect('dashboard/operator');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
     //admin
     public function admin()
     {
-        $data = Buku::all();
-        $kategori = Category::all();
-        return view('dashboard.index', [
-            'kategori' => $kategori,
-            'penerbit' => Penerbit::all(),
-            'raks' => Rak::all(),
-            'title' => 'Semua Buku',
-            'data' => $data,
-        ]);
+
+        if (Auth::user()->role_id == '1') {
+            return redirect('dashboard')->with('success', 'Anda  berhak mengakses ini');
+            $data = Buku::all();
+            $kategori = Category::all();
+            $penerbit = Penerbit::all();
+            $peminjaman = Peminjaman::all();
+            $users = User::all();
+            $raks = Rak::all();
+            return view('dashboard.index', [
+                'kategori' => $kategori,
+                'penerbit' => $penerbit,
+                'peminjaman' => $peminjaman,
+                'raks' => $raks,
+                'users' => $users,
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ]);
+        } elseif (Auth::user()->role_id == '2') {
+            return redirect('dashboard/operator')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
         // echo " iki admin";
     }
 
     //operator
     public function operator()
     {
-        return view('dashboard2.index');
+        $data = Buku::all();
+        $kategori = Category::all();
+        $penerbit = Penerbit::all();
+        $peminjaman = Peminjaman::all();
+        $users = User::all();
+        $raks = Rak::all();
+        return view('dashboard2.index', [
+            'kategori' => $kategori,
+            'penerbit' => $penerbit,
+            'peminjaman' => $peminjaman,
+            'raks' => $raks,
+            'users' => $users,
+            'title' => 'Semua Buku',
+            'data' => $data,
+        ]);
     }
 
     //peminjam

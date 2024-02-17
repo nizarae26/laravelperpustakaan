@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,18 +16,23 @@ class UserController extends Controller
     //menampilkan data User
     public function DataUser()
     {
-        if (request('search')) {
-            $data = User::where('name', 'LIKE', '%' . request('search') . '%')
-                ->orWhere('email', 'LIKE', '%' . request('search') . '%')
-                ->orWhere('role_id', 'LIKE', '%' . request('search') . '%')->paginate(5);
-        } else {
+
+
+        if (Auth::user()->role_id == '1') {
+            // return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
             $data = User::paginate(5);
+            return view('User.index', [
+                'role' => Role::all(),
+                'title' => 'Semua Kategori',
+                'data' => $data,
+            ]);
+        } elseif (Auth::user()->role_id == '2') {
+            return redirect('dashboard/operator')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
         }
-        return view('User.index', [
-            'role' => Role::all(),
-            'title' => 'Semua Kategori',
-            'data' => $data,
-        ]);
     }
 
     // Isi data User

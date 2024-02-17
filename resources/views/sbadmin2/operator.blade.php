@@ -61,7 +61,7 @@
                         <a class="collapse-item @yield('active-penerbit')" href="/DataPenerbit">Data Penerbit</a>
                         <a class="collapse-item @yield('active-rak')" href="/DataRak">Data Rak</a>
                         <a class="collapse-item @yield('active-buku')" href="/DataBuku">Data Buku</a>
-                        {{-- <a class="collapse-item @yield('active-user')" href="/DataUser">Data User</a> --}}
+                        <a class="collapse-item @yield('active-user')" href="/DataUser">Data User</a>
                     </div>
                 </div>
             </li>
@@ -103,7 +103,7 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item @yield('active-peminjaman')" href="/DataCategory">Data Peminjaman</a>
+                        <a class="collapse-item @yield('active-peminjaman')" href="/DataPeminjaman">Data Peminjaman</a>
                         <a class="collapse-item @yield('active-pengembalian')" href="/DataPenerbit">Data Pengembalian</a>
                     </div>
                 </div>
@@ -236,8 +236,33 @@
         }
     </script>
     @include('sweetalert::alert')
+
     @stack('js')
 
+    @include('admin-lte.script')
+
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "retrieve": true,
+                "paging": false "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    </div>
+    </div>
 </body>
 
 </html>

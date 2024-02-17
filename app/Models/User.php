@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Livewire\WithPagination;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use WithPagination;
+    protected $paginationTheme = 'bootsrtap';
 
     /**
      * The attributes that are mass assignable.
@@ -57,7 +60,7 @@ class User extends Authenticatable
     }
 
     public function hasRole($role)
-{
-    return User::where('role_id', $role)->get();
-}
+    {
+        return User::where('role_id', $role)->get();
+    }
 }

@@ -12,22 +12,15 @@
             </h4>
         </div>
         <div class="card-body">
-            <div class="d-flex justify-content-end mb-4">
+            <div class="d-flex justify-content-end mb-1">
                 <div class="col-md-4">
                     <form action="/DataRak" method="GET">
-                        <div class="input-group">
-                            <button class="btn btn-secondary mb-2" type="submit"><i class="fas fa-search"></i></button>
-                            <input name="search" type="search" class="form-control mb-2 ml-1" placeholder="Search . . ."
-                                value="{{ request('search') }}">
-                        </div>
-
-                    </form>
+                        < </form>
                 </div>
                 <a href="#modalTambahRak" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
                         class="fa fa-plus mr-2"></span>Tambah Data</a>
-                <a href="/exportpdfrak" class="btn btn-info btn-md ml-2 mb-2"><span
-                        class="fa fa-solid fa-file mr-2"></span>Export PDF</a>
-
+                {{-- <a href="/exportpdfrak" class="btn btn-info btn-md ml-2 mb-2"><span
+                        class="fa fa-solid fa-file mr-2"></span>Export PDF</a> --}}
             </div>
             @if ($data->count())
 
@@ -43,7 +36,7 @@
 
                 {{-- @foreach ($kategori as $kategori) --}}
                 {{-- <div class="table-responsive"> --}}
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table id="example1" class="table table-bordered table-hover table-striped text-center">
                     <thead>
                         <tr>
                             <th width="3%">No</th>
@@ -105,16 +98,16 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="mb-2">
-                                <label for="rak" class="form-label">Rak</label>
+                                <label for="" class="form-label">Rak</label>
                                 <input type="number" name="rak" class="form-control" autofocus>
                             </div>
                             <div class="mb-2">
-                                <label for="baris" class="form-label">Baris</label>
+                                <label for="" class="form-label">Baris</label>
                                 <input type="number" name="baris" class="form-control" autofocus>
                             </div>
                             {{-- <input type="hidden" name="slug"> --}}
                             <div class="mb-2">
-                                <label for="kategori">Kategori</label>
+                                <label for="">Kategori</label>
                                 <select value="kategori_id" class="form-control" name="kategori_id">
                                     <option selected value="kategori_id">Pilih Kategori</option>
                                     @foreach ($kategori as $item)
@@ -157,7 +150,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <div class="mb-2">
-                                    <label for="rak" class="form-label">Rak</label>
+                                    <label for="" class="form-label">Rak</label>
                                     <input type="text" name="rak" class="form-control"
                                         value="{{ $dd->rak }}">
                                     @error('rak')
@@ -165,7 +158,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-2">
-                                    <label for="baris" class="form-label">Baris</label>
+                                    <label for="" class="form-label">Baris</label>
                                     <input type="text" name="baris" class="form-control"
                                         value="{{ $dd->baris }}">
                                     @error('rak')
@@ -173,7 +166,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-2">
-                                    <label for="slug" class="form-label">Slug</label>
+                                    <label for="" class="form-label">Slug</label>
                                     <input type="text" name="slug" class="form-control"
                                         value="{{ $dd->slug }}">
                                     @error('rak')
@@ -282,6 +275,9 @@
                 });
         });
     </script>
+
+    @include('admin-lte.script')
+
     <script>
         $(function() {
             $("#example1").DataTable({

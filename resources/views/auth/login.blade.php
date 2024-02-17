@@ -55,9 +55,9 @@
                                     <form action="" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="exampleInputEmail"
-                                                aria-describedby="emailHelp" name="email" value="{{ old('email') }}"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
+                                                value="{{ old('email') }}" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -72,6 +72,7 @@
                                         </div>
                                         <button name="submit" type="submit"
                                             class="btn btn-primary btn-user btn-block">Login</button>
+                                        <hr>
                                         {{-- <hr> --}}
                                         {{-- <a href="/sbadmin2/index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -85,7 +86,7 @@
                                         <a class="small" href="/sbadmin2/forgot-password.html">Forgot Password?</a>
                                     </div> --}}
                                     <div class="text-center">
-                                        <a class="small" href="/sbadmin2/register.html">Create an Account!</a>
+                                        <a class="small" href="/registerr">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

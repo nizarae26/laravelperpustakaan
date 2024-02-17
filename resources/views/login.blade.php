@@ -55,9 +55,9 @@
                                     <form action="" method="POST">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control" id="exampleInputEmail"
-                                                aria-describedby="emailHelp" name="email" value="{{ old('email') }}"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user"
+                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
+                                                value="{{ old('email') }}" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -65,13 +65,18 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
+                                                <input class="class=" custom-control-input"" type="checkbox"
+                                                    name="remember" id="remember"
+                                                    {{ old('remember') ? 'checked' : '' }}>
+                                                {{-- <input type="checkbox" class="custom-control-input" id="customCheck"> --}}
+                                                <label class="" for="remember">Remember
                                                     Me</label>
                                             </div>
                                         </div>
+
                                         <button name="submit" type="submit"
                                             class="btn btn-primary btn-user btn-block">Login</button>
+                                        <hr>
                                         {{-- <hr> --}}
                                         {{-- <a href="/sbadmin2/index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -85,7 +90,7 @@
                                         <a class="small" href="/sbadmin2/forgot-password.html">Forgot Password?</a>
                                     </div> --}}
                                     <div class="text-center">
-                                        <a class="small" href="/sbadmin2/register.html">Create an Account!</a>
+                                        <a class="small" href="/registerr">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
@@ -96,10 +101,61 @@
             </div>
 
         </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+        <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Core plugin JavaScript-->
+        <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+        <script src="/sbadmin2/sweetalert.min.js"></script>
+
+        <script>
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                    return null;
+                }
+            }
+        </script>
+        @include('sweetalert::alert')
+
+        @stack('js')
+
+        @include('admin-lte.script')
+
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "retrieve": true,
+                    "paging": false "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });
+            });
+        </script>
     </div>
 
     <!-- Bootstrap core JavaScript-->
+    @include('sweetalert::alert')
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -117,5 +173,56 @@
 
     @include('sweetalert::alert')
 </body>
+<!-- Bootstrap core JavaScript-->
+<script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+<script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+    integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+<script src="/sbadmin2/sweetalert.min.js"></script>
+
+<script>
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            return null;
+        }
+    }
+</script>
+@include('sweetalert::alert')
+
+@stack('js')
+
+@include('admin-lte.script')
+
+<script>
+    $(function() {
+        $("#example1").DataTable({
+            "retrieve": true,
+            "paging": false "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
 
 </html>

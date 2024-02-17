@@ -105,8 +105,8 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item @yield('active-peminjaman')" href="/DataCategory">Data Peminjaman</a>
-                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPenerbit">Data Pengembalian</a>
+                        <a class="collapse-item @yield('active-peminjaman')" href="/DataPeminjaman">Data Peminjaman</a>
+                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPengembalian">Data Pengembalian</a>
                     </div>
                 </div>
             </li>
@@ -189,7 +189,7 @@
                                             <div class="card-header" style="background-color: white">
                                                 <div class="d-flex align-items-center">
                                                     <h4 class="card-title"></h4>
-                                                    <button class="btn btn-primary btn-round ml-auto"
+                                                    <button class="btn btn-success btn-round ml-auto"
                                                         data-toggle="modal" data-target="#modalTambahBuku">
                                                         <i class="fa fa-plus"></i>
                                                         Tambah Data
@@ -198,7 +198,8 @@
 
                                                 <!-- /.card-header -->
                                                 <div class="card-body" style="background-color: white">
-                                                    <table id="example1" class="table table-bordered table-hover table-striped text-center">
+                                                    <table id="example1"
+                                                        class="table table-bordered table-hover table-striped text-center">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>

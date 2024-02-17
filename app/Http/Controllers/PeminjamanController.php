@@ -10,6 +10,7 @@ use App\Models\Penerbit;
 use App\Models\Rak;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -25,7 +26,8 @@ class PeminjamanController extends Controller
 
     public function detailPinjam()
     {
-        $data = Peminjaman::paginate(3);
+        $user = auth()->id();
+        $data = Peminjaman::where('users_id', $user)->get();
 
         return view('peminjam.detailpinjam', [
 
@@ -57,9 +59,10 @@ class PeminjamanController extends Controller
             Peminjaman::create([
                 // 'id_user' => $request->id_user,
                 'kode_pinjam' => random_int(10000000, 999999999),
-                'peminjam_id' => auth()->user()->id,
+                'users_id' => auth()->user()->id,
                 'buku_id' => $id,
-                'tanggal_pinjam' => date('Y-m-d'),
+                'tanggal_pinjam' => now(),
+                'batas_pinjam' => now()->addDays(29),
                 'status' => 0,
 
             ]);
@@ -69,6 +72,29 @@ class PeminjamanController extends Controller
         } else {
             Alert::error('Error', 'Anda belum Login');
         }
+    }
+
+    // confirm buku
+    public function ubahStatus(Request $request, $id)
+    {
+        $data = Peminjaman::findOrfail($id);
+        $data->update([
+            'status' => 1,
+        ]);
+
+        return redirect('DataPeminjaman')->with('success', 'Berhasil Mengonfirmasi');
+    }
+
+    // confirm buku
+    public function ubahStatus1(Request $request, $id)
+    {
+        $data = Peminjaman::findOrfail($id);
+        $data->update([
+            'status' => 2,
+            'tanggal_kembali' => now(),
+        ]);
+
+        return redirect('DataPeminjaman')->with('success', 'Berhasil Mengembalikan');
     }
 
 
@@ -144,16 +170,50 @@ class PeminjamanController extends Controller
 
     public function dataPeminjaman()
     {
-        $data = Peminjaman::paginate(5);
-        $kategori = Category::all();
-        return view('dashboard.datapeminjaman', [
-            'buku' => Buku::all(),
-            'kategori' => $kategori,
-            'penerbit' => Penerbit::all(),
-            'raks' => Rak::all(),
-            'title' => 'Semua Buku',
-            'data' => $data,
-        ]);
+
+        if (Auth::user()->role_id == '1') {
+            return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '2') {
+            // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
+            $data = Peminjaman::paginate(5);
+            $kategori = Category::all();
+            return view('dashboard2.datapeminjaman', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function dataPengembalian()
+    {
+
+        if (Auth::user()->role_id == '1') {
+            return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '2') {
+            // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
+            $data = Peminjaman::paginate(5);
+            $kategori = Category::all();
+            return view('dashboard2.datapengembalian', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
     }
 
     public function favorit(Request $request, $id)

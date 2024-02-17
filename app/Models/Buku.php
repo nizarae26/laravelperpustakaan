@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\WithPagination;
 
 class Buku extends Model
 {
     use HasFactory;
+    use WithPagination;
+    protected $paginationTheme = 'bootsrtap';
 
     protected $table = 'buku';
     protected $guarded = [];

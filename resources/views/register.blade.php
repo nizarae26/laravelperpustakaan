@@ -39,7 +39,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                                 </div>
-                                <form method="POST" action="{{ route('register') }}" class="user">
+                                <form action="/registerr" method="POST" class="user">
                                     @csrf
                                     <div class="form-group ">
                                         <input id="name" type="text"
@@ -95,7 +95,7 @@
                                     <a class="small" href="/sbadmin2/forgot-password.html">Forgot Password?</a>
                                 </div> --}}
                                 <div class="text-center">
-                                    <a class="small" href="/">Already have an account? Login!</a>
+                                    <a class="small" href="/loginn">Already have an account? Login!</a>
                                 </div>
                             </div>
                         </div>
@@ -106,6 +106,9 @@
         </div>
 
         <!-- Bootstrap core JavaScript-->
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+        <script src="/sbadmin2/sweetalert.min.js"></script>
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -114,7 +117,7 @@
 
         <!-- Custom scripts for all pages-->
         <script src="js/sb-admin-2.min.js"></script>
-
+        @include('sweetalert::alert')
     </body>
 
     </html>

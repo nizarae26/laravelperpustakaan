@@ -13,21 +13,22 @@
             </h4>
         </div>
         <div class="card-body">
-            <div class="d-flex justify-content-end mb-4">
+            <div class="d-flex justify-content-end mb-1">
                 <div class="col-md-4">
                     <form action="/DataCategory" method="GET">
                         <div class="input-group">
-                            <button class="btn btn-secondary mb-2" type="submit"><i class="fas fa-search"></i></button>
+                            {{-- <button class="btn btn-secondary mb-2" type="submit"><i class="fas fa-search"></i></button>
                             <input name="search" type="search" class="form-control mb-2 ml-1" placeholder="Search . . ."
-                                value="{{ request('search') }}">
+                                value="{{ request('search') }}"> --}}
                         </div>
 
                     </form>
                 </div>
                 <a href="#modalTambahCategory" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
                         class="fa fa-plus mr-2"></span>Tambah Data</a>
-                <a href="/exportpdfkategori" class="btn btn-info btn-md ml-2 mb-2"><span class="fa fa-solid fa-file mr-2"></span>Export
-                    PDF</a>
+                {{-- <a href="/exportpdfkategori" class="btn btn-info btn-md ml-2 mb-2"><span
+                        class="fa fa-solid fa-file mr-2"></span>Export
+                    PDF</a> --}}
 
             </div>
             @if ($data->count())
@@ -44,7 +45,7 @@
 
                 {{-- @foreach ($kategori as $kategori) --}}
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped text-center">
+                    <table id="example1" class="table table-bordered table-hover table-striped text-center">
                         <thead>
                             <tr>
                                 <th width="3%">No</th>
@@ -195,6 +196,28 @@
                         swal("Data tidak jadi terhapus");
                     }
                 });
+        });
+    </script>
+
+    @include('admin-lte.script')
+
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
     </script>
     {{-- <div class="modal fade" id="modal-form" tabindex="-1" role="dialog">

@@ -30,9 +30,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 // });
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', [SesiController::class, 'index'])->name('login');
-    Route::post('/', [SesiController::class, 'login']);
-    // Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
+    Route::get('/loginn', [SesiController::class, 'index'])->name('loginn');
+    Route::post('/loginn', [SesiController::class, 'loginn']);
+
+    Route::get('/registerr', [SesiController::class, 'index2'])->name('regsiterr');
+    Route::post('/registerr', [SesiController::class, 'registerr']);
+    Route::get('/logout', [SesiController::class, 'logout'])->name('loginn');
+    Route::get('/', [DashboardController::class, 'peminjam']);
 });
 
 // Route::get('/home', function () {
@@ -41,7 +45,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'admin']);
+    Route::get('/dashboard', [DashboardController::class, 'cek']);
 
     Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
     Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
@@ -57,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
     Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
+    Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
+    Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
+    Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
 
     //Category
     Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');

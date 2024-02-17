@@ -142,9 +142,11 @@
                             <tr>
                                 <th>No</th>
                                 <th>Kode Peminjaman</th>
+                                <th>Kode Buku</th>
                                 <th>Peminjam</th>
                                 <th>Buku</th>
                                 <th>Tanggal Pinjam</th>
+                                <th>Batas Pinjam</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -155,10 +157,12 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $row->kode_pinjam }}
+                                    <td>{{ $row->buku_id }}
                                     </td>
-                                    <td> {{ $row->peminjam_id }}</td>
+                                    <td> {{ $row->user->name }}</td>
                                     <td> {{ $row->buku->judul }}</td>
                                     <td>{{ $row->tanggal_pinjam }}</td>
+                                    <td>{{ $row->batas_pinjam }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -166,14 +170,16 @@
                             <tr>
                                 <th>No</th>
                                 <th>Kode Peminjaman</th>
+                                <th>Kode Buku</th>
                                 <th>Peminjam</th>
                                 <th>Buku</th>
                                 <th>Tanggal Pinjam</th>
+                                <th>Batas Pinjam</th>
                             </tr>
                         </tfoot>
                     </table>
                     <div class="row justify-content-center">
-                        <div>{{ $data->links() }}</div>
+                        {{-- <div>{{ $data->links() }}</div> --}}
                     </div>
                     {{-- </div> --}}
                 </div>
