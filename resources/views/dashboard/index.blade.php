@@ -14,27 +14,29 @@
         <div class="row">
 
             @if ($kategori)
-                <!-- Earnings (Monthly) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Data Kategori</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $kategori->count() }}</div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Kategori
                                     </div>
-                                    <div class="col ">
-                                        <div class="progress progress-sm mr-2 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $kategori->count() }}%" aria-valuenow="100"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $kategori->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $kategori->count() }}%" aria-valuenow="50"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -43,22 +45,24 @@
             @endif
 
             @if ($penerbit)
-                <!-- Earnings (Annual) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Data Penerbit</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $penerbit->count() }}</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Data Penerbit
                                     </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-1 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $penerbit->count() }}%" aria-valuenow="100"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $penerbit->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $penerbit->count() }}%" aria-valuenow="50"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -72,27 +76,29 @@
             @endif
 
             @if ($raks)
-                <!-- Pending Requests Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Data Rak</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $raks->count() }}</div>
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data Rak
                                     </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-1 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $raks->count() }}%" aria-valuenow="100" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $raks->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $raks->count() }}%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-list fa-2x text-gray-300"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -101,28 +107,29 @@
             @endif
 
             @if ($data)
-                <!-- Pending Requests Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Data Buku</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $data->count() }}</div>
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Data Buku
                                     </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-1 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $data->count() }}%" aria-valuenow="100" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $data->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $data->count() }}%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data->count() }}</div> --}}
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-book fa-2x text-gray-300"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -131,28 +138,29 @@
             @endif
 
             @if ($users)
-                <!-- Pending Requests Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card border-left-secondary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Data User</div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $users->count() }}</div>
+                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Data User
                                     </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-1 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $users->count() }}%" aria-valuenow="100" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $users->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $users->count() }}%" aria-valuenow="50"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data->count() }}</div> --}}
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -160,36 +168,38 @@
                 </div>
             @endif
 
-            <!-- Tasks Card Example -->
             @if ($peminjaman)
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Peminjaman
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Peminjaman
                                     </div>
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">{{ $peminjaman->count() }}</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-1 mt-2 ">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width:{{ $peminjaman->count() }}0%" aria-valuenow="100"
-                                                aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $peminjaman->count() }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $peminjaman->count() }}0%" aria-valuenow="50"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @endif
+
         </div>
-        @endif
 
         <div class="row">
 

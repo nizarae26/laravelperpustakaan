@@ -59,6 +59,16 @@ class User extends Authenticatable
         return $this->hasMany(Peminjaman::class);
     }
 
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class);
+    }
+
+    public function favorit()
+    {
+        return $this->hasMany(Favorit::class);
+    }
+
     public function hasRole($role)
     {
         return User::where('role_id', $role)->get();

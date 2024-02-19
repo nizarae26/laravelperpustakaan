@@ -6,6 +6,9 @@
 {{-- @section('title', 'Data Kategori') --}}
 
 @section('content')
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <div class="card shadow">
         <div class="card-header mb-1">
             <h4 class="card-title mb-1 mt-2">
@@ -17,18 +20,18 @@
                 <div class="col-md-4">
                     <form action="/DataCategory" method="GET">
                         <div class="input-group">
-                            {{-- <button class="btn btn-secondary mb-2" type="submit"><i class="fas fa-search"></i></button>
+                            <button class="btn btn-secondary mb-2" type="submit"><i class="fas fa-search"></i></button>
                             <input name="search" type="search" class="form-control mb-2 ml-1" placeholder="Search . . ."
-                                value="{{ request('search') }}"> --}}
+                                value="{{ request('search') }}">
                         </div>
 
                     </form>
                 </div>
                 <a href="#modalTambahCategory" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
                         class="fa fa-plus mr-2"></span>Tambah Data</a>
-                {{-- <a href="/exportpdfkategori" class="btn btn-info btn-md ml-2 mb-2"><span
-                        class="fa fa-solid fa-file mr-2"></span>Export
-                    PDF</a> --}}
+                <a href="/exportpdfkategori" class="btn btn-info btn-md ml-2 mb-2"><span
+                        class="fa fa-solid fa-file-pdf mr-2"></span>Export
+                    PDF</a>
 
             </div>
             @if ($data->count())
@@ -220,170 +223,8 @@
             });
         });
     </script>
-    {{-- <div class="modal fade" id="modal-form" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Tambah Kategori</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" >
-        <div class="row">
-            <div class="col-md-12">
-                <form class="form-kategori" >
-                    @csrf
-                    <div class="form-group">
-                        <label>Nama Kategori</label>
-                        <input type="text" class="form-control nama" name="nama" 
-                            placeholder="Nama kategori" required>
-                    </div>
-                    <input type="hidden" value="" >
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
 
+    @include('sweetalert::alert')
 
-    {{-- <div class="modal fade" id="modal-edit{{ $ct->id }}" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Kategori</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form action="/kategori/{{ $ct->id }}/update" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <label>Nama Kategori</label>
-                                <input type="text" class="form-control" name="nama" value="{{$ct->nama}}" placeholder="Nama kategori" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-
+    @stack('js')
 @endsection
-{{-- @push('js')
-{{-- <script>
-    //     window.Laravel = {
-    //     csrfToken: '{{csrf_token()}}'
-    // }
-
-    $(function() {
-
-        $.ajax({
-            url: 'api/categories',
-            success: function({
-                data
-            }) {
-
-                let row;
-                data.map(function(val, index) {
-                    row += `
-                        <tr>
-                            <td>${index+1}</td>
-                            <td>${val.nama}</td>
-                            <td>
-                                <a data-toggle="modal" data-target="#modal-edit${val.id}" class="btn btn-info">Edit</a>
-                                <a href="#" data-id="${val.id}" class="btn btn-danger btn-hapus">Hapus</a>
-                            </td>
-                        </tr>
-                        `;
-                });
-
-                $('tbody').append(row)
-            }
-        });
-
-        $(document).on('click', '.btn-hapus', function() {
-            const id = $(this).data('id')
-            const token = localStorage.getItem('token')
-
-            confirm_dialog = confirm('Apakah anda yakin?');
-
-            if (confirm_dialog) {
-                $.ajax({
-
-                    url: 'api/categories/' + id,
-                    type: "delete",
-                    
-                    headers: {
-                        "Authorization": token
-                    },
-                    success: function(data) {
-                        if (data.message == 'success') {
-                            alert('Data Berhasil Dihapus')
-                        }
-                        location.reload()
-                    }
-                });
-            }
-        });
-
-        // $(document).on('click', '.btn-primary', function(){
-        $('.modal-tambah').click(function() {
-            $('#modal-form').modal('show')
-
-            $('.form-kategori').submit(function(e) {
-                e.preventDefault();
-
-                const token = localStorage.getItem('token')
-
-                const frmdata = new FormData(this);
-
-
-                $.ajax({
-                    url: 'api/categories',
-                    type: 'POST',
-                    data: frmdata,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-
-                    headers: {
-                        "Authorization": 'Bearer ' + token
-                    },
-                    success: function(data) {
-                        if (data.success) {
-                            alert('Data Berhasil Ditambah')
-                            location.reload()
-                        }
-                    }
-                });
-
-            });
-
-
-
-
-
-        });
-    });
-</script> --}}
-{{-- @endpush --}}

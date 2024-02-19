@@ -25,8 +25,8 @@
                 </div>
                 <a href="#modalTambahPenerbit" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
                         class="fa fa-plus mr-2"></span>Tambah Data</a>
-                {{-- <a href="/exportpdfpenerbit" class="btn btn-info btn-md ml-2 mb-2"><span
-                        class="fa fa-solid fa-file mr-2"></span>Export PDF</a> --}}
+                <a href="/exportpdfpenerbit" class="btn btn-info btn-md ml-2 mb-2"><span
+                        class="fa fa-solid fa-file-pdf mr-2"></span>Export PDF</a>
 
             </div>
             @if ($data->count())

@@ -49,26 +49,32 @@ class PeminjamanController extends Controller
         if (auth()->user()) {
 
 
-            //     if ($ceklimit->count() == 2) {
-            //         Alert::error('Error', 'Buku yang dipinjam maksimal 2');
-            //     } else {
+            $pinjamlama = DB::table('peminjaman')
+                ->where('users_id', auth()->user()->id)
+                ->where('buku_id', $id)
+                ->get();
 
-            //         if ($ceklimit[0]->buku_id == $id) {                   
-            //             Alert::error('Error', 'Buku yang dipinjam tidak boleh sama');
-            //         } else {
-            Peminjaman::create([
-                // 'id_user' => $request->id_user,
-                'kode_pinjam' => random_int(10000000, 999999999),
-                'users_id' => auth()->user()->id,
-                'buku_id' => $id,
-                'tanggal_pinjam' => now(),
-                'batas_pinjam' => now()->addDays(29),
-                'status' => 0,
+            if ($pinjamlama->count() == 3) {
+                return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 2');
+            } else {
+                if (isset($pinjamlama[0])) {
+                    if ($pinjamlama[0]->buku_id == $id) {
+                        return redirect()->back()->with('error', 'Buku yang dipinjam tidak boleh sama');
+                    }
+                } else {
+                    Peminjaman::create([
 
-            ]);
-            return redirect('semuaBuku')->with('success', 'Berhasil Meminjam Buku');
-            //         }
-            //     }
+                        'kode_pinjam' => random_int(10000000, 999999999),
+                        'users_id' => auth()->user()->id,
+                        'buku_id' => $id,
+                        'tanggal_pinjam' => now(),
+                        'batas_pinjam' => now()->addDays(29),
+                        'status' => 0,
+
+                    ]);
+                    return redirect()->back()->with('success', 'Berhasil Meminjam');
+                }
+            }
         } else {
             Alert::error('Error', 'Anda belum Login');
         }
@@ -146,7 +152,7 @@ class PeminjamanController extends Controller
         ]);
     }
 
-    public function detailBuku(Request $request, $id)
+    public function ulasan(Request $request, $id)
     {
         // dd($id);
         if ($request) {
@@ -158,7 +164,7 @@ class PeminjamanController extends Controller
             $title = 'Buku Tidak Ada';
         }
 
-        return view('peminjam.detailbuku', [
+        return view('peminjam.ulasan', [
             'kategori' => Category::all(),
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),

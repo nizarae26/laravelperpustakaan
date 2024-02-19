@@ -19,4 +19,8 @@ class Rak extends Model
     public function buku(){
         return $this->hasMany(Buku::class);
     }
+
+    public function favorit(){
+        return $this->hasMany(Favorit::class);
+    }
 }

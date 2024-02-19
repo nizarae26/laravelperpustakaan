@@ -10,8 +10,11 @@
     <meta name="author" content="">
 
     <title>@yield('title')</title>
-    @include('admin-lte.head')
+    {{-- @include('admin-lte.head') --}}
 
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -20,6 +23,11 @@
 
     <!-- Custom styles for this template-->
     <link href="/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 
 </head>
@@ -49,6 +57,14 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Set
+            </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li
                 class="nav-item active @yield('active-kategori') @yield('active-penerbit') @yield('active-rak') @yield('active-buku') @yield('active-user')">
@@ -57,7 +73,8 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Data Master</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo"
+                    aria-expanded="false" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item @yield('active-kategori')" href="/DataCategory">Data Category</a>
                         <a class="collapse-item @yield('active-penerbit')" href="/DataPenerbit">Data Penerbit</a>
@@ -68,39 +85,10 @@
                 </div>
             </li>
 
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesanan"
-                    aria-expanded="true" aria-controls="pesanan">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Data Pesanan</span>
-                </a>
-                <div id="pesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/pesanan/baru"> Pesanan Baru</a>
-                        <a class="collapse-item" href="/pesanan/dikonfirmasi"> Pesanan Dikonfirmasi</a>
-                        <a class="collapse-item" href="/pesanan/dikemas">Pesanan Dikemas</a>
-                        <a class="collapse-item" href="/pesanan/dikirim">Pesanan Dikirim</a>
-                        <a class="collapse-item" href="/pesanan/diterima">Pesanan Diterima</a>
-                        <a class="collapse-item" href="/pesanan/selesai">Pesanan Selesai</a>
-                    </div>
-                </div>
-            </li> --}}
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="/payment">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>Pembayaran</span></a>
-            </li> --}}
-
-            <li class="nav-item">
-                <a class="nav-link" href="/laporan">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Laporan</span></a>
-            </li>
-
             <li class="nav-item @yield('active-peminjaman') @yield('active-pengembalian') ">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-folder fa-cog"></i>
+                    <i class="fas fa-folder-open "></i>
                     <span>Perpus Master</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -110,10 +98,16 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="/tentang">
-                    <i class="fas fa-fw fa-globe"></i>
-                    <span>About</span></a>
+                <a class="nav-link" href="/laporan">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Laporan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/DataUlasan">
+                    <i class="fas fa-fw fa-feather"></i>
+                    <span>Ulasan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">
@@ -203,6 +197,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
+                                                                <th>Kode Buku</th>
                                                                 <th>Judul</th>
                                                                 <th>Penulis</th>
                                                                 <th>Penerbit</th>
@@ -218,6 +213,7 @@
                                                             @foreach ($data as $index => $row)
                                                                 <tr>
                                                                     <td>{{ $index + $data->firstitem() }}</td>
+                                                                    <td>{{ $row->id }}</td>
                                                                     <td>{{ $row->judul }}</td>
                                                                     <td>{{ $row->penulis }}</td>
                                                                     <td>{{ $row->penerbit->nama }}</td>
@@ -253,6 +249,7 @@
                                                         <tfoot>
                                                             <tr>
                                                                 <th>No</th>
+                                                                <th>Kode Buku</th>
                                                                 <th>Judul</th>
                                                                 <th>Penulis</th>
                                                                 <th>Penerbit</th>
@@ -359,11 +356,8 @@
                                                         <small class="text-danger">{{ $message }}</small>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-2">
-                                                    <label for="stok" class="form-label">Stok</label>
-                                                    <input type="number" name="stok" class="form-control"
-                                                        autofocus>
-                                                </div>
+                                                <input type="hidden" name="stok" value="1"
+                                                    class="form-control" autofocus>
                                             </div>
                                         </div>
 

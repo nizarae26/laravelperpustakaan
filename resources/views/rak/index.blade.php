@@ -5,6 +5,9 @@
 {{-- @section('title', 'Data Kategori') --}}
 
 @section('content')
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <div class="card shadow">
         <div class="card-header mb-1">
             <h4 class="card-title mb-1 mt-2">
@@ -19,8 +22,8 @@
                 </div>
                 <a href="#modalTambahRak" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
                         class="fa fa-plus mr-2"></span>Tambah Data</a>
-                {{-- <a href="/exportpdfrak" class="btn btn-info btn-md ml-2 mb-2"><span
-                        class="fa fa-solid fa-file mr-2"></span>Export PDF</a> --}}
+                <a href="/exportpdfrak" class="btn btn-info btn-md ml-2 mb-2"><span
+                        class="fa fa-solid fa-file-pdf mr-2"></span>Export PDF</a>
             </div>
             @if ($data->count())
 

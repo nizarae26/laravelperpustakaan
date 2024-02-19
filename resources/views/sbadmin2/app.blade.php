@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>@yield('title')</title>
-    @include('admin-lte.head')
+    {{-- @include('admin-lte.head') --}}
 
     <!-- Custom fonts for this template-->
     <link href="/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,6 +18,9 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -48,6 +51,14 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider ">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Set
+            </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li
                 class="nav-item @yield('active-kategori') @yield('active-penerbit') @yield('active-rak') @yield('active-buku') @yield('active-user')">
@@ -56,7 +67,8 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Data Master</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo"
+                    aria-expanded="false" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item @yield('active-kategori')" href="/DataCategory">Data Category</a>
                         <a class="collapse-item @yield('active-penerbit')" href="/DataPenerbit">Data Penerbit</a>
@@ -67,52 +79,29 @@
                 </div>
             </li>
 
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesanan"
-                    aria-expanded="true" aria-controls="pesanan">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Data Pesanan</span>
-                </a>
-                <div id="pesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/pesanan/baru"> Pesanan Baru</a>
-                        <a class="collapse-item" href="/pesanan/dikonfirmasi"> Pesanan Dikonfirmasi</a>
-                        <a class="collapse-item" href="/pesanan/dikemas">Pesanan Dikemas</a>
-                        <a class="collapse-item" href="/pesanan/dikirim">Pesanan Dikirim</a>
-                        <a class="collapse-item" href="/pesanan/diterima">Pesanan Diterima</a>
-                        <a class="collapse-item" href="/pesanan/selesai">Pesanan Selesai</a>
-                    </div>
-                </div>
-            </li> --}}
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="/payment">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>Pembayaran</span></a>
-            </li> --}}
-
-            <li class="nav-item">
-                <a class="nav-link" href="/laporan">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Laporan</span></a>
-            </li>
-
             <li class="nav-item @yield('active-peminjaman') @yield('active-pengembalian') ">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-folder fa-cog"></i>
+                    <i class="fas fa-folder-open "></i>
                     <span>Perpus Master</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item @yield('active-peminjaman')" href="/DataPeminjaman">Data Peminjaman</a>
-                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPenerbit">Data Pengembalian</a>
+                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPengembalian">Data Pengembalian</a>
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link" href="/tentang">
-                    <i class="fas fa-fw fa-globe"></i>
-                    <span>About</span></a>
+                <a class="nav-link" href="/laporan">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Laporan</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/DataUlasan">
+                    <i class="fas fa-fw fa-feather"></i>
+                    <span>Ulasan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">
@@ -185,64 +174,8 @@
 
                 </div>
                 <!-- /.container-fluid -->
-<!-- Bootstrap core JavaScript-->
-<script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-<script src="/sbadmin2/sweetalert.min.js"></script>
+                <!-- Bootstrap core JavaScript-->
 
-<script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-<script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="/sbadmin2/js/sb-admin-2.min.js"></script>
-
-<script>
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        return null;
-    }
-}
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-<script src="/sbadmin2/sweetalert.min.js"></script>
-
-<script>
-$('.delete').click(function() {
-    var Bukuid = $(this).attr('data-id')
-    var Bukunama = $(this).attr('data-nama')
-
-    swal({
-            title: "Yakin ?",
-            text: "Menghapus Data Buku " + Bukunama + " !",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                window.location = "/deleteBuku/" + Bukuid + " "
-                swal("Data Berhasil di Hapus!", {
-                    icon: "success",
-                });
-            } else {
-                swal("Data tidak jadi terhapus");
-            }
-        });
-});
-</script>
-@include('sweetalert::alert')
-
-@stack('js')
             </div>
             <!-- End of Main Content -->
 
@@ -271,6 +204,7 @@ $('.delete').click(function() {
             <!-- Logout Modal-->
 
 
+            <!-- Bootstrap core JavaScript-->
             <!-- Bootstrap core JavaScript-->
             <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
                 integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
@@ -329,6 +263,8 @@ $('.delete').click(function() {
             @include('sweetalert::alert')
 
             @stack('js')
+
+
 
 </body>
 

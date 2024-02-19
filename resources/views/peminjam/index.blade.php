@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('buku')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/dashboard/peminjam') }}">
@@ -58,6 +62,7 @@
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                             style="cursor: pointer">
                             <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
+                            <a class="dropdown-item" href="/favorit">Favorit</a>
                             {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)
                                 <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
@@ -133,12 +138,14 @@
                                 <p class="card-text">{{ $dd->penulis }}</p>
                                 {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
                                     title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
+                            </div>
+                            <div class="card-footer">
                                 <a type="button" data-toggle="modal" title=""
-                                    href="#modalShowBuku{{ $dd->id }}" class="btn  btn-primary  "
-                                    data-original-title="Show">Detail Buku
-                                    <i class="fas fa-eye text-white"></i></a>
-                                <a type="button" class="btn btn-success"
-                                    href="/pinjamBuku/{{ $dd->id }}">Pinjam</a>
+                                    href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
+                                    data-original-title="Show">
+                                    <i class="fa fa-eye text-white"></i> Detail Buku</a>
+                                <a type="button" class="btn btn-success" href="/pinjamBuku/{{ $dd->id }}"> <i
+                                        class="fa fa-book text-white"></i> Pinjam</a>
                             </div>
 
                         </div>
@@ -208,9 +215,15 @@
 
 
                                 <div class="modal-footer">
+                                    <a href="/favorit/{{ $item->id }}" style=""
+                                        class="btn btn-primary mt-2 mb-2 ml-3" alt="Tambahkan Favorit">
+                                        <i class="fa fa-heart text-white"> </i> Favorit
+                                    </a>
+                                    <a type="button" class="btn btn-success" href="/ulasan/{{ $dd->id }}">
+                                        <i class="fa fa-feather text-white"></i> Ulasan</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
                                             class="fa fa-undo"></i>
-                                        Close</button>
+                                        Tutup</button>
                                 </div>
                                 </form>
 

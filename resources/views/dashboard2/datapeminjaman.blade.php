@@ -1,4 +1,4 @@
-@section('active-kategori', 'active')
+@section('active-peminjaman', 'active')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +11,11 @@
     <meta name="author" content="">
 
     <title>@yield('title')</title>
-    @include('admin-lte.head')
+    {{-- @include('admin-lte.head') --}}
 
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -21,6 +24,11 @@
 
     <!-- Custom styles for this template-->
     <link href="/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
 
 </head>
@@ -34,7 +42,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center ml-4" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-book"></i>
                 </div>
@@ -46,80 +54,68 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item @yield('active-dashboard')">
-                <a class="nav-link" href="/dashboard/operator">
+                <a class="nav-link" href="/dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider ">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Set
+            </div>
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item  ">
+            <li
+                class="nav-item @yield('active-kategori') @yield('active-penerbit') @yield('active-rak') @yield('active-buku') @yield('active-user')">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Data Master</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-target="#collapseTwo"
+                    aria-expanded="false" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item " href="/DataCategory">Data Category</a>
-                        <a class="collapse-item " href="/DataPenerbit">Data Penerbit</a>
-                        <a class="collapse-item " href="/DataRak">Data Rak</a>
-                        <a class="collapse-item " href="/DataBuku">Data Buku</a>
-                        <a class="collapse-item " href="/DataUser">Data User</a>
+                        <a class="collapse-item @yield('active-kategori')" href="/DataCategory">Data Category</a>
+                        <a class="collapse-item @yield('active-penerbit')" href="/DataPenerbit">Data Penerbit</a>
+                        <a class="collapse-item @yield('active-rak')" href="/DataRak">Data Rak</a>
+                        <a class="collapse-item @yield('active-buku')" href="/DataBuku">Data Buku</a>
+                        <a class="collapse-item @yield('active-user')" href="/DataUser">Data User</a>
                     </div>
                 </div>
             </li>
 
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pesanan"
-                    aria-expanded="true" aria-controls="pesanan">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Data Pesanan</span>
+            <li class="nav-item @yield('active-peminjaman') @yield('active-pengembalian') ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-folder-open "></i>
+                    <span>Perpus Master</span>
                 </a>
-                <div id="pesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/pesanan/baru"> Pesanan Baru</a>
-                        <a class="collapse-item" href="/pesanan/dikonfirmasi"> Pesanan Dikonfirmasi</a>
-                        <a class="collapse-item" href="/pesanan/dikemas">Pesanan Dikemas</a>
-                        <a class="collapse-item" href="/pesanan/dikirim">Pesanan Dikirim</a>
-                        <a class="collapse-item" href="/pesanan/diterima">Pesanan Diterima</a>
-                        <a class="collapse-item" href="/pesanan/selesai">Pesanan Selesai</a>
+                        <a class="collapse-item @yield('active-peminjaman')" href="/DataPeminjaman">Data Peminjaman</a>
+                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPengembalian">Data Pengembalian</a>
                     </div>
                 </div>
-            </li> --}}
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="/payment">
-                    <i class="fas fa-fw fa-credit-card"></i>
-                    <span>Pembayaran</span></a>
-            </li> --}}
-
+            </li>
+            <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link" href="/laporan">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Laporan</span></a>
             </li>
-
-            <li class="nav-item @yield('active-peminjaman') @yield('active-pengembalian') active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-folder fa-cog"></i>
-                    <span>Perpus Master</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item active" href="/DataPeminjaman">Data Peminjaman</a>
-                        <a class="collapse-item @yield('active-pengembalian')" href="/DataPengembalian">Data Pengembalian</a>
-                    </div>
-                </div>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="/tentang">
-                    <i class="fas fa-fw fa-globe"></i>
-                    <span>About</span></a>
+                <a class="nav-link" href="/DataUlasan">
+                    <i class="fas fa-fw fa-feather"></i>
+                    <span>Ulasan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Logout</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -209,13 +205,10 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @php
-                                                                $no = 1;
-                                                            @endphp
-                                                            @foreach ($data as $row)
+                                                            @foreach ($data as $index => $row)
                                                                 @if ($row->status == 0)
                                                                     <tr>
-                                                                        <td>{{ $no++ }}</td>
+                                                                        <td>{{ $index + $data->firstitem() }}
                                                                         <td>{{ $row->kode_pinjam }}
                                                                         <td>{{ $row->buku_id }}
                                                                         </td>
@@ -225,7 +218,8 @@
                                                                         <td>{{ $row->batas_pinjam }}</td>
                                                                         <td style="font-size: 90%">
                                                                             @if ($row->status == 0)
-                                                                                <span class="badge bg-danger">Menunggu
+                                                                                <span
+                                                                                    class="badge bg-danger text-white">Menunggu
                                                                                     Konfirmasi</span>
                                                                             @elseif($row->status == 1)
                                                                                 <span
@@ -233,7 +227,7 @@
                                                                                     Dipinjam</span>
                                                                             @else
                                                                                 <span
-                                                                                    class="badge bg-success">Peminjaman
+                                                                                    class="badge bg-success text-white">Peminjaman
                                                                                     Selesai</span>
                                                                             @endif
                                                                         </td>
@@ -258,7 +252,7 @@
                                                                     </tr>
                                                                 @elseif($row->status == 1)
                                                                     <tr>
-                                                                        <td>{{ $no++ }}</td>
+                                                                        <td>{{ $index + $data->firstitem() }}
                                                                         <td>{{ $row->kode_pinjam }}
                                                                         <td>{{ $row->buku_id }}
                                                                         </td>
@@ -316,8 +310,8 @@
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                    <div class="row justify-content-center">
-                                                        {{-- <div>{{ $data->links() }}</div> --}}
+                                                    <div class="row justify-content-left">
+                                                        <div>{{ $data->links() }}</div>
                                                     </div>
                                                 </div>
                                                 <!-- /.card-body -->

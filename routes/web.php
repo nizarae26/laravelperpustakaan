@@ -10,6 +10,7 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\SesiController;
+use App\Http\Controllers\UlasanFavoritController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -53,8 +54,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Route::get('/detailBuku/{id}', [DashboardController::class, 'detailBuku'])->name('detailBuku');
 
-    //peminjaman
+    //Peminjaman
     Route::get('/pinjamBuku/{id}', [PeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
+    Route::get('/ulasan/{id}', [PeminjamanController::class, 'ulasan'])->name('ulasan');
     Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
     Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
     Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
@@ -64,6 +66,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
     Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
     Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
+
+    //Ulasan & favorit
+    Route::post('/ulasan/insertUlasan/{id}', [UlasanFavoritController::class, 'insertUlasan'])->name('insertUlasan');
+    Route::get('/favorit/{id}', [UlasanFavoritController::class, 'favorit'])->name('favorit');
+    Route::get('/favorit', [UlasanFavoritController::class, 'favorits'])->name('favorits');
+    Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
+
 
     //Category
     Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');
