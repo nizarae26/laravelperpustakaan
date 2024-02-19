@@ -54,7 +54,7 @@ class PeminjamanController extends Controller
                 ->where('buku_id', $id)
                 ->get();
 
-            if ($pinjamlama->count() == 3) {
+            if ($pinjamlama->count() == 10) {
                 return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 2');
             } else {
                 if (isset($pinjamlama[0])) {
@@ -184,6 +184,39 @@ class PeminjamanController extends Controller
             $data = Peminjaman::paginate(5);
             $kategori = Category::all();
             return view('dashboard2.datapeminjaman', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function laporan()
+    {
+
+        if (Auth::user()->role_id == '1') {
+            $data = Peminjaman::all();
+            $kategori = Category::all();
+            return view('dashboard.laporan', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '2') {
+            // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
+            $data = Peminjaman::all();
+            $kategori = Category::all();
+            return view('dashboard.laporan', [
                 'buku' => Buku::all(),
                 'kategori' => $kategori,
                 'penerbit' => Penerbit::all(),

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @include('admin-lte/flash')
+@section('title', 'Ulasan | Perpus')
 @section('buku')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -140,7 +141,8 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <form action="/ulasan/insertUlasan/{{ $item->id }}" method="POST" enctype="multipart/form-data">
+                            <form action="/ulasan/insertUlasan/{{ $item->id }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <label for="ulasan" class="form-label"> Ulasan Buku
                                     {{ $item->judul }}</label>

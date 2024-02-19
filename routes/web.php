@@ -62,16 +62,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
-    Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
     Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
+    Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
     Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
     Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
+    Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');
 
     //Ulasan & favorit
     Route::post('/ulasan/insertUlasan/{id}', [UlasanFavoritController::class, 'insertUlasan'])->name('insertUlasan');
     Route::get('/favorit/{id}', [UlasanFavoritController::class, 'favorit'])->name('favorit');
     Route::get('/favorit', [UlasanFavoritController::class, 'favorits'])->name('favorits');
     Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
+    Route::get('/deleteFavorit/{id}', [UlasanFavoritController::class, 'deleteFavorit'])->name('deleteFavorit');
 
 
     //Category
@@ -114,106 +116,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Auth::routes();
-
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::get('/dashboard', function(){
-//     return view('operator/dashboard');
-// });
-
-// Route::resource('/category', CategoryController::class);
-
-
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::middleware(['auth', 'role:admin|operator'])->group(function () {
-
-    // Route::get('/logout', [DashboardController::class, 'logout']);
-
-    //Category
-    // Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');
-    // Route::post('/Category/insertCategory', [CategoryController::class, 'insertCategory'])->name('insertCategory');
-    // Route::post('/Category/{id}/updateCategory', [CategoryController::class, 'updateCategory'])->name('updateCategory');
-    // Route::get('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
-
-    //Penerbit
-    // Route::get('/DataPenerbit', [PenerbitController::class, 'DataPenerbit'])->name('DataPenerbit');
-    // Route::post('/Penerbit/insertPenerbit', [PenerbitController::class, 'insertPenerbit'])->name('insertPenerbit');
-    // Route::post('/Penerbit/{id}/updatePenerbit', [PenerbitController::class, 'updatePenerbit'])->name('updatePenerbit');
-    // Route::get('/deletePenerbit/{id}', [PenerbitController::class, 'deletePenerbit'])->name('deletePenerbit');
-
-    //Rak
-    // Route::get('/DataRak', [RakController::class, 'DataRak'])->name('DataRak');
-    // Route::post('/Rak/insertRak', [RakController::class, 'insertRak'])->name('insertRak');
-    // Route::post('/Rak/{id}/updateRak', [RakController::class, 'updateRak'])->name('updateRak');
-    // Route::get('/deleteRak/{id}', [RakController::class, 'deleteRak'])->name('deleteRak');
-
-    //Buku
-    // Route::get('/DataBuku', [BukuController::class, 'DataBuku'])->name('DataBuku');
-    // Route::post('/Buku/insertBuku', [BukuController::class, 'insertBuku'])->name('insertBuku');
-    // Route::post('/Buku/{id}/updateBuku', [BukuController::class, 'updateBuku'])->name('updateBuku');
-    // Route::get('/deleteBuku/{id}', [BukuController::class, 'deleteBuku'])->name('deleteBuku');
-
-    //User
-    // Route::get('/DataUser', [UserController::class, 'DataUser'])->name('DataUser');
-    // Route::post('/User/insertUser', [UserController::class, 'insertUser'])->name('insertUser');
-    // Route::post('/User/{id}/updateUser', [UserController::class, 'updateUser'])->name('updateUser');
-    // Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
-
-    //export pdf
-    // Route::get('/exportpdfkategori', [CategoryController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdfpenerbit', [PenerbitController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdfrak', [RakController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdfbuku', [BukuController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdf', [UserController::class, 'exportpdf'])->name('exportpdf');
-// });
-
-// Route::middleware(['auth', 'role:operator'])->group(function () {
-
-    // Route::get('/dashboard', [DashboardController::class, 'index']);
-
-    // //Category
-    // Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');
-    // Route::post('/Category/insertCategory', [CategoryController::class, 'insertCategory'])->name('insertCategory');
-    // Route::post('/Category/{id}/updateCategory', [CategoryController::class, 'updateCategory'])->name('updateCategory');
-    // Route::get('/deleteCategory/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
-
-    // //Penerbit
-    // Route::get('/DataPenerbit', [PenerbitController::class, 'DataPenerbit'])->name('DataPenerbit');
-    // Route::post('/Penerbit/insertPenerbit', [PenerbitController::class, 'insertPenerbit'])->name('insertPenerbit');
-    // Route::post('/Penerbit/{id}/updatePenerbit', [PenerbitController::class, 'updatePenerbit'])->name('updatePenerbit');
-    // Route::get('/deletePenerbit/{id}', [PenerbitController::class, 'deletePenerbit'])->name('deletePenerbit');
-
-    // //Rak
-    // Route::get('/DataRak', [RakController::class, 'DataRak'])->name('DataRak');
-    // Route::post('/Rak/insertRak', [RakController::class, 'insertRak'])->name('insertRak');
-    // Route::post('/Rak/{id}/updateRak', [RakController::class, 'updateRak'])->name('updateRak');
-    // Route::get('/deleteRak/{id}', [RakController::class, 'deleteRak'])->name('deleteRak');
-
-    // //Buku
-    // Route::get('/DataBuku', [BukuController::class, 'DataBuku'])->name('DataBuku');
-    // Route::post('/Buku/insertBuku', [BukuController::class, 'insertBuku'])->name('insertBuku');
-    // Route::post('/Buku/{id}/updateBuku', [BukuController::class, 'updateBuku'])->name('updateBuku');
-    // Route::get('/deleteBuku/{id}', [BukuController::class, 'deleteBuku'])->name('deleteBuku');
-
-    //User
-    // Route::get('/DataUser', [UserController::class, 'DataUser'])->name('DataUser');
-    // Route::post('/User/insertUser', [UserController::class, 'insertUser'])->name('insertUser');
-    // Route::post('/User/{id}/updateUser', [UserController::class, 'updateUser'])->name('updateUser');
-    // Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
-
-    //export pdf
-    // Route::get('/exportpdf', [CategoryController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdf', [PenerbitController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdf', [RakController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdf', [BukuController::class, 'exportpdf'])->name('exportpdf');
-    // Route::get('/exportpdf', [UserController::class, 'exportpdf'])->name('exportpdf');
-// });
-// Route::get('/DataCategory',[CategoryController::class, 'DataCategory'])->name('DataCategory');
-
-// Route::get('/kategori', [ControllersKategoriController::class, 'list'])->name('kategori');
-// Route::post('/kategori/{id}/update', [ControllersKategoriController::class, 'update']);

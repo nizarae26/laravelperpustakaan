@@ -55,7 +55,7 @@ class UlasanFavoritController extends Controller
                 ->where('buku_id', $id)
                 ->get();
 
-            if ($favlama->count() == 3) {
+            if ($favlama->count() == 11) {
                 return redirect()->back()->with('error', 'Buku yang difavorit maksimal 2');
             } else {
                 if (isset($favlama[0])) {
@@ -131,6 +131,14 @@ class UlasanFavoritController extends Controller
             'title' => 'Semua Buku',
             'data' => $data,
         ]);
+    }
+
+    //Delete Favorit
+    public function deleteFavorit(Request $request, $id)
+    {
+        $data = Favorit::findOrfail($id);
+        $data->delete($request->all());
+        return redirect()->back()->with('success', 'Berhasil Menghapus dari Favorit');
     }
 
 

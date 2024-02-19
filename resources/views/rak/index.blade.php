@@ -1,213 +1,312 @@
-@extends('sbadmin2/app')
-
 @section('active-rak', 'active')
+@section('title', 'Rak | Perpus')
+<!DOCTYPE html>
+<html lang="en">
 
-{{-- @section('title', 'Data Kategori') --}}
+<head>
 
-@section('content')
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@yield('title')</title>
+    {{-- @include('admin-lte.head') --}}
+
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <div class="card shadow">
-        <div class="card-header mb-1">
-            <h4 class="card-title mb-1 mt-2">
-                Data Rak
-            </h4>
-        </div>
-        <div class="card-body">
-            <div class="d-flex justify-content-end mb-1">
-                <div class="col-md-4">
-                    <form action="/DataRak" method="GET">
-                        < </form>
-                </div>
-                <a href="#modalTambahRak" data-toggle="modal" class="btn btn-success btn-md mb-2"><span
-                        class="fa fa-plus mr-2"></span>Tambah Data</a>
-                <a href="/exportpdfrak" class="btn btn-info btn-md ml-2 mb-2"><span
-                        class="fa fa-solid fa-file-pdf mr-2"></span>Export PDF</a>
-            </div>
-            @if ($data->count())
 
-                <div class="row">
-                    <div class="col-md-12 mb-0">
-                        @if ($mess = Session::get('success'))
-                            <div class="alert alert-success" role="alert">
-                                <strong>{{ $mess }}</strong>
-                            </div>
-                        @endif
-                    </div>
-                </div>
 
-                {{-- @foreach ($kategori as $kategori) --}}
-                {{-- <div class="table-responsive"> --}}
-                <table id="example1" class="table table-bordered table-hover table-striped text-center">
-                    <thead>
-                        <tr>
-                            <th width="3%">No</th>
-                            <th width="10%">Rak</th>
-                            <th width="10%">Baris</th>
-                            <th width="10%">slug</th>
-                            <th width="10%">Kategori</th>
-                            <th width="10%">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data as $index => $row)
-                            <tr class="text-center">
-                                <td>{{ $index + $data->firstitem() }}</td>
-                                <td>{{ $row->rak }}</td>
-                                <td>{{ $row->baris }}</td>
-                                <td>{{ $row->slug }}</td>
-                                <td>{{ $row->Kategori->nama }}</td>
-                                <td style="text-align: center ;">
-                                    <div class="form-button-action">
-                                        <a type="button" data-toggle="modal" title=""
-                                            href="#modalEditRak{{ $row->id }}" class="btn btn-link btn-primary btn-lg "
-                                            data-original-title="Edit">
-                                            <i class="fas fa-edit text-white"></i>
-                                        </a>
-                                        <button type="button" title="" class="btn btn-link btn-danger btn-lg delete"
-                                            data-id="{{ $row->id }}" data-nama="{{ $row->nama }}"
-                                            data-original-title="Remove">
-                                            <i class="fas fa-trash text-white"></i>
-                                        </button>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        @include('sbadmin2/sidebar')
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                @include('sbadmin2/navbar')
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Data Rak</h1>
+
+                    <!-- isi -->
+                    <div class="content">
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card mb-5">
+                                            <div class="card-header" style="background-color: white">
+                                                <div class="d-flex align-items-center">
+                                                    <h4 class="card-title"></h4>
+                                                    <button class="btn btn-success btn-round ml-auto"
+                                                        data-toggle="modal" data-target="#modalTambahRak">
+                                                        <i class="fa fa-plus"></i>
+                                                        Tambah Data
+                                                    </button>
+                                                </div>
+
+                                                <!-- /.card-header -->
+                                                <div class="card-body" style="background-color: white">
+                                                    <table id="example1"
+                                                        class="table table-bordered table-hover table-striped text-center">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="3%">No</th>
+                                                                <th width="10%">Rak</th>
+                                                                <th width="10%">Baris</th>
+                                                                <th width="10%">slug</th>
+                                                                <th width="10%">Kategori</th>
+                                                                <th width="10%">Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $no = 1;
+                                                            @endphp
+                                                            @foreach ($data as $index => $row)
+                                                                <tr>
+                                                                    <td>{{ $no++ }}
+                                                                    <td>{{ $row->rak }}</td>
+                                                                    <td>{{ $row->baris }}</td>
+                                                                    <td>{{ $row->slug }}</td>
+                                                                    <td>{{ $row->Kategori->nama }}</td>
+                                                                    <td style="text-align: center ;">
+                                                                        <div class="form-button-action">
+                                                                            <a type="button" data-toggle="modal"
+                                                                                title=""
+                                                                                href="#modalEditRak{{ $row->id }}"
+                                                                                class="btn btn-link btn-primary btn-lg "
+                                                                                data-original-title="Edit">
+                                                                                <i class="fas fa-edit text-white"></i>
+                                                                            </a>
+                                                                            <button type="button" title=""
+                                                                                class="btn btn-link btn-danger btn-lg delete"
+                                                                                data-id="{{ $row->id }}"
+                                                                                data-nama="{{ $row->nama }}"
+                                                                                data-original-title="Remove">
+                                                                                <i class="fas fa-trash text-white"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th width="3%">No</th>
+                                                                <th width="10%">Rak</th>
+                                                                <th width="10%">Baris</th>
+                                                                <th width="10%">slug</th>
+                                                                <th width="10%">Kategori</th>
+                                                                <th width="10%">Aksi</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                    <div class="row justify-content-left">
+                                                        {{-- <div>{{ $data->links() }}</div> --}}
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <!-- /.card -->
+                                        </div>
+                                        <!-- /.col -->
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="row justify-content-center">
-                    <div>{{ $data->links() }}</div>
-                </div>
-                {{-- {{ $Rak->links() }} --}}
-                {{-- </div> --}}
-        </div>
-    </div>
-
-    <!-- Modal Tambah Rak -->
-    <div class="modal fade" id="modalTambahRak" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLongTitle"><b> Tambah Rak</b></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <form action="/Rak/insertRak" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div class="mb-2">
-                                <label for="" class="form-label">Rak</label>
-                                <input type="number" name="rak" class="form-control" autofocus>
+                                    <!-- /.row -->
+                                </div>
+                                <!-- /.container-fluid -->
                             </div>
-                            <div class="mb-2">
-                                <label for="" class="form-label">Baris</label>
-                                <input type="number" name="baris" class="form-control" autofocus>
-                            </div>
-                            {{-- <input type="hidden" name="slug"> --}}
-                            <div class="mb-2">
-                                <label for="">Kategori</label>
-                                <select value="kategori_id" class="form-control" name="kategori_id">
-                                    <option selected value="kategori_id">Pilih Kategori</option>
-                                    @foreach ($kategori as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                                @error('kategori_id')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-undo"></i>
-                            Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
-                    </div>
-                </form>
-
+                </div>
+                <!-- /.container-fluid -->
             </div>
-        </div>
-    </div>
+            <!-- End of Main Content -->
 
-    <!-- Modal Edit Rak -->
-    @foreach ($data as $dd)
-        <div class="modal fade" id="modalEditRak{{ $dd->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="exampleModalLongTitle"><b> Edit Data Rak</b></h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+            <!-- Modal Tambah Rak -->
+            <div class="modal fade" id="modalTambahRak" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle"><b> Tambah Rak</b></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
 
-                    <form action="/Rak/{{ $dd->id }}/updateRak" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div class="mb-2">
-                                    <label for="" class="form-label">Rak</label>
-                                    <input type="text" name="rak" class="form-control"
-                                        value="{{ $dd->rak }}">
-                                    @error('rak')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label for="" class="form-label">Baris</label>
-                                    <input type="text" name="baris" class="form-control"
-                                        value="{{ $dd->baris }}">
-                                    @error('rak')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label for="" class="form-label">Slug</label>
-                                    <input type="text" name="slug" class="form-control"
-                                        value="{{ $dd->slug }}">
-                                    @error('rak')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label for="kategori">Kategori</label>
-                                    <select value="kategori_id" class="form-control" name="kategori_id">
-                                        <option selected value="{{ $item->id }}">Pilih Kategori</option>
-                                        @foreach ($kategori as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('kategori_id')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
+                        <form action="/Rak/insertRak" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="mb-2">
+                                        <label for="" class="form-label">Rak</label>
+                                        <input type="number" name="rak" class="form-control" autofocus>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="" class="form-label">Baris</label>
+                                        <input type="number" name="baris" class="form-control" autofocus>
+                                    </div>
+                                    {{-- <input type="hidden" name="slug"> --}}
+                                    <div class="mb-2">
+                                        <label for="">Kategori</label>
+                                        <select value="kategori_id" class="form-control" name="kategori_id">
+                                            <option selected value="kategori_id">Pilih Kategori</option>
+                                            @foreach ($kategori as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('kategori_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
-                                    class="fa fa-undo"></i> Close</button>
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save
-                                changes</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                        class="fa fa-undo"></i>
+                                    Close</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save
+                                    changes</button>
+                            </div>
+                        </form>
 
+                    </div>
                 </div>
             </div>
+
+            <!-- Modal Edit Rak -->
+            @foreach ($data as $dd)
+                <div class="modal fade" id="modalEditRak{{ $dd->id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle"><b> Edit Data Rak</b></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="/Rak/{{ $dd->id }}/updateRak" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">Rak</label>
+                                            <input type="text" name="rak" class="form-control"
+                                                value="{{ $dd->rak }}">
+                                            @error('rak')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">Baris</label>
+                                            <input type="text" name="baris" class="form-control"
+                                                value="{{ $dd->baris }}">
+                                            @error('rak')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="" class="form-label">Slug</label>
+                                            <input type="text" name="slug" class="form-control"
+                                                value="{{ $dd->slug }}">
+                                            @error('rak')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="kategori">Kategori</label>
+                                            <select value="kategori_id" class="form-control" name="kategori_id">
+                                                <option selected value="{{ $item->id }}">Pilih Kategori</option>
+                                                @foreach ($kategori as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('kategori_id')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                            class="fa fa-undo"></i> Close</button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save
+                                        changes</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Perpus RPL 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-    @endforeach
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
         integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
     <script src="/sbadmin2/sweetalert.min.js"></script>
+
+
 
     <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
     <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -218,42 +317,23 @@
     <!-- Custom scripts for all pages-->
     <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/sbadmin2/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/sbadmin2/js/demo/datatables-demo.js"></script>
-    @endif
-    <!-- Bootstrap core JavaScript-->
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-    <script src="/sbadmin2/sweetalert.min.js"></script>
-
-    <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-    <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+    <script>
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                return null;
+            }
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
         integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
     <script src="/sbadmin2/sweetalert.min.js"></script>
 
-    @include('admin-lte.script')
     <script>
         $('.delete').click(function() {
             var Rakid = $(this).attr('data-id')
@@ -278,8 +358,12 @@
                 });
         });
     </script>
+    @include('sweetalert::alert')
+
+    @stack('js')
 
     @include('admin-lte.script')
+
 
     <script>
         $(function() {
@@ -301,5 +385,7 @@
         });
     </script>
 
+</body>
 
-@endsection
+
+</html>

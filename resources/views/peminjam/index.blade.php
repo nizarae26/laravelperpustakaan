@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Perpus | Peminjaman')
 @section('buku')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
     <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
@@ -52,24 +53,27 @@
                     </li>
                 </ul>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
-                            v-pre>
-                            Data
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
-                            style="cursor: pointer">
-                            <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
-                            <a class="dropdown-item" href="/favorit">Favorit</a>
-                            {{-- <div class="dropdown-divider"></div>
+                @guest
+                @else
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
+                                v-pre>
+                                Data
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
+                                style="cursor: pointer">
+                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
+                                <a class="dropdown-item" href="/favorit">Favorit</a>
+                                {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)
                                 <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
                             @endforeach --}}
-                        </div>
-                    </li>
-                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                @endguest
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto ">
@@ -113,8 +117,18 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col-md-8 mb-4">
                 <h1>{{ $title }}</h1>
+            </div>
+
+            <div class="col-md-4">
+                <form action="/dashboard/peminjam" method="GET">
+                    <div class="input-group">
+                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+                        <input name="searchh" type="searchh" class="form-control" placeholder="Cari Buku"
+                            value="{{ request('searchh') }}" style="background-color: white">
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -128,29 +142,55 @@
 
         @if ($data->isNotEmpty())
             <div class="row">
-                @foreach ($data as $dd)
-                    <div class="col-md-3">
-                        <div class="card mb-4 shadow" style="cursor: pointer">
-                            <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}" class="card-img-top"
-                                width="300" height="400">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $dd->judul }}</h5>
-                                <p class="card-text">{{ $dd->penulis }}</p>
-                                {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
-                                    title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
-                            </div>
-                            <div class="card-footer">
-                                <a type="button" data-toggle="modal" title=""
-                                    href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
-                                    data-original-title="Show">
-                                    <i class="fa fa-eye text-white"></i> Detail Buku</a>
-                                <a type="button" class="btn btn-success" href="/pinjamBuku/{{ $dd->id }}"> <i
-                                        class="fa fa-book text-white"></i> Pinjam</a>
-                            </div>
+                @if (request('searchh'))
+                    @foreach ($datas as $dd)
+                        <div class="col-md-3">
+                            <div class="card mb-4 shadow" style="cursor: pointer">
+                                <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
+                                    class="card-img-top" width="300" height="400">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $dd->judul }}</h5>
+                                    <p class="card-text">{{ $dd->penulis }}</p>
+                                    {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
+                                title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
+                                </div>
+                                <div class="card-footer">
+                                    <a type="button" data-toggle="modal" title=""
+                                        href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
+                                        data-original-title="Show">
+                                        <i class="fa fa-eye text-white"></i> Detail Buku</a>
+                                    <a type="button" class="btn btn-success" href="/pinjamBuku/{{ $dd->id }}"> <i
+                                            class="fa fa-book text-white"></i> Pinjam</a>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    @foreach ($data as $dd)
+                        <div class="col-md-3">
+                            <div class="card mb-4 shadow" style="cursor: pointer">
+                                <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
+                                    class="card-img-top" width="300" height="400">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $dd->judul }}</h5>
+                                    <p class="card-text">{{ $dd->penulis }}</p>
+                                    {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
+                                    title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
+                                </div>
+                                <div class="card-footer">
+                                    <a type="button" data-toggle="modal" title=""
+                                        href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
+                                        data-original-title="Show">
+                                        <i class="fa fa-eye text-white"></i> Detail Buku</a>
+                                    <a type="button" class="btn btn-success" href="/pinjamBuku/{{ $dd->id }}"> <i
+                                            class="fa fa-book text-white"></i> Pinjam</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
 
                 <!-- Modal Show Buku -->
                 @foreach ($data as $dd)
@@ -212,12 +252,10 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="modal-footer">
-                                    <a href="/favorit/{{ $item->id }}" style=""
-                                        class="btn btn-primary mt-2 mb-2 ml-3" alt="Tambahkan Favorit">
-                                        <i class="fa fa-heart text-white"> </i> Favorit
+                                    <a href="/favorit/{{ $item->id }}" style="" class="btn btn-primary"
+                                        alt="Tambahkan Favorit">
+                                        <i class="fa fa-heart text-white"></i> Add Favorit
                                     </a>
                                     <a type="button" class="btn btn-success" href="/ulasan/{{ $dd->id }}">
                                         <i class="fa fa-feather text-white"></i> Ulasan</a>
@@ -231,6 +269,7 @@
                         </div>
                     </div>
                 @endforeach
+
             </div>
         @else
             <div class="alert alert-danger">

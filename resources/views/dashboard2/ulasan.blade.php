@@ -1,4 +1,5 @@
 {{-- @section('active-pengembalian', 'active') --}}
+@section('title', 'Ulasan | Perpus')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -202,9 +203,9 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                                @php
-                                                                    $no = 1;
-                                                                @endphp
+                                                            @php
+                                                                $no = 1;
+                                                            @endphp
                                                             @foreach ($data as $row)
                                                                 <tr>
                                                                     <td>{{ $no++ }}</td>

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Detail Pinjam | Perpus')
 @include('admin-lte/flash')
 @section('buku')
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

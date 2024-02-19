@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Category;
 use App\Models\DetailPeminjaman;
+use App\Models\Favorit;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
@@ -103,14 +104,25 @@ class DashboardController extends Controller
     public function peminjam()
     {
         // echo " iki peminjam";
-        $data = Buku::paginate(8);
+
+        if (request('searchh')) {
+            $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(1);
+        } else {
+            $datas = 'buku tidak ada';
+        }
+        $data = Buku::paginate(4);
+        $peminjaman = Peminjaman::all();
+        $favorits = Favorit::all();
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
+            'peminjaman' => $peminjaman,
+            'favorit' => $favorits,
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
             'title' => 'Semua Buku',
             'data' => $data,
+            'datas' => $datas,
         ]);
     }
 
@@ -118,28 +130,48 @@ class DashboardController extends Controller
     public function semuaBuku()
     {
         // echo " iki peminjam";
+        if (request('searchh')) {
+            $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(1);
+        } else {
+            $datas = 'buku tidak ada';
+        }
         $data = Buku::paginate(4);
+        $peminjaman = Peminjaman::all();
+        $favorits = Favorit::all();
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
+            'peminjaman' => $peminjaman,
+            'favorit' => $favorits,
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
             'title' => 'Semua Buku',
             'data' => $data,
+            'datas' => $datas,
         ]);
     }
 
     public function semuaPenerbit()
     {
         // echo " iki peminjam";
+        if (request('searchh')) {
+            $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(1);
+        } else {
+            $datas = 'buku tidak ada';
+        }
         $data = Buku::paginate(4);
+        $peminjaman = Peminjaman::all();
+        $favorits = Favorit::all();
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
+            'peminjaman' => $peminjaman,
+            'favorit' => $favorits,
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
             'title' => 'Semua Buku',
             'data' => $data,
+            'datas' => $datas,
         ]);
     }
 

@@ -208,11 +208,11 @@
 
 
                                 <div class="modal-footer">
-                                    <a href="/favoritHapus/{{ $item->id }}" style=""
+                                    <a type="button" href="/deleteFavorit/{{ $dd->id }}" style=""
                                         class="btn btn-danger mt-2 mb-2 ml-3" alt="Tambahkan Favorit">
                                         <i class="fa fa-trash text-white"></i> Hapus Favorit
                                     </a>
-                                    <a type="button" class="btn btn-success" href="/ulasan/{{ $dd->id }}">
+                                    <a type="button" class="btn btn-success" href="/ulasan/{{ $dd->buku->id }}">
                                         <i class="fa fa-feather text-white"></i> Ulasan</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
                                             class="fa fa-undo"></i>

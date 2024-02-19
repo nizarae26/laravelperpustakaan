@@ -48,15 +48,8 @@ class BukuController extends Controller
     //menampilkan data Buku
     public function DataBuku()
     {
-        if (request('search')) {
-            $data = Buku::where('judul', 'LIKE', '%' . request('search') . '%')
-                ->orWhere('slug', 'LIKE', '%' . request('search') . '%')
-                ->orWhere('stok', 'LIKE', '%' . request('search') . '%')
-                ->orWhere('penulis', 'LIKE', '%' . request('search') . '%')->paginate(5);
-            Category::where('nama', 'LIKE', '%' . request('search') . '%')->paginate(5);
-        } else {
-            $data = Buku::paginate(5);
-        }
+
+        $data = Buku::all();
         return view('buku.index', [
 
             'kategori' => Category::all(),
