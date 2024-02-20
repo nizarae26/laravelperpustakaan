@@ -55,7 +55,9 @@ class PeminjamanController extends Controller
                 ->where('buku_id', $id)
                 ->get();
 
-                //Tidak Boleh Lebih 10
+            $cekbook = Buku::where('stok', '!=', 0);
+
+            //Tidak Boleh Lebih 10
             if ($pinjamlama->count() == 11) {
                 return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 10');
             } else {
@@ -65,15 +67,22 @@ class PeminjamanController extends Controller
                         return redirect()->back()->with('error', 'Buku yang dipinjam tidak boleh sama');
                     }
                 } else {
-                    Peminjaman::create([
-                        'kode_pinjam' => random_int(10000000, 999999999),
-                        'users_id' => auth()->user()->id,
-                        'buku_id' => $id,
-                        'tanggal_pinjam' => now(),
-                        'batas_pinjam' => now()->addDays(29),
-                        'status' => 0,
-                    ]);
-                    return redirect()->back()->with('success', 'Berhasil Meminjam');
+                    if ($cekbook) {
+                        Peminjaman::create([
+                            'kode_pinjam' => random_int(10000000, 999999999),
+                            'users_id' => auth()->user()->id,
+                            'buku_id' => $id,
+                            'tanggal_pinjam' => now(),
+                            'batas_pinjam' => now()->addDays(29),
+                            'status' => 0,
+                        ]);
+                        $data = Buku::findOrfail($id);
+                        
+                        
+                        return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
+                    } else {
+                        return redirect()->back()->with('error', 'Stok Buku Habis');
+                    }
                 }
             }
         } else {
@@ -89,6 +98,10 @@ class PeminjamanController extends Controller
             'status' => 1,
         ]);
 
+        $data->buku->update([
+            'stok' => $data->buku->stok - 1
+        ]);
+
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengonfirmasi');
     }
 
@@ -99,6 +112,10 @@ class PeminjamanController extends Controller
         $data->update([
             'status' => 2,
             'tanggal_kembali' => now(),
+        ]);
+
+        $data->buku->update([
+            'stok' => $data->buku->stok + 1
         ]);
 
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengembalikan');

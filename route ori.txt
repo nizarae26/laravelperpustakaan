@@ -38,7 +38,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/registerr', [SesiController::class, 'registerr']);
     Route::get('/logout', [SesiController::class, 'logout'])->name('loginn');
     Route::get('/', [DashboardController::class, 'peminjam']);
-
 });
 
 // Route::get('/home', function () {
@@ -47,18 +46,37 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
-    //export pdf
-    Route::get('/exportpdfkategori', [CategoryController::class, 'exportpdf'])->name('exportpdf');
-    Route::get('/exportpdfpenerbit', [PenerbitController::class, 'exportpdf'])->name('exportpdf');
-    Route::get('/exportpdfrak', [RakController::class, 'exportpdf'])->name('exportpdf');
-    Route::get('/exportpdfbuku', [BukuController::class, 'exportpdf'])->name('exportpdf');
+    Route::get('/dashboard', [DashboardController::class, 'cek']);
 
-    Route::get('/logout', [SesiController::class, 'logout']);
-});
+    Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
+    Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);// Route::get('/detailBuku/{id}', [DashboardController::class, 'detailBuku'])->name('detailBuku');
 
-Auth::routes();
+    //Peminjaman
+    Route::get('/pinjamBuku/{id}', [PeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
+    Route::get('/ulasan/{id}', [PeminjamanController::class, 'ulasan'])->name('ulasan');
+    Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
+    Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
+    Route::get('/pilihPenerbit/{id}', [PeminjamanController::class, 'pilihPenerbit'])->name('pilihPenerbit');
+    Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
+    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
+    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
+    Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
+    Route::get('/filter', [PeminjamanController::class, 'filter'])->name('filter');
+    Route::get('/filterp', [PeminjamanController::class, 'filterp'])->name('filterp');
+    Route::get('/filterla', [PeminjamanController::class, 'filterla'])->name('filterla');
+    Route::get('/filterul', [PeminjamanController::class, 'filterul'])->name('filterul');
+    Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
+    Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
+    Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
+    Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');
 
-Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
+    //Ulasan & favorit
+    Route::post('/ulasan/insertUlasan/{id}', [UlasanFavoritController::class, 'insertUlasan'])->name('insertUlasan');
+    Route::get('/favorit/{id}', [UlasanFavoritController::class, 'favorit'])->name('favorit');
+    Route::get('/favorit', [UlasanFavoritController::class, 'favorits'])->name('favorits');
+    Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
+    Route::get('/deleteFavorit/{id}', [UlasanFavoritController::class, 'deleteFavorit'])->name('deleteFavorit');
+
 
     //Category
     Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');
@@ -84,55 +102,19 @@ Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
     Route::post('/Buku/{id}/updateBuku', [BukuController::class, 'updateBuku'])->name('updateBuku');
     Route::get('/deleteBuku/{id}', [BukuController::class, 'deleteBuku'])->name('deleteBuku');
 
-    //Filter Data Tanggal
-    Route::get('/filter', [PeminjamanController::class, 'filter'])->name('filter');
-    Route::get('/filterp', [PeminjamanController::class, 'filterp'])->name('filterp');
-    Route::get('/filterla', [PeminjamanController::class, 'filterla'])->name('filterla');
-    Route::get('/filterul', [PeminjamanController::class, 'filterul'])->name('filterul');
-
-    //Data Peminjaman Pengembalian Role Admin & Operator
-    Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
-    Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
-    Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
-    Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
-    Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');
-    Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
-
-    Route::get('/logout', [SesiController::class, 'logout']);
-});
-
-//Role Admin
-Route::middleware(['auth', 'checkrole:1'])->group(function () {
-
-    // CRUD User
-    Route::get('/dashboard', [DashboardController::class, 'cek']);
+    //User
     Route::get('/DataUser', [UserController::class, 'DataUser'])->name('DataUser');
     Route::post('/User/insertUser', [UserController::class, 'insertUser'])->name('insertUser');
     Route::post('/User/{id}/updateUser', [UserController::class, 'updateUser'])->name('updateUser');
     Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
+
+    //export pdf
+    Route::get('/exportpdfkategori', [CategoryController::class, 'exportpdf'])->name('exportpdf');
+    Route::get('/exportpdfpenerbit', [PenerbitController::class, 'exportpdf'])->name('exportpdf');
+    Route::get('/exportpdfrak', [RakController::class, 'exportpdf'])->name('exportpdf');
+    Route::get('/exportpdfbuku', [BukuController::class, 'exportpdf'])->name('exportpdf');
+
+    Route::get('/logout', [SesiController::class, 'logout']);
 });
 
-Route::middleware(['auth', 'checkrole:2'])->group(function () {
-    //Dashboard Operator
-    Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
-});
-
-Route::middleware(['auth', 'checkrole:3'])->group(function () {
-
-    //Peminjaman
-    Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
-    Route::get('/pinjamBuku/{id}', [PeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
-    Route::get('/ulasan/{id}', [PeminjamanController::class, 'ulasan'])->name('ulasan');
-    Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
-    Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
-    Route::get('/pilihPenerbit/{id}', [PeminjamanController::class, 'pilihPenerbit'])->name('pilihPenerbit');
-    Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
-    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
-    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
-
-    //Ulasan & favorit
-    Route::post('/ulasan/insertUlasan/{id}', [UlasanFavoritController::class, 'insertUlasan'])->name('insertUlasan');
-    Route::get('/favorit/{id}', [UlasanFavoritController::class, 'favorit'])->name('favorit');
-    Route::get('/favorit', [UlasanFavoritController::class, 'favorits'])->name('favorits');
-    Route::get('/deleteFavorit/{id}', [UlasanFavoritController::class, 'deleteFavorit'])->name('deleteFavorit');
-});
+Auth::routes();

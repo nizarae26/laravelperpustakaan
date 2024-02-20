@@ -5,7 +5,7 @@
     <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="/fontawesome/css/brands.css" rel="stylesheet">
     <link href="/fontawesome/css/solid.css" rel="stylesheet">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/dashboard/peminjam') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -15,11 +15,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse mt-lg-0" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse  mt-lg-0" id="navbarNavDropdown">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav ">
+                <ul class="navbar-nav  ">
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
                             data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
                             v-pre>
                             Kategori
@@ -37,7 +37,7 @@
 
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
                             data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
                             v-pre>
                             Penerbit
@@ -57,7 +57,7 @@
                 @else
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
                                 data-bs-toggle="dropdown" style="cursor: pointer" saria-haspopup="true" aria-expanded="false"
                                 v-pre>
                                 Data
@@ -81,17 +81,17 @@
                     @guest
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/loginn">Login</a>
+                            <a class="nav-link text-white" href="/loginn">Login</a>
                         </li>
 
 
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/registerr">Register</a>
+                            <a class="nav-link text-white" href="/registerr">Register</a>
                         </li>
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white   " href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
@@ -209,7 +209,7 @@
                                         <div class="col-md-5">
                                             <div class="row justify-content-center">
                                                 <img src="/storage/buku/{{ $dd->sampul }}" alt=""
-                                                    width="300px" height="350px" class="text-center">
+                                                    width="300" height="350" class="text-center">
                                             </div>
                                         </div>
                                         <div class="col-md-5">
@@ -245,6 +245,11 @@
                                                         <td>:</td>
                                                         <td>{{ $dd->rak->baris }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>Stok</th>
+                                                        <td>:</td>
+                                                        <td>{{ $dd->stok }}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -253,7 +258,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <a href="/favorit/{{ $item->id }}" style="" class="btn btn-primary"
+                                    <a href="/favorit/{{ $dd->id }}" style="" class="btn btn-primary"
                                         alt="Tambahkan Favorit">
                                         <i class="fa fa-heart text-white"></i> Add Favorit
                                     </a>

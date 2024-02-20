@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        FacadesAlert::error('Anda Belum Login', 'Silahkan Login Terlebih Dahulu');
+        FacadesAlert::error('Anda Belum Login / Anda Tidak Memiliki Akses', 'Silahkan Login Terlebih Dahulu');
         return $request->expectsJson() ? null : route('loginn', true);
     }
 }

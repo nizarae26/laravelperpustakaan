@@ -9,6 +9,7 @@ use App\Models\Favorit;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
+use App\Models\Ulasan;
 use App\Models\User;
 // use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
@@ -30,10 +31,12 @@ class DashboardController extends Controller
             $kategori = Category::all();
             $penerbit = Penerbit::all();
             $peminjaman = Peminjaman::all();
+            $ulasan = Ulasan::all();
             $users = User::all();
             $raks = Rak::all();
             return view('dashboard.index', [
                 'kategori' => $kategori,
+                'ulasan' => $ulasan,
                 'penerbit' => $penerbit,
                 'peminjaman' => $peminjaman,
                 'raks' => $raks,
@@ -60,12 +63,14 @@ class DashboardController extends Controller
             $penerbit = Penerbit::all();
             $peminjaman = Peminjaman::all();
             $users = User::all();
+            $ulasan = Ulasan::all();
             $raks = Rak::all();
             return view('dashboard.index', [
                 'kategori' => $kategori,
                 'penerbit' => $penerbit,
                 'peminjaman' => $peminjaman,
                 'raks' => $raks,
+                'ulasan' => $ulasan,
                 'users' => $users,
                 'title' => 'Semua Buku',
                 'data' => $data,
@@ -83,6 +88,7 @@ class DashboardController extends Controller
     //operator
     public function operator()
     {
+        $ulasan = Ulasan::all();
         $data = Buku::all();
         $kategori = Category::all();
         $penerbit = Penerbit::all();
@@ -90,6 +96,7 @@ class DashboardController extends Controller
         $users = User::all();
         $raks = Rak::all();
         return view('dashboard2.index', [
+            'ulasan' => $ulasan,
             'kategori' => $kategori,
             'penerbit' => $penerbit,
             'peminjaman' => $peminjaman,

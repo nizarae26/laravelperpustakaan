@@ -305,6 +305,11 @@
                                                                 <td>:</td>
                                                                 <td>{{ $dd->rak->baris }}</td>
                                                             </tr>
+                                                            <tr>
+                                                                <th>Stok</th>
+                                                                <td>:</td>
+                                                                <td>{{ $dd->stok }}</td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
