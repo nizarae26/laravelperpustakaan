@@ -106,7 +106,7 @@ class DashboardController extends Controller
         // echo " iki peminjam";
 
         if (request('searchh')) {
-            $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(1);
+            $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(4);
         } else {
             $datas = 'buku tidak ada';
         }
@@ -180,6 +180,25 @@ class DashboardController extends Controller
         if ($request) {
             $data = Buku::latest()->where('kategori_id', $id)->paginate(12);
             $title = Category::find($id)->nama;
+        } else {
+            $data = Buku::latest()->paginate(12);
+            $title = 'Semua Buku';
+        }
+
+        return view('peminjam.index', [
+            'kategori' => Category::all(),
+            'penerbit' => Penerbit::all(),
+            'raks' => Rak::all(),
+            'title' => $title,
+            'data' => $data,
+        ]);
+    }
+
+    public function pilihPenerbit(Request $request, $id)
+    {
+        if ($request) {
+            $data = Buku::latest()->where('penerbit_id', $id)->paginate(12);
+            $title = Penerbit::find($id)->nama;
         } else {
             $data = Buku::latest()->paginate(12);
             $title = 'Semua Buku';

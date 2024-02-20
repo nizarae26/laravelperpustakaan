@@ -8,6 +8,7 @@ use App\Models\DetailPeminjaman;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
+use App\Models\Ulasan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,23 +55,23 @@ class PeminjamanController extends Controller
                 ->where('buku_id', $id)
                 ->get();
 
-            if ($pinjamlama->count() == 10) {
-                return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 2');
+                //Tidak Boleh Lebih 10
+            if ($pinjamlama->count() == 11) {
+                return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 10');
             } else {
+                //Tidak Boleh Sama
                 if (isset($pinjamlama[0])) {
                     if ($pinjamlama[0]->buku_id == $id) {
                         return redirect()->back()->with('error', 'Buku yang dipinjam tidak boleh sama');
                     }
                 } else {
                     Peminjaman::create([
-
                         'kode_pinjam' => random_int(10000000, 999999999),
                         'users_id' => auth()->user()->id,
                         'buku_id' => $id,
                         'tanggal_pinjam' => now(),
                         'batas_pinjam' => now()->addDays(29),
                         'status' => 0,
-
                     ]);
                     return redirect()->back()->with('success', 'Berhasil Meminjam');
                 }
@@ -102,7 +103,6 @@ class PeminjamanController extends Controller
 
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengembalikan');
     }
-
 
     //buku all
     public function semuaBuku()
@@ -152,6 +152,25 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    public function pilihPenerbit(Request $request, $id)
+    {
+        if ($request) {
+            $data = Buku::latest()->where('penerbit_id', $id)->paginate(12);
+            $title = Penerbit::find($id)->nama;
+        } else {
+            $data = Buku::latest()->paginate(12);
+            $title = 'Semua Buku';
+        }
+
+        return view('peminjam.index', [
+            'kategori' => Category::all(),
+            'penerbit' => Penerbit::all(),
+            'raks' => Rak::all(),
+            'title' => $title,
+            'data' => $data,
+        ]);
+    }
+
     public function ulasan(Request $request, $id)
     {
         // dd($id);
@@ -181,7 +200,7 @@ class PeminjamanController extends Controller
             return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
-            $data = Peminjaman::paginate(5);
+            $data = Peminjaman::all();
             $kategori = Category::all();
             return view('dashboard2.datapeminjaman', [
                 'buku' => Buku::all(),
@@ -198,6 +217,127 @@ class PeminjamanController extends Controller
         }
     }
 
+    public function filter(Request $request)
+    {
+
+        if (Auth::user()->role_id == '1') {
+            return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '2') {
+
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $data = Peminjaman::whereDate('created_at', '>=', $start_date)
+                ->wheredate('created_at', '<=', $end_date)
+                ->get();
+            $kategori = Category::all();
+            return view('dashboard2.datapeminjaman', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function filterp(Request $request)
+    {
+
+        if (Auth::user()->role_id == '1') {
+            return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
+        } elseif (Auth::user()->role_id == '2') {
+
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $data = Peminjaman::whereDate('created_at', '>=', $start_date)
+                ->wheredate('created_at', '<=', $end_date)
+                ->get();
+            $kategori = Category::all();
+            return view('dashboard2.datapengembalian', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function filterla(Request $request)
+    {
+
+        if (Auth::user()->role_id == '1') {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $data = Peminjaman::whereDate('created_at', '>=', $start_date)
+                ->wheredate('created_at', '<=', $end_date)
+                ->get();
+            $kategori = Category::all();
+            return view('dashboard.laporan', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '2') {
+
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+            $data = Peminjaman::whereDate('created_at', '>=', $start_date)
+                ->wheredate('created_at', '<=', $end_date)
+                ->get();
+            $kategori = Category::all();
+            return view('dashboard.laporan', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('login')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function filterul(Request $request)
+    {
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $data = Ulasan::whereDate('created_at', '>=', $start_date)
+            ->wheredate('created_at', '<=', $end_date)
+            ->get();
+        $kategori = Category::all();
+        $kategori = Category::all();
+        $buku = Buku::all();
+        $users = User::all();
+        return view('dashboard2.ulasan', [
+
+            'user' => $users,
+            'buku' => $buku,
+            'kategori' => $kategori,
+            'penerbit' => Penerbit::all(),
+            'raks' => Rak::all(),
+            'title' => 'Semua Buku',
+            'data' => $data,
+        ]);
+    }
+
     public function laporan()
     {
 
@@ -205,6 +345,8 @@ class PeminjamanController extends Controller
             $data = Peminjaman::all();
             $kategori = Category::all();
             return view('dashboard.laporan', [
+
+                'users' => User::all(),
                 'buku' => Buku::all(),
                 'kategori' => $kategori,
                 'penerbit' => Penerbit::all(),
@@ -217,6 +359,7 @@ class PeminjamanController extends Controller
             $data = Peminjaman::all();
             $kategori = Category::all();
             return view('dashboard.laporan', [
+                'users' => User::all(),
                 'buku' => Buku::all(),
                 'kategori' => $kategori,
                 'penerbit' => Penerbit::all(),
@@ -238,7 +381,7 @@ class PeminjamanController extends Controller
             return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
-            $data = Peminjaman::paginate(5);
+            $data = Peminjaman::all();
             $kategori = Category::all();
             return view('dashboard2.datapengembalian', [
                 'buku' => Buku::all(),

@@ -83,6 +83,7 @@ class UlasanFavoritController extends Controller
         if ($request) {
             $data = Buku::all()->where('id', $id);
             $ini = Buku::where('id', $id);
+            $users = User::all();
             $title = 'Detail Buku';
         } else {
             // $data = Buku::latest()->paginate(12);
@@ -90,6 +91,7 @@ class UlasanFavoritController extends Controller
         }
 
         return view('peminjam.ulasan', [
+            'users' => $users,
             'kategori' => Category::all(),
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
@@ -122,8 +124,10 @@ class UlasanFavoritController extends Controller
         $data = Ulasan::all();
         $kategori = Category::all();
         $buku = Buku::all();
+        $users = User::all();
         return view('dashboard2.ulasan', [
 
+            'user' => $users,
             'buku' => $buku,
             'kategori' => $kategori,
             'penerbit' => Penerbit::all(),

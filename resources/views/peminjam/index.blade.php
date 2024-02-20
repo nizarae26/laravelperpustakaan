@@ -47,7 +47,7 @@
                             <a class="dropdown-item" href="/semuaPenerbit/">Semua Penerbit</a>
                             <div class="dropdown-divider"></div>
                             @foreach ($penerbit as $item)
-                                <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
+                                <a class="dropdown-item" href="/pilihPenerbit/{{ $item->id }}">{{ $item->nama }}</a>
                             @endforeach
                         </div>
                     </li>
@@ -147,7 +147,7 @@
                         <div class="col-md-3">
                             <div class="card mb-4 shadow" style="cursor: pointer">
                                 <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
-                                    class="card-img-top" width="300" height="400">
+                                    class="card-img-top" width="300" height="350">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $dd->judul }}</h5>
                                     <p class="card-text">{{ $dd->penulis }}</p>
@@ -171,7 +171,7 @@
                         <div class="col-md-3">
                             <div class="card mb-4 shadow" style="cursor: pointer">
                                 <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
-                                    class="card-img-top" width="300" height="400">
+                                    class="card-img-top" width="300" height="350">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $dd->judul }}</h5>
                                     <p class="card-text">{{ $dd->penulis }}</p>

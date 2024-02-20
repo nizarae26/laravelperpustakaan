@@ -112,10 +112,19 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col mb-4">
                 @foreach ($data as $item)
                     <h1>Ulasan Buku {{ $item->judul }}</h1>
 
+            </div>
+            <div class="col-auto">
+                <div class="card-header">
+                    <a href="/dashboard/peminjam" style="" class="btn btn-primary mt-2 mb-2 ml-3"
+                        alt="Tambahkan Favorit">
+                        <i class="fa fa-arrow-left text-white"></i> Kembali
+                    </a>
+
+                </div>
             </div>
         </div>
 

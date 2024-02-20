@@ -184,6 +184,36 @@
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header" style="background-color: white">
+                                                <form method="GET" action="/filterul">
+                                                    <div class="row pb-3">
+                                                        <div class="row g-5 align-items-center ml-3">
+                                                            <div class="col-2 pt-2">
+                                                                <label>Start Date :</label>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <input type="date" name="start_date"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-2 pt-2">
+                                                                <label> End Date :</label>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <input type="date" name="end_date"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-1">
+                                                                <button type="submit"
+                                                                    class="btn btn-secondary">Filter</button>
+                                                            </div>
+                                                            <div class="col-1 ml-2">
+                                                                <a type="submit" href="/DataUlasan"
+                                                                    class="btn btn-primary">
+                                                                    Refresh</a>
+                                                            </div>
+
+                                                        </div>
+
+                                                </form>
                                                 <div class="d-flex align-items-center">
 
                                                 </div>
@@ -195,7 +225,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>Peminjam</th>
+                                                                <th>Nama Peminjam</th>
                                                                 <th>Buku</th>
                                                                 <th>Ulasan</th>
                                                                 <th>Tanggal Ulas</th>
@@ -209,7 +239,7 @@
                                                             @foreach ($data as $row)
                                                                 <tr>
                                                                     <td>{{ $no++ }}</td>
-                                                                    <td>{{ $row->users_id }}
+                                                                    <td>{{ $row->user->name }}
                                                                     <td>{{ $row->buku->judul }}
                                                                     <td>{{ $row->ulasan }}
                                                                     <td>{{ $row->created_at }}
@@ -221,7 +251,7 @@
                                                         <tfoot>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>Peminjam</th>
+                                                                <th>Nama Peminjam</th>
                                                                 <th>Buku</th>
                                                                 <th>Ulasan</th>
                                                                 <th>Tanggal Ulas</th>

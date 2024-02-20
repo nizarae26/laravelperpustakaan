@@ -59,11 +59,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ulasan/{id}', [PeminjamanController::class, 'ulasan'])->name('ulasan');
     Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
     Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
+    Route::get('/pilihPenerbit/{id}', [PeminjamanController::class, 'pilihPenerbit'])->name('pilihPenerbit');
     Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
-    Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
     Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
+    Route::get('/filter', [PeminjamanController::class, 'filter'])->name('filter');
+    Route::get('/filterp', [PeminjamanController::class, 'filterp'])->name('filterp');
+    Route::get('/filterla', [PeminjamanController::class, 'filterla'])->name('filterla');
+    Route::get('/filterul', [PeminjamanController::class, 'filterul'])->name('filterul');
+    Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
     Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
     Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
     Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');

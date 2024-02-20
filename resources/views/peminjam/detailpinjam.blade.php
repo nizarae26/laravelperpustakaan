@@ -2,6 +2,8 @@
 @section('title', 'Detail Pinjam | Perpus')
 @include('admin-lte/flash')
 @section('buku')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/dashboard/peminjam') }}">
@@ -113,14 +115,23 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-4">
+            <div class="col mb-4">
                 {{-- @foreach ($data as $item) --}}
                 <h1>Detail Pinjam</h1>
                 {{-- @endforeach --}}
             </div>
-        </div>
 
-        {{-- @if ($detailbuku)
+            <div class="col-auto">
+                <div class="card-header">
+                    <a href="/dashboard/peminjam" style="" class="btn btn-primary mt-2 mb-2 ml-3"
+                        alt="Tambahkan Favorit">
+                        <i class="fa fa-arrow-left text-white"></i> Kembali
+                    </a>
+
+                </div>
+            </div>
+
+            {{-- @if ($detailbuku)
             <div class="row">
                 <div class="col-md-4">
                     <img src="/storage/{{$data->sampul}}" alt="">
@@ -129,145 +140,145 @@
         @endif --}}
 
 
-        {{-- <div class="card">
+            {{-- <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Detail Peminjaman</h3>
             </div> --}}
-        <!-- /.card-header -->
-        <div class="container-fluid">
+            <!-- /.card-header -->
+            <div class="container-fluid">
 
-            <div class="card shadow mb-4">
-                <div class="card-body rounded" style="background-color: white">
-                    {{-- <div class="table-responsive rounded"> --}}
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Peminjaman</th>
-                                <th>Kode Buku</th>
-                                <th>Peminjam</th>
-                                <th>Buku</th>
-                                <th>Tanggal Pinjam</th>
-                                <th>Batas Pinjam</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-                            @foreach ($data as $row)
+                <div class="card shadow mb-4">
+                    <div class="card-body rounded" style="background-color: white">
+                        {{-- <div class="table-responsive rounded"> --}}
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $row->kode_pinjam }}
-                                    <td>{{ $row->buku_id }}
-                                    </td>
-                                    <td> {{ $row->user->name }}</td>
-                                    <td> {{ $row->buku->judul }}</td>
-                                    <td>{{ $row->tanggal_pinjam }}</td>
-                                    <td>{{ $row->batas_pinjam }}</td>
+                                    <th>No</th>
+                                    <th>Kode Peminjaman</th>
+                                    <th>Kode Buku</th>
+                                    <th>Peminjam</th>
+                                    <th>Buku</th>
+                                    <th>Tanggal Pinjam</th>
+                                    <th>Batas Pinjam</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Kode Peminjaman</th>
-                                <th>Kode Buku</th>
-                                <th>Peminjam</th>
-                                <th>Buku</th>
-                                <th>Tanggal Pinjam</th>
-                                <th>Batas Pinjam</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="row justify-content-center">
-                        {{-- <div>{{ $data->links() }}</div> --}}
+                            </thead>
+                            <tbody>
+                                @php
+                                    $no = 1;
+                                @endphp
+                                @foreach ($data as $row)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $row->kode_pinjam }}
+                                        <td>{{ $row->buku_id }}
+                                        </td>
+                                        <td> {{ $row->user->name }}</td>
+                                        <td> {{ $row->buku->judul }}</td>
+                                        <td>{{ $row->tanggal_pinjam }}</td>
+                                        <td>{{ $row->batas_pinjam }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Peminjaman</th>
+                                    <th>Kode Buku</th>
+                                    <th>Peminjam</th>
+                                    <th>Buku</th>
+                                    <th>Tanggal Pinjam</th>
+                                    <th>Batas Pinjam</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="row justify-content-center">
+                            {{-- <div>{{ $data->links() }}</div> --}}
+                        </div>
+                        {{-- </div> --}}
                     </div>
-                    {{-- </div> --}}
                 </div>
+
+
+
+                <!-- /.container-fluid -->
+
+                <!-- /.card-body -->
             </div>
 
 
 
-            <!-- /.container-fluid -->
-
-            <!-- /.card-body -->
-        </div>
 
 
 
-
-
-
-        <script>
-            function getCookie(name) {
-                var nameEQ = name + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-                    return null;
+            <script>
+                function getCookie(name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                        return null;
+                    }
                 }
-            }
-        </script>
+            </script>
 
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-        <script src="/sbadmin2/sweetalert.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+                integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+            <script src="/sbadmin2/sweetalert.min.js"></script>
 
 
-        {{-- @include('admin-lte.script') --}}
-        <script>
-            $(function() {
-                $("#example1").DataTable({
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": false,
-                    "searching": false,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
+            {{-- @include('admin-lte.script') --}}
+            <script>
+                $(function() {
+                    $("#example1").DataTable({
+                        "responsive": true,
+                        "lengthChange": false,
+                        "autoWidth": false,
+                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                    $('#example2').DataTable({
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false,
+                        "responsive": true,
+                    });
                 });
-            });
-        </script>
-        @include('sweetalert::alert')
+            </script>
+            @include('sweetalert::alert')
 
-        @stack('js')
-        <!-- Bootstrap core JavaScript-->
-        <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-            integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-        <script src="/sbadmin2/sweetalert.min.js"></script>
+            @stack('js')
+            <!-- Bootstrap core JavaScript-->
+            <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+                integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+            <script src="/sbadmin2/sweetalert.min.js"></script>
 
-        <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-        <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+            <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
-        <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="/sbadmin2/vendor/jquery/jquery.min.js"></script>
+            <script src="/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="/sbadmin2/js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="/sbadmin2/vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="/sbadmin2/vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="/sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="/sbadmin2/js/demo/datatables-demo.js"></script>
-    @endsection
+            <!-- Page level custom scripts -->
+            <script src="/sbadmin2/js/demo/datatables-demo.js"></script>
+        @endsection

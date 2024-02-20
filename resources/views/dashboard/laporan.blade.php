@@ -68,6 +68,36 @@
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header" style="background-color: white">
+                                                <form method="GET" action="/filterla">
+                                                    <div class="row pb-3">
+                                                        <div class="row g-5 align-items-center ml-3">
+                                                            <div class="col-2 pt-2">
+                                                                <label>Start Date :</label>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <input type="date" name="start_date"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-2 pt-2">
+                                                                <label> End Date :</label>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <input type="date" name="end_date"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-1">
+                                                                <button type="submit"
+                                                                    class="btn btn-secondary">Filter</button>
+                                                            </div>
+                                                            <div class="col-1 ml-2">
+                                                                <a type="submit" href="/laporan"
+                                                                    class="btn btn-primary">
+                                                                    Refresh</a>
+                                                            </div>
+
+                                                        </div>
+
+                                                </form>
                                                 <div class="d-flex align-items-center">
 
                                                 </div>
