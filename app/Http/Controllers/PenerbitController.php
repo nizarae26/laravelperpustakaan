@@ -13,13 +13,13 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        if(request('search')){
-            $penerbit = Penerbit::where('nama', 'LIKE', '%'. request('search') .'%')->paginate(5);
-        }else{
-           
-        $penerbit = Penerbit::latest()->paginate(10); 
-    }   
-        return view('penerbit.index',compact('penerbit'));
+        if (request('search')) {
+            $penerbit = Penerbit::where('nama', 'LIKE', '%' . request('search') . '%')->paginate(5);
+        } else {
+
+            $penerbit = Penerbit::latest()->paginate(10);
+        }
+        return view('penerbit.index', compact('penerbit'));
     }
 
     /**
@@ -80,9 +80,9 @@ class PenerbitController extends Controller
     // menampilkan data Penerbit
     public function DataPenerbit()
     {
-        if(request('search')){
-            $data = Penerbit::where('nama', 'LIKE', '%'. request('search') .'%')->paginate(5);
-        }else{
+        if (request('search')) {
+            $data = Penerbit::where('nama', 'LIKE', '%' . request('search') . '%')->paginate(5);
+        } else {
             $data = Penerbit::paginate(5);
         }
         return view('penerbit.index', compact('data'));

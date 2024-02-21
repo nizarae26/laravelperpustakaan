@@ -123,10 +123,12 @@
 
             <div class="col-md-4">
                 <form action="/dashboard/peminjam" method="GET">
+                    @csrf
                     <div class="input-group">
-                        <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
-                        <input name="searchh" type="searchh" class="form-control" placeholder="Cari Buku"
-                            value="{{ request('searchh') }}" style="background-color: white">
+                        <button class="btn btn-secondary" value="searchh" type="submit"><i
+                                class="fas fa-search"></i></button>
+                        <input name="searchh" type="search" class="form-control" placeholder="Cari Buku"
+                            value="{{ old('searchh') }}" style="background-color: white">
                     </div>
                 </form>
             </div>

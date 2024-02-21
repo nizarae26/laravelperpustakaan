@@ -48,16 +48,21 @@ class UlasanFavoritController extends Controller
 
     public function favorit(Request $request, $id)
     {
+        // Cek user sudah login apa belum
         if (auth()->user()) {
 
+            // Cek data favorit berdasarkan user 
             $favlama = DB::table('favorit')
                 ->where('users_id', auth()->user()->id)
                 ->where('buku_id', $id)
                 ->get();
 
+                // Batas menambahkan favorit
             if ($favlama->count() == 11) {
                 return redirect()->back()->with('error', 'Buku yang difavorit maksimal 2');
             } else {
+
+                // Favorit tidak boleh sama
                 if (isset($favlama[0])) {
                     if ($favlama[0]->buku_id == $id) {
                         return redirect()->back()->with('error', 'Buku yang difavorit tidak boleh sama');
@@ -77,6 +82,8 @@ class UlasanFavoritController extends Controller
         }
     }
 
+
+    // Ulasan berdasarkan id bukuy
     public function ulasan(Request $request, $id)
     {
         // dd($id);
@@ -101,6 +108,7 @@ class UlasanFavoritController extends Controller
         ]);
     }
 
+    // Melihat yang kita favoritkan berdasarkan user
     public function favorits()
     {
         $user = auth()->id();
@@ -118,6 +126,7 @@ class UlasanFavoritController extends Controller
         ]);
     }
 
+    // Kelola ulasan admin & operator
     public function dataUlasan()
     {
         // echo " iki peminjam";

@@ -34,6 +34,7 @@ class SesiController extends Controller
             'password' => $request->password,
         ];
 
+        // Authentikasi berdasarkan Role
         if (Auth::attempt($infologin)) {
             if (Auth::user()->role_id == '1') {
                 Alert::success('Login Berhasil', 'Selamat Datang Admin');
@@ -50,12 +51,14 @@ class SesiController extends Controller
         }
     }
 
+    // Logout
     public function logout()
     {
         Auth::logout();
         return redirect('/loginn');
     }
 
+    // Registrasi
     public function index2()
     {
         return view('register');

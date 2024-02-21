@@ -84,7 +84,7 @@ class CategoryController extends Controller
         if (request('search')) {
             $data = Category::where('nama', 'LIKE', '%' . request('search') . '%')->paginate(5);
         } else {
-            $data = Category::paginate(5);
+            $data = Category::all();
         }
         return view('kategori.index', compact('data'));
     }

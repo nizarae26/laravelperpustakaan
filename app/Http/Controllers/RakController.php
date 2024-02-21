@@ -26,6 +26,7 @@ class RakController extends Controller
     ];
 
 
+    // Menampilkan data Rak
     public function DataRak()
     {
         if (request('search')) {

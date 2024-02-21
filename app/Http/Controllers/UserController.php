@@ -17,7 +17,7 @@ class UserController extends Controller
     public function DataUser()
     {
 
-
+        // membatasi hak akses hanya admin
         if (Auth::user()->role_id == '1') {
             // return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
             $data = User::paginate(5);

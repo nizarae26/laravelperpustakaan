@@ -112,15 +112,17 @@ class DashboardController extends Controller
     {
         // echo " iki peminjam";
 
+        
+        $data = Buku::paginate(4);
+        $peminjaman = Peminjaman::all();
+        $favorits = Favorit::all();
+        $kategori = Category::all();
+
         if (request('searchh')) {
             $datas = Buku::latest()->where('judul', 'LIKE', '%' . request('searchh') . '%')->paginate(4);
         } else {
             $datas = 'buku tidak ada';
         }
-        $data = Buku::paginate(4);
-        $peminjaman = Peminjaman::all();
-        $favorits = Favorit::all();
-        $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
             'peminjaman' => $peminjaman,
@@ -220,27 +222,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function detailBuku(Request $request, $id)
-    {
-        // dd($id);
-        if ($request) {
-            $data = Buku::all()->where('id', $id);
-            $ini = Buku::where('id', $id);
-            $title = 'Detail Buku';
-        } else {
-            // $data = Buku::latest()->paginate(12);
-            $title = 'Buku Tidak Ada';
-        }
-
-        return view('peminjam.detailbuku', [
-            'kategori' => Category::all(),
-            'penerbit' => Penerbit::all(),
-            'raks' => Rak::all(),
-            'title' => $title,
-            'ini' => $ini,
-            'data' => $data,
-        ]);
-    }
 
 
     // public function logout()

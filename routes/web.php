@@ -38,7 +38,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/registerr', [SesiController::class, 'registerr']);
     Route::get('/logout', [SesiController::class, 'logout'])->name('loginn');
     Route::get('/', [DashboardController::class, 'peminjam']);
-
 });
 
 // Route::get('/home', function () {
@@ -127,7 +126,6 @@ Route::middleware(['auth', 'checkrole:3'])->group(function () {
     Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
     Route::get('/pilihPenerbit/{id}', [PeminjamanController::class, 'pilihPenerbit'])->name('pilihPenerbit');
     Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
-    Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
     Route::get('/semuaPenerbit', [PeminjamanController::class, 'semuaPenerbit'])->name('semuaPenerbit');
 
     //Ulasan & favorit

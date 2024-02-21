@@ -30,21 +30,6 @@ class BukuController extends Controller
         'rak_id' => 'raks',
     ];
 
-    // public function format()
-    // {
-    //     unset($this->buku_id);
-    //     unset($this->judul);
-    //     unset($this->sampul);
-    //     unset($this->stok);
-    //     unset($this->penulis);
-    //     unset($this->kategori);
-    //     unset($this->penerbit);
-    //     unset($this->rak);
-    //     unset($this->rak_id);
-    //     unset($this->penerbit_id);
-    //     unset($this->kategori_id);
-    // }
-
     //menampilkan data Buku
     public function DataBuku()
     {
@@ -151,10 +136,6 @@ class BukuController extends Controller
             'rak_id' => $request->rak_id,
             'stok' => $request->stok,
         ]);
-
-
-
-
 
         return redirect('DataBuku')->with('success', 'Berhasil Menambahkan data');
     }

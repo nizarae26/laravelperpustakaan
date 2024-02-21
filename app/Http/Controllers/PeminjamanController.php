@@ -25,6 +25,7 @@ class PeminjamanController extends Controller
         //
     }
 
+    // Cek Detail Pinjam Berdasarkan User 
     public function detailPinjam()
     {
         $user = auth()->id();
@@ -42,48 +43,41 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    // Peminjaman oleh user peminjam
     public function pinjamBuku(Request $request, $id)
     {
 
-        // $ceklimit = Peminjaman::all()->get($id);
-
+        // authentication login
         if (auth()->user()) {
 
-
+            // Cek Data Peminjaman
             $pinjamlama = DB::table('peminjaman')
                 ->where('users_id', auth()->user()->id)
                 ->where('buku_id', $id)
                 ->get();
 
-            $cekbook = Buku::where('stok', '!=', 0);
+            // Periksa ketersediaan stok buku yang spesifik dengan ID yang ditentukan
+            $book = Buku::find($id);
 
-            //Tidak Boleh Lebih 10
+            // Tidak Boleh Lebih 10
             if ($pinjamlama->count() == 11) {
                 return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 10');
             } else {
-                //Tidak Boleh Sama
-                if (isset($pinjamlama[0])) {
-                    if ($pinjamlama[0]->buku_id == $id) {
-                        return redirect()->back()->with('error', 'Buku yang dipinjam tidak boleh sama');
-                    }
+                if (!$book || $book->stok == 0) { // Periksa jika buku tidak ditemukan atau stok habis
+                    return redirect()->back()->with('error', 'Buku tidak tersedia atau stok habis');
                 } else {
-                    if ($cekbook) {
-                        Peminjaman::create([
-                            'kode_pinjam' => random_int(10000000, 999999999),
-                            'users_id' => auth()->user()->id,
-                            'buku_id' => $id,
-                            'tanggal_pinjam' => now(),
-                            'batas_pinjam' => now()->addDays(29),
-                            'status' => 0,
-                        ]);
-                        $data = Buku::findOrfail($id);
-                        
-                        
-                        return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
-                    } else {
-                        return redirect()->back()->with('error', 'Stok Buku Habis');
-                    }
+                    Peminjaman::create([
+                        'kode_pinjam' => random_int(10000000, 999999999),
+                        'users_id' => auth()->user()->id,
+                        'buku_id' => $id,
+                        'tanggal_pinjam' => now(),
+                        'batas_pinjam' => now()->addDays(29),
+                        'status' => 0,
+                    ]);
+        
+                    return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
                 }
+            
             }
         } else {
             Alert::error('Error', 'Anda belum Login');
@@ -93,11 +87,13 @@ class PeminjamanController extends Controller
     // confirm buku
     public function ubahStatus(Request $request, $id)
     {
+        // Confirm Buku 
         $data = Peminjaman::findOrfail($id);
         $data->update([
             'status' => 1,
         ]);
 
+        // Mengurangi Stok Buku
         $data->buku->update([
             'stok' => $data->buku->stok - 1
         ]);
@@ -105,15 +101,17 @@ class PeminjamanController extends Controller
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengonfirmasi');
     }
 
-    // confirm buku
+    // Kembali buku
     public function ubahStatus1(Request $request, $id)
     {
+        // Mengembalikan Buku
         $data = Peminjaman::findOrfail($id);
         $data->update([
             'status' => 2,
             'tanggal_kembali' => now(),
         ]);
 
+        // Menambah Stok dari buku kembali
         $data->buku->update([
             'stok' => $data->buku->stok + 1
         ]);
@@ -124,7 +122,7 @@ class PeminjamanController extends Controller
     //buku all
     public function semuaBuku()
     {
-        // echo " iki peminjam";
+        // Semua Buku Tampil
         $data = Buku::paginate(4);
         $kategori = Category::all();
         return view('peminjam.index', [
@@ -138,7 +136,7 @@ class PeminjamanController extends Controller
 
     public function semuaPenerbit()
     {
-        // echo " iki peminjam";
+        // Semua Buku Tampil
         $data = Buku::paginate(4);
         $kategori = Category::all();
         return view('peminjam.index', [
@@ -150,6 +148,7 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    // Pilih Buku Berdasarkan Kategori
     public function pilihBuku(Request $request, $id)
     {
         if ($request) {
@@ -169,6 +168,7 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    // Pilih Buku Berdasarkan Penerbit
     public function pilihPenerbit(Request $request, $id)
     {
         if ($request) {
@@ -188,6 +188,7 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    // Insert Ulasan pada halaman peminjam
     public function ulasan(Request $request, $id)
     {
         // dd($id);
@@ -210,9 +211,12 @@ class PeminjamanController extends Controller
         ]);
     }
 
+
+    // Aksi Data Peminjaman hanya yang bisa diakses oleh operator 
     public function dataPeminjaman()
     {
 
+        // Menggunakan percabangan berdasarkan previllege role
         if (Auth::user()->role_id == '1') {
             return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
         } elseif (Auth::user()->role_id == '2') {
@@ -234,6 +238,7 @@ class PeminjamanController extends Controller
         }
     }
 
+    // Filter Data Peminjaman rentan waktu 
     public function filter(Request $request)
     {
 
@@ -262,6 +267,7 @@ class PeminjamanController extends Controller
         }
     }
 
+    // Filter Data Pengembalian rentan waktu 
     public function filterp(Request $request)
     {
 
@@ -290,6 +296,7 @@ class PeminjamanController extends Controller
         }
     }
 
+    // Filter Data Laporan rentan waktu 
     public function filterla(Request $request)
     {
 
@@ -331,6 +338,7 @@ class PeminjamanController extends Controller
         }
     }
 
+    // Filter Data Ulasan rentan waktu 
     public function filterul(Request $request)
     {
 
@@ -355,6 +363,7 @@ class PeminjamanController extends Controller
         ]);
     }
 
+    // Cetak Data Laporan oleh admmin & operator 
     public function laporan()
     {
 
@@ -391,11 +400,21 @@ class PeminjamanController extends Controller
         }
     }
 
+    // Melihat Data Peminjaman yang sudah dikembalikan 
     public function dataPengembalian()
     {
 
         if (Auth::user()->role_id == '1') {
-            return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
+            $data = Peminjaman::all();
+            $kategori = Category::all();
+            return view('dashboard2.datapengembalian', [
+                'buku' => Buku::all(),
+                'kategori' => $kategori,
+                'penerbit' => Penerbit::all(),
+                'raks' => Rak::all(),
+                'title' => 'Semua Buku',
+                'data' => $data,
+            ])->with('success', 'Berhasil Login');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
             $data = Peminjaman::all();
@@ -413,79 +432,6 @@ class PeminjamanController extends Controller
         } else {
             return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
         }
-    }
-
-    public function favorit(Request $request, $id)
-    {
-        $kategori = Category::all();
-        $data = Buku::all()->where('id', $id);
-        //user harus login
-        // if (auth()->user()) {
-
-        //role peminjam
-        if (auth()->user()) {
-
-            $peminjaman_lama = DB::table('peminjaman')
-                ->join('detail_peminjaman', 'peminjaman_id', '=', 'detail_peminjaman.peminjaman_id')
-                ->where('peminjam_id', auth()->user()->id)
-                ->where('status', '!=', 3)
-                ->get();
-            Alert::error('Error', 'Limit Favorit Terlampaui');
-
-            //batas dua
-            if ($peminjaman_lama->count() == 3) {
-                return view('peminjam.detailBuku', compact('kategori', 'data'))->with('error', 'Berhasil menambahkan');
-                Alert::error('Error', 'Buku yang dipinjam maksimal 2');
-            } else {
-
-                //sudah ada isinya
-                if ($peminjaman_lama->count() == 0) {
-                    $peminjaman_baru = Peminjaman::create([
-                        'kode_pinjam' => random_int(10000000, 999999999),
-                        'peminjam_id' => auth()->user()->id,
-                        'status' => 0,
-                    ]);
-
-                    DetailPeminjaman::create([
-                        'peminjaman_id' => $peminjaman_baru->id,
-                        'buku_id' => $id
-                    ]);
-
-                    // session()->flash('Sukses', 'Berhasil menambahkan');
-                    Alert::success('Sukses', 'Berhasil menambahkan');
-                    return view('peminjam.detailBuku', compact('kategori', 'data'))->with('success', 'Berhasil menambahkan');
-                    // return redirect('detailBuku/'+$id)->with('error', 'Anda harus login');
-                } else {
-
-                    if ($peminjaman_lama[0]->buku_id == $id) {
-                        // return redirect('peminjam.detailBuku', compact('kategori', 'data'))->with('error', 'Berhasil menambahkan');
-
-                        Alert::error('Error', 'Buku yang dipinjam tidak boleh sama');
-                        // session()->flash('gagal', 'Buku yang dipinjam tidak boleh sama');
-                    } else {
-
-                        DetailPeminjaman::create([
-                            'peminjaman_id' => $peminjaman_lama[0]->peminjaman_id,
-                            'buku_id' => $id
-                        ]);
-                        return view('peminjam.detailBuku', compact('kategori', 'data'))->with('success', 'Berhasil menambahkan');
-                        Alert::success('Sukses', 'Berhasil menambahkan');
-                        // return redirect('detailBuku/'+$id+'')->with('success', 'Berhasil menambahkan favorit');
-                    }
-                }
-            }
-        } else {
-            Alert::error('Error', 'role anda bukan peminjam');
-            // session()->flash('gagal', 'role anda bukan peminjam');
-            // return redirect('semuaBuku')->with('error', 'Anda harus login');
-            return view('peminjam.detailBuku', compact('kategori', 'data'))->with('success', 'Berhasil menambahkan');
-        }
-        return view('peminjam.detailBuku', compact('kategori', 'data'))->with('success', 'Berhasil menambahkan');
-        Alert::error('Error', 'role anda bukan peminjam');
-        // } else {
-        //     return redirect('login')->with('error', 'Anda harus login');
-        // }
-        // return redirect('semuaBuku')->with('error', 'Anda harus login');
     }
 
     /**
