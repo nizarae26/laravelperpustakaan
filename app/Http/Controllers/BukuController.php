@@ -34,7 +34,7 @@ class BukuController extends Controller
     public function DataBuku()
     {
 
-        $data = Buku::all();
+        $data = Buku::latest()->paginate(1000);
         return view('buku.index', [
 
             'kategori' => Category::all(),
@@ -164,6 +164,7 @@ class BukuController extends Controller
         $data->penerbit_id = $request->penerbit_id;
         $data->kategori_id = $request->kategori_id;
         $data->rak_id = $request->rak_id;
+        $data->stok = $request->stok;
         $data->update();
         return redirect('DataBuku')->with('success', 'Berhasil Mengubah data');
     }

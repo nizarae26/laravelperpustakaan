@@ -64,8 +64,14 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                                 style="cursor: pointer">
-                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
-                                <a class="dropdown-item" href="/favorit">Favorit</a>
+                                @if ($datapinjam)
+                                    <a class="dropdown-item" href="/detailPinjam">Data Pinjam <span
+                                            class="badge text-bg-primary">{{ $datapinjam->count() }}</span></a>
+                                @endif
+                                @if ($favorit)
+                                    <a class="dropdown-item" href="/favorit">Favorit <span
+                                            class="badge text-bg-primary">{{ $favorit->count() }}</span></a>
+                                @endif
                                 {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)
                                 <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>
@@ -125,10 +131,10 @@
                 <form action="/dashboard/peminjam" method="GET">
                     @csrf
                     <div class="input-group">
-                        <button class="btn btn-secondary" value="searchh" type="submit"><i
+                        <button class="btn btn-secondary " value="searchh" type="submit"><i
                                 class="fas fa-search"></i></button>
-                        <input name="searchh" type="search" class="form-control" placeholder="Cari Buku"
-                            value="{{ old('searchh') }}" style="background-color: white">
+                        <input name="searchh" type="search" class="form-control border-secondary"
+                            placeholder="Cari Buku" value="{{ old('searchh') }}" style="background-color: white">
                     </div>
                 </form>
             </div>
@@ -147,7 +153,7 @@
                 @if (request('searchh'))
                     @foreach ($datas as $dd)
                         <div class="col-md-3">
-                            <div class="card mb-4 shadow" style="cursor: pointer">
+                            <div class="card border-secondary mb-4 shadow" style="cursor: pointer">
                                 <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
                                     class="card-img-top" width="300" height="350">
                                 <div class="card-body">
@@ -156,7 +162,7 @@
                                     {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
                                 title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer border-secondary">
                                     <a type="button" data-toggle="modal" title=""
                                         href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
                                         data-original-title="Show">
@@ -171,22 +177,23 @@
                 @else
                     @foreach ($data as $dd)
                         <div class="col-md-3">
-                            <div class="card mb-4 shadow" style="cursor: pointer">
+                            <div class="card border-secondary mb-4 shadow" style="cursor: pointer">
                                 <img src="/storage/buku/{{ $dd->sampul }}" alt="{{ $dd->judul }}"
-                                    class="card-img-top" width="300" height="350">
-                                <div class="card-body">
+                                    class="card-img-top border-secondary" width="300" height="350">
+                                <div class="card-body ">
                                     <h5 class="card-title">{{ $dd->judul }}</h5>
                                     <p class="card-text">{{ $dd->penulis }}</p>
                                     {{-- <a href="#modalShowBuku{{ $dd->id }}" id="modalShowBuku{{ $dd->id }}" type="button" data-toggle="modal"
                                     title="" class="btn btn-success" data-original-title="Show"> Show buku</a> --}}
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer border-secondary">
                                     <a type="button" data-toggle="modal" title=""
                                         href="#modalShowBuku{{ $dd->id }}" class="btn btn-primary"
                                         data-original-title="Show">
                                         <i class="fa fa-eye text-white"></i> Detail Buku</a>
-                                    <a type="button" class="btn btn-success" href="/pinjamBuku/{{ $dd->id }}"> <i
-                                            class="fa fa-book text-white"></i> Pinjam</a>
+                                    <a type="button" class="btn btn-success " style="margin-left: 3%"
+                                        href="/pinjamBuku/{{ $dd->id }}"> <i class="fa fa-book text-white"></i>
+                                        Pinjam</a>
                                 </div>
 
                             </div>
@@ -199,14 +206,14 @@
                     <div class="modal fade" id="modalShowBuku{{ $dd->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
+                            <div class="modal-content ">
+                                <div class="modal-header border-secondary">
                                     <h4 class="modal-title" id="exampleModalLongTitle"><b> Show Buku</b></h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body ">
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="row justify-content-center">

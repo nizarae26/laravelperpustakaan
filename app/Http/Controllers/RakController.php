@@ -30,12 +30,12 @@ class RakController extends Controller
     public function DataRak()
     {
         if (request('search')) {
-            $data = Rak::where('rak', 'LIKE', '%' . request('search') . '%')
+            $data = Rak::latest()->where('rak', 'LIKE', '%' . request('search') . '%')
                 ->orWhere('baris', 'LIKE', '%' . request('search') . '%')
                 ->orWhere('kategori_id', 'LIKE', '%' . request('search') . '%')
                 ->orWhere('slug', 'LIKE', '%' . request('search') . '%')->paginate(5);
         } else {
-            $data = Rak::paginate(5);
+            $data = Rak::latest()->paginate(1000);
         }
         return view('rak.index', [
             'kategori' => Category::all(),

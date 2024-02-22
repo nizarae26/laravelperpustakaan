@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Category;
 use App\Models\DetailPeminjaman;
+use App\Models\Favorit;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
@@ -30,6 +31,7 @@ class PeminjamanController extends Controller
     {
         $user = auth()->id();
         $data = Peminjaman::where('users_id', $user)->get();
+        $favorits = Favorit::where('users_id', $user)->get();
 
         return view('peminjam.detailpinjam', [
 
@@ -40,6 +42,7 @@ class PeminjamanController extends Controller
             'raks' => Rak::all(),
             'title' => 'Semua Kategori',
             'data' => $data,
+            'favorits' => $favorits,
         ]);
     }
 
@@ -74,10 +77,14 @@ class PeminjamanController extends Controller
                         'batas_pinjam' => now()->addDays(29),
                         'status' => 0,
                     ]);
-        
+
+                    // Mengurangi Stok Buku
+                    $book->update([
+                        'stok' => $book->stok - 1
+                    ]);
+
                     return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
                 }
-            
             }
         } else {
             Alert::error('Error', 'Anda belum Login');
@@ -93,10 +100,6 @@ class PeminjamanController extends Controller
             'status' => 1,
         ]);
 
-        // Mengurangi Stok Buku
-        $data->buku->update([
-            'stok' => $data->buku->stok - 1
-        ]);
 
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengonfirmasi');
     }
@@ -119,11 +122,24 @@ class PeminjamanController extends Controller
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengembalikan');
     }
 
+     //Delete Data pinjam
+     public function deletePeminjaman(Request $request, $id)
+     {
+         $data = Peminjaman::findOrfail($id);
+
+         // Menambah Stok dari buku kembali
+        $data->buku->update([
+            'stok' => $data->buku->stok + 1
+        ]);
+         $data->delete($request->all());
+         return redirect()->back()->with('success', 'Data Rak Berhasil Di Hapus');
+     }
+
     //buku all
     public function semuaBuku()
     {
         // Semua Buku Tampil
-        $data = Buku::paginate(4);
+        $data = Buku::latest()->paginate(4);
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
@@ -137,7 +153,7 @@ class PeminjamanController extends Controller
     public function semuaPenerbit()
     {
         // Semua Buku Tampil
-        $data = Buku::paginate(4);
+        $data = Buku::latest()->paginate(4);
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
@@ -221,7 +237,7 @@ class PeminjamanController extends Controller
             return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
-            $data = Peminjaman::all();
+            $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
             return view('dashboard2.datapeminjaman', [
                 'buku' => Buku::all(),
@@ -346,7 +362,9 @@ class PeminjamanController extends Controller
         $end_date = $request->end_date;
         $data = Ulasan::whereDate('created_at', '>=', $start_date)
             ->wheredate('created_at', '<=', $end_date)
-            ->get();
+            
+            ->latest()->get();
+
         $kategori = Category::all();
         $kategori = Category::all();
         $buku = Buku::all();
@@ -368,7 +386,7 @@ class PeminjamanController extends Controller
     {
 
         if (Auth::user()->role_id == '1') {
-            $data = Peminjaman::all();
+            $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
             return view('dashboard.laporan', [
 
@@ -382,7 +400,7 @@ class PeminjamanController extends Controller
             ])->with('success', 'Berhasil Login');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
-            $data = Peminjaman::all();
+            $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
             return view('dashboard.laporan', [
                 'users' => User::all(),
@@ -405,7 +423,7 @@ class PeminjamanController extends Controller
     {
 
         if (Auth::user()->role_id == '1') {
-            $data = Peminjaman::all();
+            $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
             return view('dashboard2.datapengembalian', [
                 'buku' => Buku::all(),
@@ -417,7 +435,7 @@ class PeminjamanController extends Controller
             ])->with('success', 'Berhasil Login');
         } elseif (Auth::user()->role_id == '2') {
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
-            $data = Peminjaman::all();
+            $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
             return view('dashboard2.datapengembalian', [
                 'buku' => Buku::all(),

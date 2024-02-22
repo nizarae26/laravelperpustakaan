@@ -1,0 +1,36 @@
+$pinjamlama = DB::table('peminjaman')
+    ->where('users_id', auth()->user()->id)
+    ->where('buku_id', $id)
+    ->get();
+
+// Cek Ketersediaan Stok Buku
+$cekbook = Buku::where('stok', '!=', 0)->get();
+
+// Tidak Boleh Lebih 10
+if ($pinjamlama->count() == 11) {
+    return redirect()->back()->with('error', 'Buku yang dipinjam maksimal 10');
+} else {
+    // Buku Tidak Boleh Sama
+    if (isset($pinjamlama[0])) {
+        if ($pinjamlama[0]->buku_id == $id) {
+            return redirect()->back()->with('error', 'Buku yang dipinjam tidak boleh sama');
+        }
+    } else {
+        if ($cekbook->isEmpty()) { // Periksa apakah $cekbook kosong
+            return redirect()->back()->with('error', 'Stok Buku Habis');
+        } else {
+            Peminjaman::create([
+                'kode_pinjam' => random_int(10000000, 999999999),
+                'users_id' => auth()->user()->id,
+                'buku_id' => $id,
+                'tanggal_pinjam' => now(),
+                'batas_pinjam' => now()->addDays(29),
+                'status' => 0,
+            ]);
+
+            return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
+        }
+    }
+}
+
+ ,dari kode diatas saya mempunyai masalah ketika akan melakukan proses peminjaman pada $cekbook terjadi kelolosan 

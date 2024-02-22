@@ -83,7 +83,7 @@ class PenerbitController extends Controller
         if (request('search')) {
             $data = Penerbit::where('nama', 'LIKE', '%' . request('search') . '%')->paginate(5);
         } else {
-            $data = Penerbit::paginate(5);
+            $data = Penerbit::latest()->paginate(1000);
         }
         return view('penerbit.index', compact('data'));
     }

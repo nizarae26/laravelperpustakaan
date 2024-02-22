@@ -228,6 +228,7 @@
                                                                 <th>Nama Peminjam</th>
                                                                 <th>Buku</th>
                                                                 <th>Ulasan</th>
+                                                                <th>Rating</th>
                                                                 <th>Tanggal Ulas</th>
                                                                 {{-- <th>Aksi</th> --}}
                                                             </tr>
@@ -242,6 +243,19 @@
                                                                     <td>{{ $row->user->name }}
                                                                     <td>{{ $row->buku->judul }}
                                                                     <td>{{ $row->ulasan }}
+                                                                    <td>
+                                                                        @if ($row->rating == 1)
+                                                                            <span>⭐</span>
+                                                                        @elseif($row->rating == 2)
+                                                                            <span>⭐⭐</span>
+                                                                        @elseif($row->rating == 3)
+                                                                            <span>⭐⭐⭐</span>
+                                                                        @elseif($row->rating == 4)
+                                                                            <span>⭐⭐⭐⭐</span>
+                                                                        @else
+                                                                            <span>⭐⭐⭐⭐⭐</span>
+                                                                        @endif
+                                                                    </td>
                                                                     <td>{{ $row->created_at }}
                                                                     </td>
 
@@ -254,6 +268,7 @@
                                                                 <th>Nama Peminjam</th>
                                                                 <th>Buku</th>
                                                                 <th>Ulasan</th>
+                                                                <th>Rating</th>
                                                                 <th>Tanggal Ulas</th>
                                                                 {{-- <th>Aksi</th> --}}
                                                             </tr>

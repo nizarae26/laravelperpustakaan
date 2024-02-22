@@ -153,7 +153,7 @@
                                                                 $no = 1;
                                                             @endphp
                                                             @foreach ($data as $index => $row)
-                                                                @if ($row->status == 0)
+                                                                @if ($row->status == 0 || $row->status == 1)
                                                                     <tr>
                                                                         <td>{{ $no++ }}
                                                                         <td>{{ $row->kode_pinjam }}
@@ -186,6 +186,15 @@
                                                                                     <i class="fas fa-save text-white">
                                                                                     </i> Konfirmasi
                                                                                 </a>
+                                                                                <a type="button" title=""
+                                                                                    class="btn  btn-danger deletepinjam text-white"
+                                                                                    data-id="{{ $row->id }}"
+                                                                                    data-nama="{{ $row->kode_pinjam }}"
+                                                                                    data-original-title="Remove">
+                                                                                    <i
+                                                                                        class="fas fa-trash text-white"></i>
+                                                                                    Batalkan
+                                                                                </a>
                                                                             @elseif($row->status == 1)
                                                                                 <a type="button"
                                                                                     href="/ubahStatus1/{{ $row->id }}"
@@ -193,49 +202,6 @@
                                                                                     <i
                                                                                         class="fa-solid fa-backward text-white">
                                                                                     </i> Kembali
-                                                                                </a>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                @elseif($row->status == 1)
-                                                                    <tr>
-                                                                        <td>{{ $no++ }}
-                                                                        <td>{{ $row->kode_pinjam }}
-                                                                        <td>{{ $row->buku_id }}
-                                                                        </td>
-                                                                        <td> {{ $row->user->name }}</td>
-                                                                        <td> {{ $row->buku->judul }}</td>
-                                                                        <td>{{ $row->tanggal_pinjam }}</td>
-                                                                        <td>{{ $row->batas_pinjam }}</td>
-                                                                        <td style="font-size: 90%">
-                                                                            @if ($row->status == 0)
-                                                                                <span class="badge bg-danger">Menunggu
-                                                                                    Konfirmasi</span>
-                                                                            @elseif($row->status == 1)
-                                                                                <span
-                                                                                    class="badge bg-warning text-white">Sedang
-                                                                                    Dipinjam</span>
-                                                                            @else
-                                                                                <span
-                                                                                    class="badge bg-success">Peminjaman
-                                                                                    Selesai</span>
-                                                                            @endif
-                                                                        </td>
-                                                                        <td>
-                                                                            @if ($row->status == 0)
-                                                                                <a type="button"
-                                                                                    href="/ubahStatus/{{ $row->id }}"
-                                                                                    class="btn btn-success text-white ">
-                                                                                    <i class="fas fa-save text-white">
-                                                                                    </i> Konfirmasi
-                                                                                </a>
-                                                                            @elseif($row->status == 1)
-                                                                                <a type="button"
-                                                                                    href="/ubahStatus1/{{ $row->id }}"
-                                                                                    class="btn btn-primary text-white ">
-                                                                                    <i
-                                                                                        class="fa fa-backward text-white">
-                                                                                    </i> Kembalian
                                                                                 </a>
                                                                             @endif
                                                                         </td>
@@ -339,25 +305,25 @@
     <script src="/sbadmin2/sweetalert.min.js"></script>
 
     <script>
-        $('.delete').click(function() {
-            var Bukuid = $(this).attr('data-id')
-            var Bukunama = $(this).attr('data-nama')
+        $('.deletepinjam').click(function() {
+            var Pinjamid = $(this).attr('data-id')
+            var Pinjamnama = $(this).attr('data-nama')
 
             swal({
                     title: "Yakin ?",
-                    text: "Menghapus Data Buku " + Bukunama + " !",
+                    text: "Membatalkan Peminjaman " + Pinjamnama + " !",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        window.location = "/deleteBuku/" + Bukuid + " "
-                        swal("Data Berhasil di Hapus!", {
+                        window.location = "/deletePeminjaman/" + Pinjamid + " "
+                        swal("Peminjaman Berhasil di Batalkan!", {
                             icon: "success",
                         });
                     } else {
-                        swal("Data tidak jadi terhapus");
+                        swal("Peminjaman tidak jadi dibatalkan");
                     }
                 });
         });

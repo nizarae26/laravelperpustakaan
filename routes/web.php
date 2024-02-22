@@ -92,6 +92,7 @@ Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
     //Data Peminjaman Pengembalian Role Admin & Operator
     Route::get('/DataPeminjaman', [PeminjamanController::class, 'dataPeminjaman'])->name('dataPeminjaman');
     Route::get('/DataPengembalian', [PeminjamanController::class, 'dataPengembalian'])->name('dataPengembalian');
+    Route::get('/deletePeminjaman/{id}', [PeminjamanController::class, 'deletePeminjaman'])->name('deletePeminjaman');
     Route::get('/ubahStatus/{id}', [PeminjamanController::class, 'ubahStatus'])->name('ubahStatus');
     Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
     Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');

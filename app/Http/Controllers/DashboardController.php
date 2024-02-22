@@ -30,6 +30,7 @@ class DashboardController extends Controller
             $data = Buku::all();
             $kategori = Category::all();
             $penerbit = Penerbit::all();
+            $favorit = Favorit::all();
             $peminjaman = Peminjaman::all();
             $ulasan = Ulasan::all();
             $users = User::all();
@@ -40,6 +41,7 @@ class DashboardController extends Controller
                 'penerbit' => $penerbit,
                 'peminjaman' => $peminjaman,
                 'raks' => $raks,
+                'favorit' => $favorit,
                 'users' => $users,
                 'title' => 'Semua Buku',
                 'data' => $data,
@@ -88,6 +90,7 @@ class DashboardController extends Controller
     //operator
     public function operator()
     {
+        
         $ulasan = Ulasan::all();
         $data = Buku::all();
         $kategori = Category::all();
@@ -112,10 +115,11 @@ class DashboardController extends Controller
     {
         // echo " iki peminjam";
 
-        
-        $data = Buku::paginate(4);
+        $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
+        $favorits = Favorit::where('users_id', $user)->get();
+        $data = Buku::latest()->paginate(4);
         $peminjaman = Peminjaman::all();
-        $favorits = Favorit::all();
         $kategori = Category::all();
 
         if (request('searchh')) {
@@ -131,6 +135,7 @@ class DashboardController extends Controller
             'raks' => Rak::all(),
             'title' => 'Semua Buku',
             'data' => $data,
+            'datapinjam' => $datapinjam,
             'datas' => $datas,
         ]);
     }

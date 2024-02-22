@@ -61,8 +61,14 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                             style="cursor: pointer">
-                            <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
-                            <a class="dropdown-item" href="/favorit">Favorit</a>
+                            @if ($data)
+                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam <span
+                                        class="badge text-bg-primary">{{ $data->count() }}</span></a>
+                            @endif
+                            @if ($favorits)
+                                <a class="dropdown-item" href="/favorit">Favorit <span
+                                        class="badge text-bg-primary">{{ $favorits->count() }}</span></a>
+                            @endif
                             {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)
                                 <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>

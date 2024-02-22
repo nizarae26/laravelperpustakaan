@@ -20,7 +20,7 @@ class UserController extends Controller
         // membatasi hak akses hanya admin
         if (Auth::user()->role_id == '1') {
             // return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
-            $data = User::paginate(5);
+            $data = User::latest()->paginate(1000);
             return view('User.index', [
                 'role' => Role::all(),
                 'title' => 'Semua Kategori',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Category;
 use App\Models\Favorit;
+use App\Models\Peminjaman;
 use App\Models\Penerbit;
 use App\Models\Rak;
 use App\Models\Ulasan;
@@ -57,7 +58,7 @@ class UlasanFavoritController extends Controller
                 ->where('buku_id', $id)
                 ->get();
 
-                // Batas menambahkan favorit
+            // Batas menambahkan favorit
             if ($favlama->count() == 11) {
                 return redirect()->back()->with('error', 'Buku yang difavorit maksimal 2');
             } else {
@@ -112,6 +113,7 @@ class UlasanFavoritController extends Controller
     public function favorits()
     {
         $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
         $data = Favorit::where('users_id', $user)->get();
 
         return view('peminjam.favorit', [
@@ -123,6 +125,7 @@ class UlasanFavoritController extends Controller
             'raks' => Rak::all(),
             'title' => 'Favorit',
             'data' => $data,
+            'datapinjam' => $datapinjam,
         ]);
     }
 
@@ -130,7 +133,7 @@ class UlasanFavoritController extends Controller
     public function dataUlasan()
     {
         // echo " iki peminjam";
-        $data = Ulasan::all();
+        $data = Ulasan::latest()->paginate(1000);
         $kategori = Category::all();
         $buku = Buku::all();
         $users = User::all();
