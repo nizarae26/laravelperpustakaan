@@ -57,6 +57,7 @@ class PeminjamanController extends Controller
             $pinjamlama = DB::table('peminjaman')
                 ->where('users_id', auth()->user()->id)
                 ->where('buku_id', $id)
+                ->where('status', [0,1])
                 ->get();
 
             // Periksa ketersediaan stok buku yang spesifik dengan ID yang ditentukan
@@ -68,26 +69,29 @@ class PeminjamanController extends Controller
             } else {
                 if (!$book || $book->stok == 0) { // Periksa jika buku tidak ditemukan atau stok habis
                     return redirect()->back()->with('error', 'Buku tidak tersedia atau stok habis');
-                } else {
-                    if ($pinjamlama[0]->buku_id == $id) { // Periksa jika meminjam buku yang sama
-                        return redirect()->back()->with('error', 'Buku tidak boleh sama');
+                } else {                    
+                        // Memeriksa jika buku yang dipinjam bukan buku yang sama dengan buku yang akan dipinjam
+                        if ($pinjamlama->count() > 0) {
+                            return redirect()->back()->with('error', 'Anda sudah meminjam buku ini');
+                        
                     } else {
-                    Peminjaman::create([
-                        'kode_pinjam' => random_int(10000000, 999999999),
-                        'users_id' => auth()->user()->id,
-                        'buku_id' => $id,
-                        'tanggal_pinjam' => now(),
-                        'batas_pinjam' => now()->addDays(29),
-                        'status' => 0,
-                    ]);
+                        Peminjaman::create([
+                            'kode_pinjam' => random_int(10000000, 999999999),
+                            'users_id' => auth()->user()->id,
+                            'buku_id' => $id,
+                            'tanggal_pinjam' => now(),
+                            'batas_pinjam' => now()->addDays(29),
+                            'status' => 0,
+                        ]);
 
-                    // Mengurangi Stok Buku
-                    $book->update([
-                        'stok' => $book->stok - 1
-                    ]);
+                        // Mengurangi Stok Buku
+                        $book->update([
+                            'stok' => $book->stok - 1
+                        ]);
 
-                    return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
-                }}
+                        return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
+                    }
+                }
             }
         } else {
             Alert::error('Error', 'Anda belum Login');
@@ -102,7 +106,6 @@ class PeminjamanController extends Controller
         $data->update([
             'status' => 1,
         ]);
-
 
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengonfirmasi');
     }
@@ -125,18 +128,18 @@ class PeminjamanController extends Controller
         return redirect('DataPeminjaman')->with('success', 'Berhasil Mengembalikan');
     }
 
-     //Delete Data pinjam
-     public function deletePeminjaman(Request $request, $id)
-     {
-         $data = Peminjaman::findOrfail($id);
+    //Delete Data pinjam
+    public function deletePeminjaman(Request $request, $id)
+    {
+        $data = Peminjaman::findOrfail($id);
 
-         // Menambah Stok dari buku kembali
+        // Menambah Stok dari buku kembali
         $data->buku->update([
             'stok' => $data->buku->stok + 1
         ]);
-         $data->delete($request->all());
-         return redirect()->back()->with('success', 'Data Rak Berhasil Di Hapus');
-     }
+        $data->delete($request->all());
+        return redirect()->back()->with('success', 'Data Rak Berhasil Di Hapus');
+    }
 
     //buku all
     public function semuaBuku()
@@ -365,7 +368,7 @@ class PeminjamanController extends Controller
         $end_date = $request->end_date;
         $data = Ulasan::whereDate('created_at', '>=', $start_date)
             ->wheredate('created_at', '<=', $end_date)
-            
+
             ->latest()->get();
 
         $kategori = Category::all();

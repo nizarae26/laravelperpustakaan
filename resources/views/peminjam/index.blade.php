@@ -64,9 +64,19 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                                 style="cursor: pointer">
+                                <?php
+                                
+                                $user = auth()->id();
+                                $datapinjam = App\Models\Peminjaman::where('users_id', $user)->get();
+                                $favorit = App\Models\Favorit::where('users_id', $user)->get();
+                                ?>
                                 @if ($datapinjam)
-                                    <a class="dropdown-item" href="/detailPinjam">Data Pinjam <span
-                                            class="badge text-bg-primary">{{ $datapinjam->count() }}</span></a>
+                                    <?php
+                                    $countStatus0 = $datapinjam->where('status', 0 && 1)->count();
+                                    ?>
+                                    <a class="dropdown-item" href="/detailPinjam">Data Pinjam
+                                        <span class="badge text-bg-primary">{{ $countStatus0 }}</span>
+                                    </a>
                                 @endif
                                 @if ($favorit)
                                     <a class="dropdown-item" href="/favorit">Favorit <span
@@ -203,10 +213,10 @@
 
                 <!-- Modal Show Buku -->
                 @foreach ($data as $dd)
-                    <div class="modal fade" id="modalShowBuku{{ $dd->id }}" tabindex="-1" role="dialog"
+                    <div class="modal fade " id="modalShowBuku{{ $dd->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content ">
+                        <div class="modal-dialog modal-lg ">
+                            <div class="modal-content  ">
                                 <div class="modal-header border-secondary">
                                     <h4 class="modal-title" id="exampleModalLongTitle"><b> Show Buku</b></h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

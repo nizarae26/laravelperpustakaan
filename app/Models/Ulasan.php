@@ -24,8 +24,4 @@ class Ulasan extends Model
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
-
-
-
-
 }

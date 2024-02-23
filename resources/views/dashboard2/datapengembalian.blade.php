@@ -242,6 +242,7 @@
                                                             @foreach ($data as $row)
                                                                 @if ($row->status == 0)
                                                                 @elseif($row->status == 1)
+                                                                
                                                                 @else
                                                                     <tr>
                                                                         <td>{{ $no++ }}</td>

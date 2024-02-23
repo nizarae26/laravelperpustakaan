@@ -98,7 +98,6 @@ Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
     Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');
     Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
 
-    Route::get('/logout', [SesiController::class, 'logout']);
 });
 
 //Role Admin
@@ -114,6 +113,7 @@ Route::middleware(['auth', 'checkrole:1'])->group(function () {
 
 Route::middleware(['auth', 'checkrole:2'])->group(function () {
     //Dashboard Operator
+    // Route::get('/dashboard', [DashboardController::class, 'cek']);
     Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
 });
 

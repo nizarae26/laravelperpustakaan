@@ -130,14 +130,14 @@
 
         <div class="row">
 
-            <div class="col-4">
+            <div class="col-3">
                 <div class="card mb-4 shadow rounded" style="cursor: pointer">
                     <img src="/storage/buku/{{ $item->sampul }}" alt="{{ $item->judul }}" class="card-img-top rounded"
                         width="300" height="400">
                 </div>
             </div>
 
-            <div class="col-8 mt-1">
+            <div class="col-9 mt-1">
 
                 <div class="card bg-white">
                     <div class="card-header">

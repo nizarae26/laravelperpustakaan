@@ -19,11 +19,24 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    
+    <style>
+        {
+            .swal-modal{
+                border: 1px solid #ccc;
+                border-radius: 0.75rem;
+                box-shadow:  0 0 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .swal-overlay {
+                backdrop-filter: blur(4px);
+                background-color: rgb(255 255 255 / 0.3);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    
+
     <div id="app">
         @yield('buku')
 

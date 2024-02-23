@@ -1,4 +1,4 @@
-@extends('sbadmin2/app')
+@extends('sbadmin2/operator')
 @section('title', 'Dashboard | Operator')
 @section('active-dashboard', 'active')
 @section('content')
@@ -175,17 +175,21 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Peminjaman
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Buku Belum
+                                        Dikonfirmasi
                                     </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 0)->count();
+                                    ?>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $peminjaman->count() }}</div>
+                                                {{ $countStatus0 }}</div>
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
                                                 <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $peminjaman->count() }}%" aria-valuenow="50"
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
@@ -200,30 +204,34 @@
                 </div>
             @endif
 
-            @if ($ulasan)
+            @if ($peminjaman)
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Ulasan
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Buku Yang Sedang
+                                        Dipinjam
                                     </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 1)->count();
+                                    ?>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $ulasan->count() }}</div>
+                                                {{ $countStatus0 }}</div>
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
                                                 <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $ulasan->count() }}%" aria-valuenow="50"
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-comment fa-2x text-gray-300"></i>
+                                    <i class="fas fa-folder-open fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -231,20 +239,55 @@
                 </div>
             @endif
 
-        </div>
+            @if ($peminjaman)
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Buku Yang Sedang
+                                        Dipinjam
+                                    </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 2)->count();
+                                    ?>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $countStatus0 }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-info" role="progressbar"
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-folder-open fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
-        <div class="row mb-5">
-            <div class="col-xl-9 col-md-16 mb-">
-                <div class="card border-left-primary shadow h-100 ">
-                    <div class="card-body">
-                        <div id="piechart" style="width: 700px; height: 300px;"></div>
+
+
+            <div class="row mb-5">
+                <div class="col-xl-9 col-md-16 mb-">
+                    <div class="card border-left-primary shadow h-100 ">
+                        <div class="card-body">
+                            <div id="piechart_3d" style="width: 700px; height: 300px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {{-- <div class="row">
+        {{-- <div class="row">
 
             <div class="col-lg-6">
 

@@ -61,9 +61,19 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                             style="cursor: pointer">
-                            @if ($data)
-                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam <span
-                                        class="badge text-bg-primary">{{ $data->count() }}</span></a>
+                            <?php
+                            
+                            $user = auth()->id();
+                            $datapinjam = App\Models\Peminjaman::where('users_id', $user)->get();
+                            $favorit = App\Models\Favorit::where('users_id', $user)->get();
+                            ?>
+                            @if ($datapinjam)
+                                <?php
+                                $countStatus0 = $datapinjam->where('status', 0 && 1)->count();
+                                ?>
+                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam
+                                    <span class="badge text-bg-primary">{{ $countStatus0 }}</span>
+                                </a>
                             @endif
                             @if ($favorits)
                                 <a class="dropdown-item" href="/favorit">Favorit <span

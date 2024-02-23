@@ -60,9 +60,80 @@ class DashboardController extends Controller
                 'chartData' => $chartData,
             ]);
         } elseif (Auth::user()->role_id == '2') {
-            return redirect('dashboard/operator');
+            $data = Peminjaman::selectRaw('kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman')
+                ->join('buku', 'peminjaman.buku_id', '=', 'buku.id')
+                ->join('kategori', 'buku.kategori_id', '=', 'kategori.id')
+                ->groupBy('kategori.nama')
+                ->get();
+
+            $chartData = [];
+            foreach ($data as $list) {
+                $chartData[] = [$list->nama_kategori, $list->jumlah_peminjaman];
+            }
+            $data = Buku::all();
+            $kategori = Category::all();
+            $penerbit = Penerbit::all();
+            $favorit = Favorit::all();
+            $peminjaman = Peminjaman::all();
+            $ulasan = Ulasan::all();
+            $users = User::all();
+            $raks = Rak::all();
+            return view('dashboard2.index', [
+                'kategori' => $kategori,
+                'ulasan' => $ulasan,
+                'penerbit' => $penerbit,
+                'peminjaman' => $peminjaman,
+                'raks' => $raks,
+                'favorit' => $favorit,
+                'users' => $users,
+                'title' => 'Semua Buku',
+                'data' => $data,
+                'chartData' => $chartData,
+            ]);
         } elseif (Auth::user()->role_id == '3') {
-            return redirect('login')->with('error', 'Anda bukan karyawan');;
+            return redirect('loginn')->with('error', 'Anda bukan karyawan');;
+        } else {
+            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    public function cek()
+    {
+        if (Auth::user()->role_id == '1') {
+            return redirect('loginn')->with('error', 'Anda bukan operator');;
+        } elseif (Auth::user()->role_id == '2') {
+            $data = Peminjaman::selectRaw('kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman')
+                ->join('buku', 'peminjaman.buku_id', '=', 'buku.id')
+                ->join('kategori', 'buku.kategori_id', '=', 'kategori.id')
+                ->groupBy('kategori.nama')
+                ->get();
+
+            $chartData = [];
+            foreach ($data as $list) {
+                $chartData[] = [$list->nama_kategori, $list->jumlah_peminjaman];
+            }
+            $data = Buku::all();
+            $kategori = Category::all();
+            $penerbit = Penerbit::all();
+            $favorit = Favorit::all();
+            $peminjaman = Peminjaman::all();
+            $ulasan = Ulasan::all();
+            $users = User::all();
+            $raks = Rak::all();
+            return view('dashboard2.index', [
+                'kategori' => $kategori,
+                'ulasan' => $ulasan,
+                'penerbit' => $penerbit,
+                'peminjaman' => $peminjaman,
+                'raks' => $raks,
+                'favorit' => $favorit,
+                'users' => $users,
+                'title' => 'Semua Buku',
+                'data' => $data,
+                'chartData' => $chartData,
+            ]);
+        } elseif (Auth::user()->role_id == '3') {
+            return redirect('loginn')->with('error', 'Anda bukan karyawan');;
         } else {
             return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
         }
@@ -143,6 +214,8 @@ class DashboardController extends Controller
         }
         $data = Buku::paginate(4);
         $peminjaman = Peminjaman::all();
+        $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
         $favorits = Favorit::all();
         $kategori = Category::all();
         return view('peminjam.index', [
@@ -154,6 +227,7 @@ class DashboardController extends Controller
             'title' => 'Semua Buku',
             'data' => $data,
             'datas' => $datas,
+            'datapinjam' => $datapinjam,
         ]);
     }
 
@@ -165,9 +239,11 @@ class DashboardController extends Controller
         } else {
             $datas = 'buku tidak ada';
         }
+        $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
         $data = Buku::paginate(4);
         $peminjaman = Peminjaman::all();
-        $favorits = Favorit::all();
+        $favorits    = Favorit::all();
         $kategori = Category::all();
         return view('peminjam.index', [
             'kategori' => $kategori,
@@ -178,11 +254,18 @@ class DashboardController extends Controller
             'title' => 'Semua Buku',
             'data' => $data,
             'datas' => $datas,
+            'datapinjam' => $datapinjam,
         ]);
     }
 
     public function pilihBuku(Request $request, $id)
     {
+        $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
+        $favorit    = Favorit::all();
+
+        dd($datapinjam);
+
         if ($request) {
             $data = Buku::latest()->where('kategori_id', $id)->paginate(12);
             $title = Category::find($id)->nama;
@@ -191,12 +274,15 @@ class DashboardController extends Controller
             $title = 'Semua Buku';
         }
 
+
         return view('peminjam.index', [
             'kategori' => Category::all(),
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
             'title' => $title,
             'data' => $data,
+            'favorit' => $favorit,
+            'datapinjam' => $datapinjam,
         ]);
     }
 
@@ -210,30 +296,19 @@ class DashboardController extends Controller
             $title = 'Semua Buku';
         }
 
+        $user = auth()->id();
+        $datapinjam = Peminjaman::where('users_id', $user)->get();
         return view('peminjam.index', [
             'kategori' => Category::all(),
             'penerbit' => Penerbit::all(),
             'raks' => Rak::all(),
             'title' => $title,
             'data' => $data,
+            'datapinjam' => $datapinjam,
         ]);
     }
 
-    public function pieChart()
-    {
-        $result = DB::select(DB::raw("SELECT kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman
-        FROM peminjaman
-        JOIN buku ON peminjaman.buku_id = buku.id
-        JOIN kategori ON buku.kategori_id = kategori.id
-        GROUP BY kategori.nama;"));
 
-        $data = "";
-        foreach ($result as $val) {
-            $data .= "['" . $val->nama_kategori . "', " . $val->jumlah_peminjaman . "],";
-            $chartData = $data;
-            return view('/dashboard',);
-        }
-    }
 
 
 
