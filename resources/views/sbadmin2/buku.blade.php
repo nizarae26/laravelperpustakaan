@@ -86,6 +86,7 @@
                                                                 <th>Judul</th>
                                                                 <th>Gambar</th>
                                                                 <th>Dibuat Pada</th>
+                                                                <th>Diedit Pada</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -101,6 +102,7 @@
                                                                     <td><img src="storage/buku/{{ $row->sampul }} "alt=" "
                                                                             width="60px" class=""></td>
                                                                     <td>{{ $row->created_at }}</td>
+                                                                    <td>{{ $row->updated_at }}</td>
                                                                     <td>
                                                                         <a type="button" data-toggle="modal"
                                                                             title=""
@@ -134,6 +136,7 @@
                                                                 <th>Judul</th>
                                                                 <th>Gambar</th>
                                                                 <th>Dibuat Pada</th>
+                                                                <th>Diedit Pada</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </tfoot>

@@ -69,6 +69,9 @@ class PeminjamanController extends Controller
                 if (!$book || $book->stok == 0) { // Periksa jika buku tidak ditemukan atau stok habis
                     return redirect()->back()->with('error', 'Buku tidak tersedia atau stok habis');
                 } else {
+                    if ($pinjamlama[0]->buku_id == $id) { // Periksa jika meminjam buku yang sama
+                        return redirect()->back()->with('error', 'Buku tidak boleh sama');
+                    } else {
                     Peminjaman::create([
                         'kode_pinjam' => random_int(10000000, 999999999),
                         'users_id' => auth()->user()->id,
@@ -84,7 +87,7 @@ class PeminjamanController extends Controller
                     ]);
 
                     return redirect()->back()->with('success', 'Berhasil Mengajukan Meminjam');
-                }
+                }}
             }
         } else {
             Alert::error('Error', 'Anda belum Login');

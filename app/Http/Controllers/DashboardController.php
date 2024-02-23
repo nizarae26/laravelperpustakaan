@@ -23,10 +23,22 @@ class DashboardController extends Controller
      * Display a listing of the resource.
      */
 
-    public function cek()
+
+    //admin
+    public function admin()
     {
         if (Auth::user()->role_id == '1') {
-            // return redirect('dashboard')->with('success', 'Anda  berhak mengakses ini');
+
+            $data = Peminjaman::selectRaw('kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman')
+                ->join('buku', 'peminjaman.buku_id', '=', 'buku.id')
+                ->join('kategori', 'buku.kategori_id', '=', 'kategori.id')
+                ->groupBy('kategori.nama')
+                ->get();
+
+            $chartData = [];
+            foreach ($data as $list) {
+                $chartData[] = [$list->nama_kategori, $list->jumlah_peminjaman];
+            }
             $data = Buku::all();
             $kategori = Category::all();
             $penerbit = Penerbit::all();
@@ -45,6 +57,7 @@ class DashboardController extends Controller
                 'users' => $users,
                 'title' => 'Semua Buku',
                 'data' => $data,
+                'chartData' => $chartData,
             ]);
         } elseif (Auth::user()->role_id == '2') {
             return redirect('dashboard/operator');
@@ -54,43 +67,21 @@ class DashboardController extends Controller
             return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
         }
     }
-    //admin
-    public function admin()
-    {
-
-        if (Auth::user()->role_id == '1') {
-            return redirect('dashboard')->with('success', 'Anda  berhak mengakses ini');
-            $data = Buku::all();
-            $kategori = Category::all();
-            $penerbit = Penerbit::all();
-            $peminjaman = Peminjaman::all();
-            $users = User::all();
-            $ulasan = Ulasan::all();
-            $raks = Rak::all();
-            return view('dashboard.index', [
-                'kategori' => $kategori,
-                'penerbit' => $penerbit,
-                'peminjaman' => $peminjaman,
-                'raks' => $raks,
-                'ulasan' => $ulasan,
-                'users' => $users,
-                'title' => 'Semua Buku',
-                'data' => $data,
-            ]);
-        } elseif (Auth::user()->role_id == '2') {
-            return redirect('dashboard/operator')->with('error', 'Anda tidak berhak mengakses ini');
-        } elseif (Auth::user()->role_id == '3') {
-            return redirect('login')->with('error', 'Anda bukan karyawan');;
-        } else {
-            return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
-        }
-        // echo " iki admin";
-    }
 
     //operator
     public function operator()
     {
-        
+
+        $data = Peminjaman::selectRaw('kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman')
+            ->join('buku', 'peminjaman.buku_id', '=', 'buku.id')
+            ->join('kategori', 'buku.kategori_id', '=', 'kategori.id')
+            ->groupBy('kategori.nama')
+            ->get();
+
+        $chartData = [];
+        foreach ($data as $list) {
+            $chartData[] = [$list->nama_kategori, $list->jumlah_peminjaman];
+        }
         $ulasan = Ulasan::all();
         $data = Buku::all();
         $kategori = Category::all();
@@ -107,6 +98,7 @@ class DashboardController extends Controller
             'users' => $users,
             'title' => 'Semua Buku',
             'data' => $data,
+            'chartData' => $chartData,
         ]);
     }
 
@@ -226,6 +218,24 @@ class DashboardController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function pieChart()
+    {
+        $result = DB::select(DB::raw("SELECT kategori.nama AS nama_kategori, COUNT(*) AS jumlah_peminjaman
+        FROM peminjaman
+        JOIN buku ON peminjaman.buku_id = buku.id
+        JOIN kategori ON buku.kategori_id = kategori.id
+        GROUP BY kategori.nama;"));
+
+        $data = "";
+        foreach ($result as $val) {
+            $data .= "['" . $val->nama_kategori . "', " . $val->jumlah_peminjaman . "],";
+            $chartData = $data;
+            return view('/dashboard',);
+        }
+    }
+
+
 
 
 

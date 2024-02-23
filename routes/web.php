@@ -105,7 +105,7 @@ Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
 Route::middleware(['auth', 'checkrole:1'])->group(function () {
 
     // CRUD User
-    Route::get('/dashboard', [DashboardController::class, 'cek']);
+    Route::get('/dashboard', [DashboardController::class, 'admin']);
     Route::get('/DataUser', [UserController::class, 'DataUser'])->name('DataUser');
     Route::post('/User/insertUser', [UserController::class, 'insertUser'])->name('insertUser');
     Route::post('/User/{id}/updateUser', [UserController::class, 'updateUser'])->name('updateUser');

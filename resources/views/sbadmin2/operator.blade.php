@@ -28,6 +28,33 @@
         href="{{ asset('/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Nama Kategori', 'Jumlah Peminjaman'],
+                @foreach ($chartData as $data)
+                    ['{{ $data[0] }}', {{ $data[1] }}],
+                @endforeach
+            ]);
+
+            var options = {
+                title: 'Buku Yang Sedang Dipinjam Berdasarkan Kategori',
+                pieHole: 0.3,
+            };
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
 </head>
 
 <body id="page-top">

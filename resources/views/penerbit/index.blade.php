@@ -85,7 +85,9 @@
                                                                 <th width="3%">No</th>
                                                                 <th width="20%">Nama penerbit</th>
                                                                 <th width="20%">Slug</th>
-                                                                <th width="10%">Aksi</th>
+                                                                <th width="20%">Dibuat Pada</th>
+                                                                <th width="20%">Diedit Pada</th>
+                                                                <th width="20%">Aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -97,6 +99,8 @@
                                                                     <td>{{ $no++ }}
                                                                     <td>{{ $row->nama }}</td>
                                                                     <td>{{ $row->slug }}</td>
+                                                                    <td>{{ $row->created_at }}</td>
+                                                                    <td>{{ $row->updated_at }}</td>
                                                                     <td style="text-align: center ;">
                                                                         <div class="form-button-action">
                                                                             <a type="button" data-toggle="modal"
@@ -123,7 +127,9 @@
                                                                 <th width="3%">No</th>
                                                                 <th width="20%">Nama penerbit</th>
                                                                 <th width="20%">Slug</th>
-                                                                <th width="10%">Aksi</th>
+                                                                <th width="20%">Dibuat Pada</th>
+                                                                <th width="20%">Diedit Pada</th>
+                                                                <th width="20%">Aksi</th>
                                                             </tr>
                                                         </tfoot>
                                                     </table>

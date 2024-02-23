@@ -172,16 +172,19 @@
                                     $no = 1;
                                 @endphp
                                 @foreach ($data as $row)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $row->kode_pinjam }}
-                                        <td>{{ $row->buku_id }}
-                                        </td>
-                                        <td> {{ $row->user->name }}</td>
-                                        <td> {{ $row->buku->judul }}</td>
-                                        <td>{{ $row->tanggal_pinjam }}</td>
-                                        <td>{{ $row->batas_pinjam }}</td>
-                                    </tr>
+                                    @if ($row->status == 2)
+                                    @else
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->kode_pinjam }}
+                                            <td>{{ $row->buku_id }}
+                                            </td>
+                                            <td> {{ $row->user->name }}</td>
+                                            <td> {{ $row->buku->judul }}</td>
+                                            <td>{{ $row->tanggal_pinjam }}</td>
+                                            <td>{{ $row->batas_pinjam }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                             <tfoot>

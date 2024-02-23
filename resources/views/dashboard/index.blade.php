@@ -1,15 +1,16 @@
 @extends('sbadmin2/app')
 @section('title', 'Dashboard | Admin')
 @section('active-dashboard', 'active')
-
 @section('content')
     <!-- Begin Page Content -->
+
     <div class="container-fluid">
 
         <!-- Page Heading -->
         {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
         </div> --}}
+
 
         <div class="row">
 
@@ -232,7 +233,18 @@
 
         </div>
 
-        {{-- <div class="row">
+        <div class="row mb-5">
+            <div class="col-xl-9 col-md-16 mb-">
+                <div class="card border-left-primary shadow h-100 ">
+                    <div class="card-body">
+                        <div id="piechart_3d" style="width: 700px; height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div class="row">
 
             <div class="col-lg-6">
 
