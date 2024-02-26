@@ -38,7 +38,21 @@ class UserController extends Controller
     // Isi data User
     public function insertUser(Request $request)
     {
-        User::create($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required',  'min:8'],
+            'role_id' => ['integer', 'min:1'],
+        ]);
+
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'role_id' => $request['role_id'],
+            'email_verified_at' => now(),
+        ]);
+
         return redirect()->route('DataUser')->with('success', 'User berhasil ditambah');
     }
 

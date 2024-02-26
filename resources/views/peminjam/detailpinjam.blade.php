@@ -175,6 +175,8 @@
                                     <th>Buku</th>
                                     <th>Tanggal Pinjam</th>
                                     <th>Batas Pinjam</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,6 +185,24 @@
                                 @endphp
                                 @foreach ($data as $row)
                                     @if ($row->status == 2)
+                                    @elseif($row->status == 1)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->kode_pinjam }}
+                                            <td>{{ $row->buku_id }}
+                                            </td>
+                                            <td> {{ $row->user->name }}</td>
+                                            <td> {{ $row->buku->judul }}</td>
+                                            <td>{{ $row->tanggal_pinjam }}</td>
+                                            <td>{{ $row->batas_pinjam }}</td>
+                                            <td style="font-size: 90%">
+                                                @if ($row->status == 1)
+                                                    <span class="badge bg-warning text-white">Sedang
+                                                        Dipinjam</span>
+                                                @endif
+                                            </td>
+                                            <td></td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td>{{ $no++ }}</td>
@@ -193,6 +213,19 @@
                                             <td> {{ $row->buku->judul }}</td>
                                             <td>{{ $row->tanggal_pinjam }}</td>
                                             <td>{{ $row->batas_pinjam }}</td>
+                                            <td style="font-size: 90%">
+                                                @if ($row->status == 0)
+                                                    <span class="badge bg-danger text-white">Menunggu
+                                                        Konfirmasi</span>
+                                                @endif
+                                            </td>
+                                            <td><a type="button" title=""
+                                                    class="btn  btn-danger deletepinjam text-white"
+                                                    data-id="{{ $row->id }}" data-nama="{{ $row->kode_pinjam }}"
+                                                    data-original-title="Remove">
+                                                    <i class="fas fa-trash text-white"></i>
+                                                    Batalkan
+                                                </a></td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -206,6 +239,8 @@
                                     <th>Buku</th>
                                     <th>Tanggal Pinjam</th>
                                     <th>Batas Pinjam</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -246,6 +281,27 @@
             <script src="/sbadmin2/sweetalert.min.js"></script>
 
 
+            <script>
+                $('.deletepinjam').click(function() {
+                    var Pinjamid = $(this).attr('data-id')
+                    var Pinjamnama = $(this).attr('data-nama')
+
+                    swal({
+                            title: "Yakin ?",
+                            text: "Membatalkan Peminjaman " + Pinjamnama + " !",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                window.location = "/deletePeminjaman/" + Pinjamid + " "
+                            } else {
+                                swal("Peminjaman tidak jadi dibatalkan");
+                            }
+                        });
+                });
+            </script>
             {{-- @include('admin-lte.script') --}}
             <script>
                 $(function() {

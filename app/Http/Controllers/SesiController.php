@@ -69,7 +69,7 @@ class SesiController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required',  'min:8', 'confirmed'],
             'role_id' => ['integer', 'min:1'],
         ]);
 
@@ -78,6 +78,7 @@ class SesiController extends Controller
             'email' => $request['email'],
             'password' => $request['password'],
             'role_id' => $request['role_id'],
+            'email_verified_at' => now(),
         ]);
 
         return redirect('/registerr')->with('success', 'Berhasil Membuat Akun');

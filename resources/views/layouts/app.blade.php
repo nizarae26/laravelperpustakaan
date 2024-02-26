@@ -15,16 +15,18 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-
+    <link href="/fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/fontawesome/css/solid.css" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         {
-            .swal-modal{
+            .swal-modal {
                 border: 1px solid #ccc;
                 border-radius: 0.75rem;
-                box-shadow:  0 0 10px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             }
 
             .swal-overlay {

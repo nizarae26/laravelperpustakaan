@@ -237,8 +237,11 @@
                                                         <small class="text-danger">{{ $message }}</small>
                                                     @enderror
                                                 </div>
-                                                <input type="hidden" name="stok" value="1"
-                                                    class="form-control" autofocus>
+                                                <div class="mb-2">
+                                                    <label for="stok">Stok</label>
+                                                    <input type="number" name="stok" id="stok"
+                                                        class="form-control" autofocus>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -394,35 +397,33 @@
                                                         @enderror
                                                     </div>
                                                     <div class="mb-2">
-                                                        <label for="penerbit_id">Penerbit</label>
-                                                        <select class="form-control" name="penerbit_id"
-                                                            id="penerbit_id">
-                                                            <option selected value="{{ $dd->id }}">
-                                                                {{ $dd->penerbit->nama }}</option>
-                                                            {{-- @if ($item->id != 1) --}}
+                                                        <label for="penerbit">penerbit</label>
+                                                        <select value="penerbit_id" class="form-control"
+                                                            name="penerbit_id">
+                                                            <option value="{{ $item->id }}">Pilih penerbit
+                                                            </option>
                                                             @foreach ($penerbit as $item)
-                                                                <option value="{{ $item->id }}">
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $item->id == $dd->penerbit_id ? 'selected' : '' }}>
                                                                     {{ $item->nama }}
                                                                 </option>
-                                                                {{-- @endif --}}
                                                             @endforeach
                                                         </select>
-                                                        @error('penerbit_id')
+                                                        @error('kategori_id')
                                                             <small class="text-danger">{{ $message }}</small>
                                                         @enderror
                                                     </div>
                                                     <div class="mb-2">
                                                         <label for="kategori">Kategori</label>
-                                                        <select class="form-control" name="kategori_id"
-                                                            id="kategori_id">
-                                                            <option selected value="{{ $dd->id }}">
-                                                                {{ $dd->kategori->nama }}</option>
+                                                        <select value="kategori_id" class="form-control"
+                                                            name="kategori_id">
+                                                            <option value="{{ $item->id }}">Pilih Kategori
+                                                            </option>
                                                             @foreach ($kategori as $item)
-                                                                {{-- @if ($item->id != 1) --}}
-                                                                <option value="{{ $item->id }}">
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $item->id == $dd->kategori_id ? 'selected' : '' }}>
                                                                     {{ $item->nama }}
                                                                 </option>
-                                                                {{-- @endif --}}
                                                             @endforeach
                                                         </select>
                                                         @error('kategori_id')
@@ -432,11 +433,11 @@
                                                     <div class="mb-2">
                                                         <label for="rak">Rak</label>
                                                         <select class="form-control" name="rak_id" id="rak_id">
-                                                            <option selected value="{{ $dd->id }}">Rak :
-                                                                {{ $dd->rak->rak }}; Baris :
-                                                                {{ $dd->rak->baris }}</option>
+                                                            <option value="{{ $dd->id }}">Pilih Rak</option>
                                                             @foreach ($raks as $item)
-                                                                <option value="{{ $item->id }}">Rak :
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $item->id == $dd->rak_id ? 'selected' : '' }}>
+                                                                    Rak :
                                                                     {{ $item->rak }}; Baris :
                                                                     {{ $item->baris }}</option>
                                                             @endforeach
@@ -471,13 +472,10 @@
                             </div>
                         @endforeach
                     </div>
-
-
                     <!-- /.container-fluid -->
-
                 </div>
                 <!-- End of Main Content -->
-
+                
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">

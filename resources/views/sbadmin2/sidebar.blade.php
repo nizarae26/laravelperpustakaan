@@ -59,12 +59,12 @@
         </div>
     </li>
     <hr class="sidebar-divider my-0">
-    <li class="nav-item">
+    <li class="nav-item @yield('active-laporan')">
         <a class="nav-link" href="/laporan">
             <i class="fas fa-fw fa-book"></i>
             <span>Laporan</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item @yield('active-ulasan')">
         <a class="nav-link" href="/DataUlasan">
             <i class="fas fa-fw fa-comments"></i>
             <span>Ulasan</span></a>

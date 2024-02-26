@@ -360,9 +360,6 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         window.location = "/deleteUser/" + Userid + " "
-                        swal("Data Berhasil di Hapus!", {
-                            icon: "success",
-                        });
                     } else {
                         swal("Data tidak jadi terhapus");
                     }

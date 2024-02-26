@@ -14,99 +14,6 @@
 
         <div class="row">
 
-            @if ($kategori)
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Kategori
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $kategori->count() }}</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $kategori->count() }}%" aria-valuenow="50"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($penerbit)
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Data Penerbit
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $penerbit->count() }}</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $penerbit->count() }}%" aria-valuenow="50"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-user fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($raks)
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Data Rak
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $raks->count() }}</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $raks->count() }}%" aria-valuenow="50" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-list fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
             @if ($data)
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-danger shadow h-100 py-2">
@@ -122,7 +29,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
+                                                <div class="progress-bar bg-danger" role="progressbar"
                                                     style="width:{{ $data->count() }}%" aria-valuenow="50" aria-valuemin="0"
                                                     aria-valuemax="100"></div>
                                             </div>
@@ -138,55 +45,29 @@
                 </div>
             @endif
 
-            @if ($users)
+
+            @if ($peminjaman)
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-secondary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Data User
+                                    <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">Buku Belum
+                                        Dikonfirmasi
                                     </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 0)->count();
+                                    ?>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $users->count() }}</div>
+                                                {{ $countStatus0 }}</div>
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $users->count() }}%" aria-valuenow="50"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-users fa-2x text-gray-300"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if ($peminjaman)
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-info shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data Peminjaman
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $peminjaman->count() }}</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $peminjaman->count() }}%" aria-valuenow="50"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -200,30 +81,34 @@
                 </div>
             @endif
 
-            @if ($ulasan)
+            @if ($peminjaman)
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Data Ulasan
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Buku Yang Sedang
+                                        Dipinjam
                                     </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 1)->count();
+                                    ?>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                                {{ $ulasan->count() }}</div>
+                                                {{ $countStatus0 }}</div>
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
                                                 <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width:{{ $ulasan->count() }}%" aria-valuenow="50"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                    <i class="fas fa-folder-open fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -231,19 +116,92 @@
                 </div>
             @endif
 
-        </div>
+            @if ($peminjaman)
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Buku Yang Selesai
+                                        Dipinjam
+                                    </div>
+                                    <?php
+                                    $countStatus0 = $peminjaman->where('status', 2)->count();
+                                    ?>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                {{ $countStatus0 }}</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-success" role="progressbar"
+                                                    style="width:{{ $countStatus0 }}%" aria-valuenow="50" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-folder-open fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
-        <div class="row mb-5">
-            <div class="col-xl-9 col-md-16 mb-">
-                <div class="card border-left-primary shadow h-100 ">
-                    <div class="card-body">
-                        <div id="piechart_3d" style="width: 700px; height: 300px;"></div>
+
+            <div class="col-6 col-md-16 mb-3 ">
+                <div class="card border-dark rounded shadow h-100 bg-white">
+                    <div class="card-header bg-dark">
+                        <h3 class="card-title mt-2 text-white">History Buku</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body bg-white rounded">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">No</th>
+                                    <th>Nama Buku</th>
+                                    <th>Terakhir Ditambahkan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                ?>
+                                @foreach ($bukunew as $item)
+                                    <tr>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $item->judul }}</td>
+                                        <td>
+                                            {{ $item->created_at->diffForHumans() }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+            <div class="col-6 col-md-16 mb-3 ">
+                <div class="card border-dark rounded shadow h-100 bg-white">
+                    <div class="card-body bg-white rounded">
+                        <div>
+                            {!! $chart->container() !!}
+                        </div>
+                        {!! $chart->script() !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     {{-- <div class="row">
 
             <div class="col-lg-6">

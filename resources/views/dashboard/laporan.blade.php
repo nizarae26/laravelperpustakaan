@@ -114,6 +114,7 @@
                                                                 <th>Buku</th>
                                                                 <th width="16%">Tanggal Pinjam</th>
                                                                 <th width="16%">Batas Pinjam</th>
+                                                                <th width="16%">Tanggal Kembali</th>
                                                                 <th>Status</th>
                                                             </tr>
                                                         </thead>
@@ -122,80 +123,31 @@
                                                                 $no = 1;
                                                             @endphp
                                                             @foreach ($data as $index => $row)
-                                                                @if ($row->status == 0)
-                                                                    <tr>
-                                                                        <td>{{ $no++ }}
-                                                                        <td>{{ $row->kode_pinjam }}
-                                                                        </td>
-                                                                        <td> {{ $row->user->name }}</td>
-                                                                        <td> {{ $row->buku->judul }}</td>
-                                                                        <td>{{ $row->tanggal_pinjam }}</td>
-                                                                        <td>{{ $row->batas_pinjam }}</td>
-                                                                        <td style="font-size: 90%">
-                                                                            @if ($row->status == 0)
-                                                                                <span
-                                                                                    class="badge bg-danger text-white">Menunggu
-                                                                                    Konfirmasi</span>
-                                                                            @elseif($row->status == 1)
-                                                                                <span
-                                                                                    class="badge bg-warning text-white">Sedang
-                                                                                    Dipinjam</span>
-                                                                            @else
-                                                                                <span
-                                                                                    class="badge bg-success text-white">Peminjaman
-                                                                                    Selesai</span>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                @elseif($row->status == 1)
-                                                                    <tr>
-                                                                        <td>{{ $no++ }}
-                                                                        <td>{{ $row->kode_pinjam }}
-                                                                        </td>
-                                                                        <td> {{ $row->user->name }}</td>
-                                                                        <td> {{ $row->buku->judul }}</td>
-                                                                        <td>{{ $row->tanggal_pinjam }}</td>
-                                                                        <td>{{ $row->batas_pinjam }}</td>
-                                                                        <td style="font-size: 90%">
-                                                                            @if ($row->status == 0)
-                                                                                <span class="badge bg-danger">Menunggu
-                                                                                    Konfirmasi</span>
-                                                                            @elseif($row->status == 1)
-                                                                                <span
-                                                                                    class="badge bg-warning text-white">Sedang
-                                                                                    Dipinjam</span>
-                                                                            @else
-                                                                                <span
-                                                                                    class="badge bg-success">Peminjaman
-                                                                                    Selesai</span>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                @else
-                                                                    <tr>
-                                                                        <td>{{ $no++ }}
-                                                                        <td>{{ $row->kode_pinjam }}
-                                                                        </td>
-                                                                        <td> {{ $row->user->name }}</td>
-                                                                        <td> {{ $row->buku->judul }}</td>
-                                                                        <td>{{ $row->tanggal_pinjam }}</td>
-                                                                        <td>{{ $row->batas_pinjam }}</td>
-                                                                        <td style="font-size: 90%">
-                                                                            @if ($row->status == 0)
-                                                                                <span class="badge bg-danger">Menunggu
-                                                                                    Konfirmasi</span>
-                                                                            @elseif($row->status == 1)
-                                                                                <span
-                                                                                    class="badge bg-warning text-white">Sedang
-                                                                                    Dipinjam</span>
-                                                                            @else
-                                                                                <span
-                                                                                    class="badge bg-success text-white">Peminjaman
-                                                                                    Selesai</span>
-                                                                            @endif
-                                                                        </td>
-                                                                    </tr>
-                                                                @endif
+                                                                <tr>
+                                                                    <td>{{ $no++ }}
+                                                                    <td>{{ $row->kode_pinjam }}
+                                                                    </td>
+                                                                    <td> {{ $row->user->name }}</td>
+                                                                    <td> {{ $row->buku->judul }}</td>
+                                                                    <td>{{ $row->tanggal_pinjam }}</td>
+                                                                    <td>{{ $row->batas_pinjam }}</td>
+                                                                    <td>{{ $row->tanggal_kembali }}</td>
+                                                                    <td style="font-size: 90%">
+                                                                        @if ($row->status == 0)
+                                                                            <span
+                                                                                class="badge bg-danger text-white">Menunggu
+                                                                                Konfirmasi</span>
+                                                                        @elseif($row->status == 1)
+                                                                            <span
+                                                                                class="badge bg-warning text-white">Sedang
+                                                                                Dipinjam</span>
+                                                                        @else
+                                                                            <span
+                                                                                class="badge bg-success text-white">Peminjaman
+                                                                                Selesai</span>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
                                                             @endforeach
                                                         </tbody>
                                                         <tfoot>
@@ -206,6 +158,7 @@
                                                                 <th>Buku</th>
                                                                 <th>Tanggal Pinjam</th>
                                                                 <th>Batas Pinjam</th>
+                                                                <th>Tanggal Kembali</th>
                                                                 <th>Status</th>
                                                             </tr>
                                                         </tfoot>

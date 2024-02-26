@@ -60,8 +60,24 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown"
                             style="cursor: pointer">
-                            <a class="dropdown-item" href="/detailPinjam">Data Pinjam</a>
-                            <a class="dropdown-item" href="/favorit">Favorit</a>
+                            <?php
+                                
+                                $user = auth()->id();
+                                $datapinjam = App\Models\Peminjaman::where('users_id', $user)->get();
+                                $favorit = App\Models\Favorit::where('users_id', $user)->get();
+                                ?>
+                                @if ($datapinjam)
+                                    <?php
+                                    $countStatus0 = $datapinjam->where('status', 0 && 1)->count();
+                                    ?>
+                                    <a class="dropdown-item" href="/detailPinjam">Data Pinjam
+                                        <span class="badge text-bg-primary">{{ $countStatus0 }}</span>
+                                    </a>
+                                @endif
+                                @if ($favorit)
+                                    <a class="dropdown-item" href="/favorit">Favorit <span
+                                            class="badge text-bg-primary">{{ $favorit->count() }}</span></a>
+                                @endif
                             {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)
                                 <a class="dropdown-item" href="/pilihBuku/{{ $item->id }}">{{ $item->nama }}</a>

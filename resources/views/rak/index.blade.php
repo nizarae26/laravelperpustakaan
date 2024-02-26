@@ -184,7 +184,8 @@
                                         <select value="kategori_id" class="form-control" name="kategori_id">
                                             <option selected value="kategori_id">Pilih Kategori</option>
                                             @foreach ($kategori as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                <option value="{{ $item->id }}" selected>{{ $item->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         @error('kategori_id')
@@ -252,9 +253,12 @@
                                         <div class="mb-2">
                                             <label for="kategori">Kategori</label>
                                             <select value="kategori_id" class="form-control" name="kategori_id">
-                                                <option selected value="{{ $item->id }}">Pilih Kategori</option>
+                                                <option value="{{ $item->id }}">Pilih Kategori</option>
                                                 @foreach ($kategori as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                    <option value="{{ $item->id }}"
+                                                        {{ $item->id == $dd->kategori_id ? 'selected' : '' }}>
+                                                        {{ $item->nama }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             @error('kategori_id')

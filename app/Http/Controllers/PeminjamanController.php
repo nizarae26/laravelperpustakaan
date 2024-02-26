@@ -138,7 +138,7 @@ class PeminjamanController extends Controller
             'stok' => $data->buku->stok + 1
         ]);
         $data->delete($request->all());
-        return redirect()->back()->with('success', 'Data Rak Berhasil Di Hapus');
+        return redirect()->back()->with('success', 'Peminjaman Berhasil Di Batalkan');
     }
 
     //buku all

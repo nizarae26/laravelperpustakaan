@@ -29,6 +29,7 @@ class RakController extends Controller
     // Menampilkan data Rak
     public function DataRak()
     {
+        $kategori = Category::all();
         if (request('search')) {
             $data = Rak::latest()->where('rak', 'LIKE', '%' . request('search') . '%')
                 ->orWhere('baris', 'LIKE', '%' . request('search') . '%')
@@ -38,7 +39,7 @@ class RakController extends Controller
             $data = Rak::latest()->paginate(1000);
         }
         return view('rak.index', [
-            'kategori' => Category::all(),
+            'kategori' => $kategori,
             'title' => 'Semua Kategori',
             'data' => $data,
         ]);

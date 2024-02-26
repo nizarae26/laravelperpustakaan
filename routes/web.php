@@ -59,6 +59,7 @@ Auth::routes();
 
 Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
 
+    Route::get('/dashboard', [DashboardController::class, 'cek']);
     //Category
     Route::get('/DataCategory', [CategoryController::class, 'DataCategory'])->name('DataCategory');
     Route::post('/Category/insertCategory', [CategoryController::class, 'insertCategory'])->name('insertCategory');
@@ -97,33 +98,31 @@ Route::middleware(['auth', 'checkrole:1,2'])->group(function () {
     Route::get('/ubahStatus1/{id}', [PeminjamanController::class, 'ubahStatus1'])->name('ubahStatus1');
     Route::get('/laporan', [PeminjamanController::class, 'laporan'])->name('laporan');
     Route::get('/DataUlasan', [UlasanFavoritController::class, 'dataUlasan'])->name('dataUlasan');
-
-});
-
-//Role Admin
-Route::middleware(['auth', 'checkrole:1'])->group(function () {
-
+    
     // CRUD User
-    Route::get('/dashboard', [DashboardController::class, 'admin']);
     Route::get('/DataUser', [UserController::class, 'DataUser'])->name('DataUser');
     Route::post('/User/insertUser', [UserController::class, 'insertUser'])->name('insertUser');
     Route::post('/User/{id}/updateUser', [UserController::class, 'updateUser'])->name('updateUser');
     Route::get('/deleteUser/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
 });
 
+//Role Admin
+Route::middleware(['auth', 'checkrole:1'])->group(function () {
+});
+
 Route::middleware(['auth', 'checkrole:2'])->group(function () {
     //Dashboard Operator
-    // Route::get('/dashboard', [DashboardController::class, 'cek']);
     Route::get('/dashboard/operator', [DashboardController::class, 'operator']);
 });
 
 Route::middleware(['auth', 'checkrole:3'])->group(function () {
-
+    
     //Peminjaman
     Route::get('/dashboard/peminjam', [DashboardController::class, 'peminjam']);
     Route::get('/pinjamBuku/{id}', [PeminjamanController::class, 'pinjamBuku'])->name('pinjamBuku');
     Route::get('/ulasan/{id}', [PeminjamanController::class, 'ulasan'])->name('ulasan');
     Route::get('/detailPinjam', [PeminjamanController::class, 'detailPinjam'])->name('detailPinjam');
+    Route::get('/deletePeminjaman/{id}', [PeminjamanController::class, 'deletePeminjaman'])->name('deletePeminjaman');
     Route::get('/pilihBuku/{id}', [PeminjamanController::class, 'pilihBuku'])->name('pilihBuku');
     Route::get('/pilihPenerbit/{id}', [PeminjamanController::class, 'pilihPenerbit'])->name('pilihPenerbit');
     Route::get('/semuaBuku', [PeminjamanController::class, 'semuaBuku'])->name('semuaBuku');
