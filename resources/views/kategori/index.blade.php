@@ -313,9 +313,6 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         window.location = "/deleteCategory/" + Categoryid + " "
-                        swal("Data Berhasil di Hapus!", {
-                            icon: "success",
-                        });
                     } else {
                         swal("Data tidak jadi terhapus");
                     }

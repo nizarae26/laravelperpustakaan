@@ -353,9 +353,6 @@
                 .then((willDelete) => {
                     if (willDelete) {
                         window.location = "/deleteRak/" + Rakid + " "
-                        swal("Data Berhasil di Hapus!", {
-                            icon: "success",
-                        });
                     } else {
                         swal("Data tidak jadi terhapus");
                     }

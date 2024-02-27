@@ -33,7 +33,9 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-4 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-4 d-none d-lg-block ">
+                            <img src="/storage/buku/1.jpg" alt="" srcset="" width="390" height="450">
+                        </div>
                         <div class="col-lg-8">
                             <div class="p-5">
                                 <div class="text-center">

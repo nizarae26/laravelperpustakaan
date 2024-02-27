@@ -153,7 +153,7 @@
 
 
 
-            <div class="col-6 col-md-16 mb-3 ">
+            <div class="col-5 mb-3 ">
                 <div class="card border-dark rounded shadow h-100 bg-white">
                     <div class="card-header bg-dark">
                         <h3 class="card-title mt-2 text-white">History Buku</h3>
@@ -191,7 +191,7 @@
                 <!-- /.card -->
             </div>
 
-            <div class="col-6 col-md-16 mb-3 ">
+            <div class="col-4 mb-3 ">
                 <div class="card border-dark rounded shadow h-100 bg-white">
                     <div class="card-body bg-white rounded">
                         <div>

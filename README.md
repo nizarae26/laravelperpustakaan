@@ -1,3 +1,35 @@
+--- Sistem Perpustakaan 3 Role User ---<br>
+Naufal Zahlul Nizar Santoso | 31 | XII RPL B <br>
+<br>
+== Projek Sistem Informasi Perpustakaan ini memungkinkan tiga jenis pengguna untuk berinteraksi dengan sistem: Admin, Operator, dan Peminjam. <br>
+<br>
+== Fitur untuk Admin: <br>
+<br>
+- Dashboard yang berisi total data buku, total buku yang belum dikonfirmasi, sedang dipinjam, dan buku yang suddah selesai dipinjam atau sudah dikembalikan, dan juga berisi history penambahan buku dan juga chart simple. <br>
+- Master Kategori, Penerbit, Rak, dan Buku: Mengelola informasi dasar terkait kategori buku, penerbit, rak penyimpanan, dan koleksi buku.
+- Pengelolaan Pengguna: Memungkinkan admin untuk mengelola pengguna, termasuk pemberian hak akses. <br>
+- Cetak Laporan: Menyediakan kemampuan untuk mencetak laporan terkait peminjaman dan pengembalian perpustakaan. <br>
+- Melihat Ulasan: Admin dapat melihat ulasan yang diberikan oleh pengguna terhadap buku-buku dalam koleksi. <br>
+  <br>
+== Fitur untuk Operator:<br>
+<br>
+- Dashboard yang berisi total data buku, total buku yang belum dikonfirmasi, sedang dipinjam, dan buku yang suddah selesai dipinjam atau sudah dikembalikan, dan juga berisi history penambahan buku dan juga chart simple. <br>
+- Manajemen Master Data: Operator dapat mengelola master data seperti kategori buku, penerbit, rak penyimpanan, dan koleksi buku. <br>
+- Peminjaman dan Pengembalian: Operator dapat melakukan proses konfirmasi maupun pembatalan peminjaman dan pengembalian buku. <br>
+- Cetak Laporan: Memungkinkan operator untuk mencetak laporan terkait peminjaman dan pengembalian perpustakaan. <br>
+- Melihat Ulasan: Operator memiliki akses untuk melihat ulasan yang diberikan oleh pengguna. <br>
+<br>
+== Fitur untuk Peminjam: <br>
+<br>
+- Melihat Koleksi Buku: Pengguna dapat melihat koleksi buku yang tersedia di perpustakaan. <br>
+- Peminjaman: Memungkinkan pengguna untuk meminjam buku dari perpustakaan. <br>
+- Pengembalian: Pengguna dapat mengembalikan buku yang telah dipinjam. <br>
+- Menambahkan ke Favorit: Fitur yang memungkinkan pengguna untuk menandai buku sebagai favorit dan juga menghapusnya juga dari favorit. <br>
+- Memberikan Ulasan: Pengguna dapat memberikan ulasan terhadap buku yang ingin diulas. <br>
+- Melihat Peminjaman: Pengguna dapat melihat peminjaman buku berdasarkan akun mereka sendiri. <br>
+<br>
+  Dengan fitur-fitur ini, sistem ini memberikan solusi yang lengkap untuk kebutuhan manajemen perpustakaan, mencakup manajemen koleksi, peminjaman, pengembalian, dan interaksi antara pengguna dengan koleksi buku.<br><br>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

@@ -475,7 +475,7 @@
                     <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
-                
+
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
@@ -546,9 +546,6 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             window.location = "/deleteBuku/" + Bukuid + " "
-                            swal("Data Berhasil di Hapus!", {
-                                icon: "success",
-                            });
                         } else {
                             swal("Data tidak jadi terhapus");
                         }
