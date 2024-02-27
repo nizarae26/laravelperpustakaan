@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('petugas_kembali')->nullable();
             $table->integer('status');
             $table->date('tanggal_pinjam')->nullable();
+            $table->date('batas_pinjam')->nullable();
             $table->date('tanggal_kembali')->nullable();
             $table->timestamps();
         });
