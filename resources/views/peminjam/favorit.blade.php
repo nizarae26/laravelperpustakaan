@@ -72,12 +72,13 @@
                                 <?php
                                 $countStatus0 = $datapinjam->where('status', 0 && 1)->count();
                                 ?>
-                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam <span
-                                        class="badge text-bg-primary">{{ $datapinjam->count() }}</span></a>
+                                <a class="dropdown-item" href="/detailPinjam">Data Pinjam
+                                    <span class="badge text-bg-primary">{{ $countStatus0 }}</span>
+                                </a>
                             @endif
-                            @if ($data)
+                            @if ($favorit)
                                 <a class="dropdown-item" href="/favorit">Favorit <span
-                                        class="badge text-bg-primary">{{ $data->count() }}</span></a>
+                                        class="badge text-bg-primary">{{ $favorit->count() }}</span></a>
                             @endif
                             {{-- <div class="dropdown-divider"></div>
                             @foreach ($kategori as $item)

@@ -158,7 +158,8 @@
             </div>
         @endif --}}
 
-        @if ($data->isNotEmpty())
+        @if ($data->
+        ())
             <div class="row">
                 @if (request('searchh'))
                     @foreach ($datas as $dd)
