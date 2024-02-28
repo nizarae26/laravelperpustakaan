@@ -32,6 +32,7 @@ class PeminjamanController extends Controller
         $user = auth()->id();
         $data = Peminjaman::where('users_id', $user)->get();
         $favorits = Favorit::where('users_id', $user)->get();
+        
 
         return view('peminjam.detailpinjam', [
 
@@ -57,7 +58,7 @@ class PeminjamanController extends Controller
             $pinjamlama = DB::table('peminjaman')
                 ->where('users_id', auth()->user()->id)
                 ->where('buku_id', $id)
-                ->where('status', [0,1])
+                ->where('status', [0, 1])
                 ->get();
 
             // Periksa ketersediaan stok buku yang spesifik dengan ID yang ditentukan
@@ -69,11 +70,10 @@ class PeminjamanController extends Controller
             } else {
                 if (!$book || $book->stok == 0) { // Periksa jika buku tidak ditemukan atau stok habis
                     return redirect()->back()->with('error', 'Buku tidak tersedia atau stok habis');
-                } else {                    
-                        // Memeriksa jika buku yang dipinjam bukan buku yang sama dengan buku yang akan dipinjam
-                        if ($pinjamlama->count() > 0) {
-                            return redirect()->back()->with('error', 'Anda sudah meminjam buku ini');
-                        
+                } else {
+                    // Memeriksa jika buku yang dipinjam bukan buku yang sama dengan buku yang akan dipinjam
+                    if ($pinjamlama->count() > 0) {
+                        return redirect()->back()->with('error', 'Anda sudah meminjam buku ini');
                     } else {
                         Peminjaman::create([
                             'kode_pinjam' => random_int(10000000, 999999999),
@@ -242,6 +242,7 @@ class PeminjamanController extends Controller
         if (Auth::user()->role_id == '1') {
             return redirect('dashboard')->with('error', 'Anda tidak berhak mengakses ini');
         } elseif (Auth::user()->role_id == '2') {
+            $this->updateStatus();
             // return redirect('dashboard/operator')->with('success', 'Berhasil Login');;
             $data = Peminjaman::latest()->paginate(1000);
             $kategori = Category::all();
@@ -257,6 +258,19 @@ class PeminjamanController extends Controller
             return redirect('login')->with('error', 'Anda bukan karyawan');;
         } else {
             return redirect('')->with('error', 'Kesalahan Berfikir')->withInput();
+        }
+    }
+
+    private function updateStatus()
+    {
+        $peminjamans = Peminjaman::where('status', '<', 3)->get();
+
+        foreach ($peminjamans as $peminjaman) {
+            if ($peminjaman->batas_pinjam < now() && $peminjaman->status == 1) {
+                // Mengubah status menjadi peminjaman telat
+                $peminjaman->status = 3;
+                $peminjaman->save();
+            }
         }
     }
 

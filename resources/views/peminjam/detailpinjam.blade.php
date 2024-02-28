@@ -203,6 +203,24 @@
                                             </td>
                                             <td></td>
                                         </tr>
+                                    @elseif($row->status == 3)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $row->kode_pinjam }}
+                                            <td>{{ $row->buku_id }}
+                                            </td>
+                                            <td> {{ $row->user->name }}</td>
+                                            <td> {{ $row->buku->judul }}</td>
+                                            <td>{{ $row->tanggal_pinjam }}</td>
+                                            <td>{{ $row->batas_pinjam }}</td>
+                                            <td style="font-size: 90%">
+                                                @if ($row->status == 3)
+                                                    <span class="badge bg-danger text-white">Telat
+                                                        Mengembalikan</span>
+                                                @endif
+                                            </td>
+                                            <td></td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td>{{ $no++ }}</td>

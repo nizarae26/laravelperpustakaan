@@ -125,7 +125,6 @@
                                                             @foreach ($data as $row)
                                                                 @if ($row->status == 0)
                                                                 @elseif($row->status == 1)
-                                                                
                                                                 @else
                                                                     <tr>
                                                                         <td>{{ $no++ }}</td>
@@ -140,16 +139,20 @@
                                                                         <td style="font-size: 90%">
                                                                             @if ($row->status == 0)
                                                                                 <span
-                                                                                    class="badge bg-danger text-white">Menunggu
+                                                                                    class="badge bg-secondary text-white">Menunggu
                                                                                     Konfirmasi</span>
                                                                             @elseif($row->status == 1)
                                                                                 <span
                                                                                     class="badge bg-warning text-white">Sedang
                                                                                     Dipinjam</span>
-                                                                            @else
+                                                                            @elseif($row->status == 2)
                                                                                 <span
                                                                                     class="badge bg-success text-white">Peminjaman
                                                                                     Selesai</span>
+                                                                            @else
+                                                                                <span
+                                                                                    class="badge bg-danger text-white">Telat
+                                                                                    mengembalikan</span>
                                                                             @endif
                                                                         </td>
 
