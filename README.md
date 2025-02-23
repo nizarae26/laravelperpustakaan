@@ -1,4 +1,4 @@
-<h1>--- Sistem Perpustakaan 3 Role User ---</h1><br>
+<h2>--- Sistem Perpustakaan 3 Role User ---</h2><br>
 Naufal Zahlul Nizar Santoso | 31 | XII RPL B <br>
 <br>
 == Projek Sistem Informasi Perpustakaan ini memungkinkan tiga jenis pengguna untuk berinteraksi dengan sistem: Admin, Operator, dan Peminjam. <br>
